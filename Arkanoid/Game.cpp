@@ -57,7 +57,6 @@ void Game::Update(DX::StepTimer const& timer)
     float elapsedTime = float(timer.GetElapsedSeconds());
 
     // TODO: Add your game logic here.
-    elapsedTime;
 
     PIXEndEvent();
 }
@@ -79,6 +78,15 @@ void Game::Render()
     PIXBeginEvent(context, PIX_COLOR_DEFAULT, L"Render");
 
     // TODO: Add your rendering code here.
+    m_spriteBatch->Begin(
+    SpriteSortMode_Deferred, 
+    m_states->NonPremultiplied(),
+    m_states->LinearClamp()
+    );
+    
+    float time = float(m_timer.GetTotalSeconds());
+
+    m_spriteBatch->End();
 
     PIXEndEvent(context);
 
@@ -168,20 +176,27 @@ void Game::GetDefaultSize(int& width, int& height) const noexcept
 void Game::CreateDeviceDependentResources()
 {
     auto device = m_deviceResources->GetD3DDevice();
-
+    
     // TODO: Initialize device dependent objects here (independent of window size).
-    device;
+    auto context = m_deviceResources->GetD3DDeviceContext();
+    m_spriteBatch = std::make_unique<SpriteBatch>(context);
+    m_states = std::make_unique<CommonStates>(device);
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
 void Game::CreateWindowSizeDependentResources()
 {
     // TODO: Initialize windows-size dependent objects here.
+    auto size = m_deviceResources->GetOutputSize();
+    m_spriteBatch->SetRotation(m_deviceResources->GetRotation());
 }
 
 void Game::OnDeviceLost()
 {
     // TODO: Add Direct3D resource cleanup here.
+
+    m_spriteBatch.reset();
+    m_states.reset();
 }
 
 void Game::OnDeviceRestored()
