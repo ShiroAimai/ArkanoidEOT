@@ -31,12 +31,11 @@ void BaseObject::Update(float deltaTime)
 	}
 }
 
-void BaseObject::Render(vector<BaseComponent*>& renderables)
+void BaseObject::Render(DirectX::SpriteBatch* batch)
 {
 	for (BaseComponent* component : m_components)
 	{
-		if (component->getRenderLayer() > 0)
-			renderables.push_back(component);
+		component->Render(batch);
 	}
 }
 
@@ -47,7 +46,7 @@ void BaseObject::AddComponent(BaseComponent* component)
 	std::vector<BaseComponent*>::iterator itt = m_components.begin();
 	for (; itt != m_components.end(); itt++)
 	{
-		if ((*itt)->getUpdatePriority() >= component->getUpdatePriority())
+		if ((*itt)->GetUpdatePriority() >= component->GetUpdatePriority())
 		{
 			break;
 		}

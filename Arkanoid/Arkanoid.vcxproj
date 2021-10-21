@@ -258,6 +258,7 @@
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Vec2.h" />
+    <ClInclude Include="VisualComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseComponent.cpp" />
@@ -278,6 +279,7 @@
     </ClCompile>
     <ClCompile Include="Transform2D.cpp" />
     <ClCompile Include="Vec2.cpp" />
+    <ClCompile Include="VisualComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -287,6 +289,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\cat.png" />
     <Image Include="Assets\Logo.scale-200.png" />
     <Image Include="Assets\SmallLogo.scale-200.png" />
     <Image Include="Assets\SplashScreen.scale-200.png" />

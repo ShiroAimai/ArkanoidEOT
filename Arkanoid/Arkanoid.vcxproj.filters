@@ -51,6 +51,9 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Engine\Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="VisualComponent.cpp">
+      <Filter>Engine\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -81,6 +84,9 @@
     <ClInclude Include="Sprite.h">
       <Filter>Engine\Sprite</Filter>
     </ClInclude>
+    <ClInclude Include="VisualComponent.h">
+      <Filter>Engine\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Logo.scale-200.png">
@@ -96,6 +102,9 @@
       <Filter>Assets</Filter>
     </Image>
     <Image Include="Assets\WideLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\cat.png">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>

@@ -64,11 +64,11 @@ Transform2D& Transform2D::SetRotation(float angle)
 
 float Transform2D::GetRotation() const
 {
-	float xScale = sqrtf(MathUtil::sqr(_m[0][0]) + MathUtil::sqr(_m[1][1])); //lossy scale
+	float xScale = sqrtf(MathUtil::sqr(_m[0][0]) + MathUtil::sqr(_m[0][1])); //lossy scale
 	float angle = acosf(_m[0][0] / xScale);
 	if (_m[1][0] < -MathUtil::EPS) //it means its an angle near the 360
 	{
-		angle = 2 * (float)M_PI - angle;
+		angle = DirectX::XM_2PI - angle;
  	}
 	return angle;
 }

@@ -2,11 +2,10 @@
 #include "Sprite.h"
 
 
-Sprite* Sprite::Load(ID3D11Device3* device, const wchar_t* path, const Vec2& origin, int frameCount /*= 0*/, int framePerSecond /*= 0*/, bool isLooped /*= false*/)
+Sprite* Sprite::Load(ID3D11Device3* device, const wchar_t* path, int frameCount /*= 0*/, int framePerSecond /*= 0*/, bool isLooped /*= false*/)
 {
 	Sprite* NewSprite = new Sprite();
 	NewSprite->CreateSprite(device, path);
-	NewSprite->m_origin = origin;
 	NewSprite->m_isLooping = isLooped;
 	if(frameCount && framePerSecond > 0)
 	{
@@ -57,18 +56,17 @@ Sprite::Sprite() noexcept
 	m_currentFrameTime(0.f),
 	m_totalTime(0.f),
 	m_elapsedTime(0.f),
-	m_origin(),
 	m_texture(nullptr)
 {
 
 }
 
-void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition)
+void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, const Vec2& origin, float rotation, const Vec2& scale)
 {
-	Render(batch, ScreenPosition, m_currentFrame);
+	Render(batch, ScreenPosition, m_currentFrame, origin, rotation, scale);
 }
 
-void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int frame)
+void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int frame, const Vec2& origin, float rotation, const Vec2& scale)
 {
 	int frameWidth = m_textureWidth / m_frameCount;
 
@@ -77,8 +75,8 @@ void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int
 	sourceRect.top = 0;
 	sourceRect.right = sourceRect.left + frameWidth;
 	sourceRect.bottom = m_textureHeigth;
-
-	batch->Draw(m_texture.Get(), ScreenPosition, &sourceRect, DirectX::Colors::White, 0, m_origin);
+	
+	batch->Draw(m_texture.Get(), ScreenPosition, &sourceRect , DirectX::Colors::White, (rotation / DirectX::XM_PI) * 180, origin, scale, DirectX::SpriteEffects_None, 0.f);
 }
 
 void Sprite::Update(float deltaTime)

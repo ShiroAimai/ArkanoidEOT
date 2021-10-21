@@ -1,6 +1,6 @@
 #pragma once
+#include "BaseObject.h"
 
-class BaseObject;
 class BaseComponent
 {
 public:
@@ -14,13 +14,13 @@ public:
 	//Base Lifecycle
 	virtual void Init();
 	virtual void Uninit();
-	virtual void Render();
+	virtual void Render(DirectX::SpriteBatch* batch);
 	virtual void Update(float deltaTime);
 
-	virtual uint8_t getUpdatePriority() const = 0;
-	virtual uint8_t getRenderLayer() const { return 0; } // Not rendered by default
+	virtual uint8_t GetUpdatePriority() const = 0;
+	virtual uint8_t GetRenderLayer() const { return 0; } // Not rendered by default
 
-private:
+protected:
 	BaseObject* m_parent;
 };
 

@@ -27,7 +27,7 @@ void BaseComponent::Uninit()
 
 }
 
-void BaseComponent::Render()
+void BaseComponent::Render(DirectX::SpriteBatch* batch)
 {
 
 }

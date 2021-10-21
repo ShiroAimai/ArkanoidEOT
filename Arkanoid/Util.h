@@ -1,6 +1,5 @@
 #pragma once
-#define _USE_MATH_DEFINES
-#include <math.h>
+#include "SimpleMath.h"
 
 namespace MathUtil {
 	template <typename T, size_t N>

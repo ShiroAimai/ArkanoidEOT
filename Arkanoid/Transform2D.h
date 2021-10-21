@@ -1,6 +1,6 @@
 #pragma once
+#include "Vec2.h"
 
-struct Vec2;
 class Transform2D
 {
 private:

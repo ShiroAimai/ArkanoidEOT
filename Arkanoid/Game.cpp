@@ -4,6 +4,8 @@
 
 #include "pch.h"
 #include "Game.h"
+#include <VisualComponent.h>
+#include "Sprite.h"
 
 extern void ExitGame() noexcept;
 
@@ -79,13 +81,13 @@ void Game::Render()
 
     // TODO: Add your rendering code here.
     m_spriteBatch->Begin(
-    SpriteSortMode_Deferred, 
-    m_states->NonPremultiplied(),
-    m_states->LinearClamp()
+		SpriteSortMode_Deferred,
+		m_states->NonPremultiplied(),
+		m_states->LinearClamp()
     );
     
     float time = float(m_timer.GetTotalSeconds());
-
+ 
     m_spriteBatch->End();
 
     PIXEndEvent(context);
@@ -181,6 +183,7 @@ void Game::CreateDeviceDependentResources()
     auto context = m_deviceResources->GetD3DDeviceContext();
     m_spriteBatch = std::make_unique<SpriteBatch>(context);
     m_states = std::make_unique<CommonStates>(device);
+
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
@@ -189,12 +192,12 @@ void Game::CreateWindowSizeDependentResources()
     // TODO: Initialize windows-size dependent objects here.
     auto size = m_deviceResources->GetOutputSize();
     m_spriteBatch->SetRotation(m_deviceResources->GetRotation());
+    
 }
 
 void Game::OnDeviceLost()
 {
     // TODO: Add Direct3D resource cleanup here.
-
     m_spriteBatch.reset();
     m_states.reset();
 }
