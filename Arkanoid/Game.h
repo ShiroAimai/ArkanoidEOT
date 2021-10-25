@@ -61,6 +61,9 @@ private:
     // Rendering loop timer.
     DX::StepTimer                           m_timer;
 
-	std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;
-    std::unique_ptr<DirectX::CommonStates> m_states;
+	std::unique_ptr<DirectX::SpriteBatch>   m_spriteBatch;
+    std::unique_ptr<DirectX::CommonStates>  m_states;
+
+    std::shared_ptr<DirectX::SpriteFont>    m_font;
+    std::unique_ptr<BaseObject>             m_obj;
 };

@@ -52,8 +52,9 @@ Vec2 Transform2D::GetTranslation() const
 
 Transform2D& Transform2D::SetRotation(float angle)
 {
+	float angleInRadiants = angle * DirectX::XM_PI / 180.f;
 	const Vec2 CurrentScale = GetScale();
-	const float cos = cosf(angle), sin = sinf(angle);
+	const float cos = cosf(angleInRadiants), sin = sinf(angleInRadiants);
 	_m[0][0] = cos * CurrentScale.x;
 	_m[0][1] = -sin * CurrentScale.x;
 	_m[1][0] = sin * CurrentScale.y;
@@ -70,7 +71,10 @@ float Transform2D::GetRotation() const
 	{
 		angle = DirectX::XM_2PI - angle;
  	}
-	return angle;
+
+	float angleInDeg = angle * 180.f / DirectX::XM_PI;
+
+	return angleInDeg;
 }
 
 Transform2D& Transform2D::SetScale(const Vec2& Scale)

@@ -38,8 +38,8 @@ public:
 	Sprite(Sprite&&) = default;
 	Sprite& operator= (Sprite&&) = default;
 
-	void Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, const Vec2& origin, float rotation, const Vec2& scale);
-	void Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int frame, const Vec2& origin, float rotation, const Vec2& scale);
+	void Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, const Vec2& origin, float rotation, const Vec2& scale, float RenderLayer);
+	void Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int frame, const Vec2& origin, float rotation, const Vec2& scale, float RenderLayer);
 	void Update(float deltaTime);
 	void Reset();
 
@@ -50,5 +50,8 @@ public:
 	bool IsPlaying() const;
 	bool IsLooped() const;
 	bool IsAnimated() const;
+
+	float GetWidth() const;
+	float GetHeight() const;
 };
 

@@ -18,9 +18,13 @@ public:
 	virtual void Update(float deltaTime);
 
 	virtual uint8_t GetUpdatePriority() const = 0;
-	virtual uint8_t GetRenderLayer() const { return 0; } // Not rendered by default
-
+	//Contained in interval [0, 1]
+	virtual float GetRenderLayer() const { return m_renderLayer; } // Not rendered by default
+	void SetRenderLayer(uint8_t Layer);
 protected:
 	BaseObject* m_parent;
+
+private:
+	float m_renderLayer;
 };
 

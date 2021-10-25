@@ -4,7 +4,8 @@
 
 #include "pch.h"
 #include "Game.h"
-#include <VisualComponent.h>
+#include "VisualComponent.h"
+#include "TextComponent.h"
 #include "Sprite.h"
 
 extern void ExitGame() noexcept;
@@ -59,7 +60,7 @@ void Game::Update(DX::StepTimer const& timer)
     float elapsedTime = float(timer.GetElapsedSeconds());
 
     // TODO: Add your game logic here.
-
+	m_obj->SetAngle(m_obj->GetAngle() + 1);
     PIXEndEvent();
 }
 #pragma endregion
@@ -80,12 +81,14 @@ void Game::Render()
     PIXBeginEvent(context, PIX_COLOR_DEFAULT, L"Render");
 
     // TODO: Add your rendering code here.
-    m_spriteBatch->Begin(
-		SpriteSortMode_Deferred,
+	m_spriteBatch->Begin(
+		DirectX::SpriteSortMode::SpriteSortMode_BackToFront,
 		m_states->NonPremultiplied(),
 		m_states->LinearClamp()
     );
     
+    m_obj->Render(m_spriteBatch.get());
+
     float time = float(m_timer.GetTotalSeconds());
  
     m_spriteBatch->End();
@@ -184,6 +187,20 @@ void Game::CreateDeviceDependentResources()
     m_spriteBatch = std::make_unique<SpriteBatch>(context);
     m_states = std::make_unique<CommonStates>(device);
 
+    m_font = std::make_shared<SpriteFont>(device, L"Assets/courier.spritefont");
+
+    m_obj = std::make_unique<BaseObject>();
+
+    TextComponent* tc = new TextComponent(std::wstring(L"Hello Micio"), m_font, Vec2(0.f, 100.f));
+    tc->SetForegroundColor(Colors::Red);
+    tc->SetEffect(TextEffect::SHADOWS);
+
+    Sprite* sprite = Sprite::Load(device, L"Assets/cat.png");
+	VisualComponent* vc = new VisualComponent(sprite->GetWidth(), sprite->GetHeight(), sprite);
+	
+    m_obj->AddComponent(vc);
+	m_obj->AddComponent(tc);
+
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
@@ -193,11 +210,13 @@ void Game::CreateWindowSizeDependentResources()
     auto size = m_deviceResources->GetOutputSize();
     m_spriteBatch->SetRotation(m_deviceResources->GetRotation());
     
+    m_obj->SetPosition(Vec2(size.right / 2.f, size.bottom / 2.f));
 }
 
 void Game::OnDeviceLost()
 {
     // TODO: Add Direct3D resource cleanup here.
+    m_font.reset();
     m_spriteBatch.reset();
     m_states.reset();
 }

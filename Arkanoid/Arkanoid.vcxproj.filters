@@ -54,6 +54,9 @@
     <ClCompile Include="VisualComponent.cpp">
       <Filter>Engine\Components</Filter>
     </ClCompile>
+    <ClCompile Include="TextComponent.cpp">
+      <Filter>Engine\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -87,6 +90,9 @@
     <ClInclude Include="VisualComponent.h">
       <Filter>Engine\Components</Filter>
     </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Engine\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Logo.scale-200.png">
@@ -114,5 +120,8 @@
   <ItemGroup>
     <None Include="Arkanoid_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <None Include="Assets\courier.spritefont">
+      <Filter>Assets</Filter>
+    </None>
   </ItemGroup>
 </Project>

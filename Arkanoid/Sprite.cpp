@@ -61,12 +61,12 @@ Sprite::Sprite() noexcept
 
 }
 
-void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, const Vec2& origin, float rotation, const Vec2& scale)
+void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, const Vec2& origin, float rotation, const Vec2& scale, float RenderLayer)
 {
-	Render(batch, ScreenPosition, m_currentFrame, origin, rotation, scale);
+	Render(batch, ScreenPosition, m_currentFrame, origin, rotation, scale, RenderLayer);
 }
 
-void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int frame, const Vec2& origin, float rotation, const Vec2& scale)
+void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int frame, const Vec2& origin, float rotation, const Vec2& scale, float RenderLayer)
 {
 	int frameWidth = m_textureWidth / m_frameCount;
 
@@ -76,7 +76,7 @@ void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int
 	sourceRect.right = sourceRect.left + frameWidth;
 	sourceRect.bottom = m_textureHeigth;
 	
-	batch->Draw(m_texture.Get(), ScreenPosition, &sourceRect , DirectX::Colors::White, (rotation / DirectX::XM_PI) * 180, origin, scale, DirectX::SpriteEffects_None, 0.f);
+	batch->Draw(m_texture.Get(), ScreenPosition, &sourceRect , DirectX::Colors::White, rotation, origin, scale, DirectX::SpriteEffects_None, RenderLayer);
 }
 
 void Sprite::Update(float deltaTime)
@@ -153,4 +153,14 @@ bool Sprite::IsLooped() const
 bool Sprite::IsAnimated() const
 {
 	return m_frameCount > 1; 
+}
+
+float Sprite::GetWidth() const
+{
+	return m_textureWidth;
+}
+
+float Sprite::GetHeight() const
+{
+	return m_textureHeigth;
 }
