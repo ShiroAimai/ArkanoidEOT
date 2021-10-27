@@ -32,6 +32,10 @@ void Game::Initialize(IUnknown* window, int width, int height, DXGI_MODE_ROTATIO
     m_deviceResources->CreateWindowSizeDependentResources();
     CreateWindowSizeDependentResources();
 
+    m_keyboard = std::make_unique<Keyboard>();
+    m_mouse = std::make_unique<Mouse>();
+    m_mouse->SetWindow(reinterpret_cast<CoreWindow*>(window));
+
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
     // e.g. for 60 FPS fixed timestep update logic, call:
     /*
@@ -59,8 +63,6 @@ void Game::Update(DX::StepTimer const& timer)
 
     float elapsedTime = float(timer.GetElapsedSeconds());
 
-    // TODO: Add your game logic here.
-	m_obj->SetAngle(m_obj->GetAngle() + 1);
     PIXEndEvent();
 }
 #pragma endregion
@@ -79,19 +81,32 @@ void Game::Render()
 
     auto context = m_deviceResources->GetD3DDeviceContext();
     PIXBeginEvent(context, PIX_COLOR_DEFAULT, L"Render");
+   
+    context->OMSetBlendState(m_states->Opaque(), nullptr, 0xFFFFFFFF);
+    context->OMSetDepthStencilState(m_states->DepthNone(), 0);
+    context->RSSetState(m_states->CullNone());
 
-    // TODO: Add your rendering code here.
-	m_spriteBatch->Begin(
-		DirectX::SpriteSortMode::SpriteSortMode_BackToFront,
-		m_states->NonPremultiplied(),
-		m_states->LinearClamp()
-    );
+    m_effect->Apply(context);
+
+    context->IASetInputLayout(m_inputLayout.Get());
     
-    m_obj->Render(m_spriteBatch.get());
+    m_primitiveBatch->Begin();
 
-    float time = float(m_timer.GetTotalSeconds());
- 
-    m_spriteBatch->End();
+	m_primitiveBatch->End();
+
+    m_batch->Begin(
+        SpriteSortMode_Deferred,
+        nullptr,
+        nullptr,
+        nullptr,
+        nullptr,
+        nullptr,
+        m_world
+    );
+
+    //m_batch->Draw(m_texture.Get(), Vec2(0,0), nullptr, Colors::White, 0.f, m_origin);
+
+    m_batch->End();
 
     PIXEndEvent(context);
 
@@ -180,51 +195,52 @@ void Game::GetDefaultSize(int& width, int& height) const noexcept
 // These are the resources that depend on the device.
 void Game::CreateDeviceDependentResources()
 {
-    auto device = m_deviceResources->GetD3DDevice();
+	auto device = m_deviceResources->GetD3DDevice();
+	auto context = m_deviceResources->GetD3DDeviceContext();
+   
+    m_world = Matrix::Identity;
     
-    // TODO: Initialize device dependent objects here (independent of window size).
-    auto context = m_deviceResources->GetD3DDeviceContext();
-    m_spriteBatch = std::make_unique<SpriteBatch>(context);
     m_states = std::make_unique<CommonStates>(device);
+    m_effect = std::make_unique<BasicEffect>(device);
+    m_effect->SetVertexColorEnabled(true);
 
-    m_font = std::make_shared<SpriteFont>(device, L"Assets/courier.spritefont");
+    m_batch = std::make_unique<SpriteBatch>(context);
+    m_primitiveBatch = std::make_unique<PrimitiveBatch<VertexType>>(context);
 
-    m_obj = std::make_unique<BaseObject>();
 
-    TextComponent* tc = new TextComponent(std::wstring(L"Hello Micio"), m_font, Vec2(0.f, 100.f));
-    tc->SetForegroundColor(Colors::Red);
-    tc->SetEffect(TextEffect::SHADOWS);
+	DX::ThrowIfFailed(
+		CreateInputLayoutFromEffect<VertexType>(device, m_effect.get(),
+			m_inputLayout.ReleaseAndGetAddressOf())
+	);
 
-    Sprite* sprite = Sprite::Load(device, L"Assets/cat.png");
-	VisualComponent* vc = new VisualComponent(sprite->GetWidth(), sprite->GetHeight(), sprite);
-	
-    m_obj->AddComponent(vc);
-	m_obj->AddComponent(tc);
-
+	m_primitiveBatch = std::make_unique<PrimitiveBatch<VertexType>>(context);
+    //L"Assets/cat.png"   
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
 void Game::CreateWindowSizeDependentResources()
 {
     // TODO: Initialize windows-size dependent objects here.
-    auto size = m_deviceResources->GetOutputSize();
-    m_spriteBatch->SetRotation(m_deviceResources->GetRotation());
-    
-    m_obj->SetPosition(Vec2(size.right / 2.f, size.bottom / 2.f));
+	auto size = m_deviceResources->GetOutputSize();
+    m_world = Matrix::CreateTranslation(float(size.right) / 2.f, float(size.bottom) / 2.f, 0.f) * m_world;
 }
 
 void Game::OnDeviceLost()
 {
     // TODO: Add Direct3D resource cleanup here.
-    m_font.reset();
-    m_spriteBatch.reset();
     m_states.reset();
+    m_effect.reset();
+    m_batch.reset();
+    m_primitiveBatch.reset();
+
+    m_texture.Reset();
+    m_inputLayout.Reset();
 }
 
 void Game::OnDeviceRestored()
 {
     CreateDeviceDependentResources();
-
+    
     CreateWindowSizeDependentResources();
 }
 #pragma endregion

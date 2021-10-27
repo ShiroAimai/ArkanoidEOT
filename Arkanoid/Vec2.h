@@ -19,11 +19,6 @@ struct Vec2 : public Vector2
 	Vec2 rotate(float angle) const;
 };
 
-inline float Dot(const Vec2& first, const Vec2& second)
-{
-	return first.x * second.x + first.y * second.y;
-}
-
 inline Vec2 Ortho(const Vec2& vec)
 {
 	return Vec2(-vec.y, vec.x);

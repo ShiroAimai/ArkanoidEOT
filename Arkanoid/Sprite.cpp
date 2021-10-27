@@ -75,7 +75,7 @@ void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int
 	sourceRect.top = 0;
 	sourceRect.right = sourceRect.left + frameWidth;
 	sourceRect.bottom = m_textureHeigth;
-	
+
 	batch->Draw(m_texture.Get(), ScreenPosition, &sourceRect , DirectX::Colors::White, rotation, origin, scale, DirectX::SpriteEffects_None, RenderLayer);
 }
 
@@ -155,12 +155,12 @@ bool Sprite::IsAnimated() const
 	return m_frameCount > 1; 
 }
 
-float Sprite::GetWidth() const
+int Sprite::GetWidth() const
 {
 	return m_textureWidth;
 }
 
-float Sprite::GetHeight() const
+int Sprite::GetHeight() const
 {
 	return m_textureHeigth;
 }

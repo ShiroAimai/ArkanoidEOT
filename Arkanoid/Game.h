@@ -61,9 +61,19 @@ private:
     // Rendering loop timer.
     DX::StepTimer                           m_timer;
 
-	std::unique_ptr<DirectX::SpriteBatch>   m_spriteBatch;
-    std::unique_ptr<DirectX::CommonStates>  m_states;
+    using VertexType = DirectX::VertexPositionColor;
 
-    std::shared_ptr<DirectX::SpriteFont>    m_font;
-    std::unique_ptr<BaseObject>             m_obj;
+	std::unique_ptr<DirectX::SpriteBatch> m_batch;
+    std::unique_ptr<DirectX::PrimitiveBatch<VertexType>> m_primitiveBatch;
+
+	std::unique_ptr<DirectX::CommonStates> m_states;
+	std::unique_ptr<DirectX::BasicEffect> m_effect;
+
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
+    Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
+
+    std::unique_ptr<DirectX::Keyboard> m_keyboard;
+    std::unique_ptr<DirectX::Mouse> m_mouse;
+
+    DirectX::SimpleMath::Matrix m_world;
 };

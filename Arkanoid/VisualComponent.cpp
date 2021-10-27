@@ -47,7 +47,7 @@ void VisualComponent::Render(DirectX::SpriteBatch* batch)
 	if(!m_currentRenderSprite) return; //no sprite to render
 
 	int anchorOffsetX = int(m_width * m_anchor.x), anchorOffsetY = int(m_height * m_anchor.y);
-	Vec2 origin(anchorOffsetX, anchorOffsetY);
+	Vec2 origin((float)anchorOffsetX, (float)anchorOffsetY);
 	
 	float angleInRad = m_parent->GetAngle() * DirectX::XM_PI / 180.f;
 	

@@ -23,9 +23,6 @@
     <Filter Include="App">
       <UniqueIdentifier>{0a546c42-74c1-425e-82c6-3477b8a2eba1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Sprite">
-      <UniqueIdentifier>{cfa531c8-1795-4cb1-b5bb-cdaec617358a}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -48,14 +45,14 @@
     <ClCompile Include="Game.cpp">
       <Filter>App</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Engine\Sprite</Filter>
-    </ClCompile>
     <ClCompile Include="VisualComponent.cpp">
       <Filter>Engine\Components</Filter>
     </ClCompile>
     <ClCompile Include="TextComponent.cpp">
       <Filter>Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Engine\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,14 +81,14 @@
     <ClInclude Include="Game.h">
       <Filter>App</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Engine\Sprite</Filter>
-    </ClInclude>
     <ClInclude Include="VisualComponent.h">
       <Filter>Engine\Components</Filter>
     </ClInclude>
     <ClInclude Include="TextComponent.h">
       <Filter>Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Engine\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +108,12 @@
       <Filter>Assets</Filter>
     </Image>
     <Image Include="Assets\cat.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\rocks.jpg">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\rocks_normalmap.dds">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>

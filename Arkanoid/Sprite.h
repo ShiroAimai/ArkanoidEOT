@@ -51,7 +51,7 @@ public:
 	bool IsLooped() const;
 	bool IsAnimated() const;
 
-	float GetWidth() const;
-	float GetHeight() const;
+	int GetWidth() const;
+	int GetHeight() const;
 };
 
