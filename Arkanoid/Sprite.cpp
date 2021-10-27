@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Sprite.h"
-
+#include <d3d11_3.h>
 
 Sprite* Sprite::Load(ID3D11Device3* device, const wchar_t* path, int frameCount /*= 0*/, int framePerSecond /*= 0*/, bool isLooped /*= false*/)
 {

@@ -3,7 +3,8 @@
 #include <stdexcept>
 #include <SpriteBatch.h>
 #include "Vec2.h"
-#include <wrl/client.h>
+
+struct ID3D11Device3;
 
 class Sprite
 {

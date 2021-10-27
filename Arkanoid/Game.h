@@ -6,8 +6,7 @@
 
 #include "DeviceResources.h"
 #include "StepTimer.h"
-#include "Sprite.h"
-#include "BaseObject.h"
+
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -25,7 +24,7 @@ public:
     Game& operator= (Game const&) = delete;
 
     // Initialization and management
-    void Initialize(IUnknown* window, int width, int height, DXGI_MODE_ROTATION rotation);
+    void Initialize(HWND window, int width, int height);
 
     // Basic game loop
     void Tick();
@@ -39,8 +38,8 @@ public:
     void OnDeactivated();
     void OnSuspending();
     void OnResuming();
-    void OnWindowSizeChanged(int width, int height, DXGI_MODE_ROTATION rotation);
-    void ValidateDevice();
+    void OnWindowMoved();
+    void OnWindowSizeChanged(int width, int height);
 
     // Properties
     void GetDefaultSize( int& width, int& height ) const noexcept;
@@ -60,20 +59,4 @@ private:
 
     // Rendering loop timer.
     DX::StepTimer                           m_timer;
-
-    using VertexType = DirectX::VertexPositionColor;
-
-	std::unique_ptr<DirectX::SpriteBatch> m_batch;
-    std::unique_ptr<DirectX::PrimitiveBatch<VertexType>> m_primitiveBatch;
-
-	std::unique_ptr<DirectX::CommonStates> m_states;
-	std::unique_ptr<DirectX::BasicEffect> m_effect;
-
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
-    Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
-
-    std::unique_ptr<DirectX::Keyboard> m_keyboard;
-    std::unique_ptr<DirectX::Mouse> m_mouse;
-
-    DirectX::SimpleMath::Matrix m_world;
 };

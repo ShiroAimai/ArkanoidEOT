@@ -2,58 +2,27 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Assets">
-      <UniqueIdentifier>7b9a40cf-6ab8-41e8-91af-165d6cffa8eb</UniqueIdentifier>
-      <Extensions>bmp;dds;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
+      <UniqueIdentifier>d641287d-337f-44c0-aca1-1e7a45bb33a4</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dds;dlg;fbx;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Engine">
-      <UniqueIdentifier>{f24bb42d-91f2-485a-ba95-e93643d47a6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Math">
-      <UniqueIdentifier>{82582156-e151-4173-bc7d-b0dee3f44278}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Components">
-      <UniqueIdentifier>{1f930292-d643-4911-b2ac-6145086f3b8e}</UniqueIdentifier>
+      <UniqueIdentifier>{fe59fa9e-b240-4997-bebe-b30ac6b9e051}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Common">
-      <UniqueIdentifier>5ca5696d-4d72-49b1-8b20-58cc4e2ddf26</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Base">
-      <UniqueIdentifier>{f504e622-3bee-4c80-ac4c-cf6409eb36c3}</UniqueIdentifier>
+      <UniqueIdentifier>15015019-62fb-48c4-84ce-111b606e5f88</UniqueIdentifier>
     </Filter>
     <Filter Include="App">
-      <UniqueIdentifier>{0a546c42-74c1-425e-82c6-3477b8a2eba1}</UniqueIdentifier>
+      <UniqueIdentifier>{c0837865-c893-48a7-88ba-5ea741730cc8}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="DeviceResources.cpp">
-      <Filter>Engine\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseObject.cpp">
-      <Filter>Engine\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseComponent.cpp">
-      <Filter>Engine\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Vec2.cpp">
-      <Filter>Engine\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform2D.cpp">
-      <Filter>Engine\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
-    <ClCompile Include="VisualComponent.cpp">
-      <Filter>Engine\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="TextComponent.cpp">
-      <Filter>Engine\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Engine\Common</Filter>
-    </ClCompile>
+    <Filter Include="Engine\Math">
+      <UniqueIdentifier>{96971507-abd9-42b7-b6a4-6f89d1012ea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Components">
+      <UniqueIdentifier>{f9b6c6d7-acc5-431b-b43c-7c012ea73ef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Base">
+      <UniqueIdentifier>{5fca592d-6743-4a39-be01-5ccee91ff7a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -63,68 +32,79 @@
     <ClInclude Include="DeviceResources.h">
       <Filter>Engine\Common</Filter>
     </ClInclude>
-    <ClInclude Include="BaseObject.h">
-      <Filter>Engine\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseComponent.h">
-      <Filter>Engine\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Vec2.h">
-      <Filter>Engine\Math</Filter>
+    <ClInclude Include="Game.h">
+      <Filter>App</Filter>
     </ClInclude>
     <ClInclude Include="Util.h">
       <Filter>Engine\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Transform2D.h">
-      <Filter>Engine\Base</Filter>
+    <ClInclude Include="Vec2.h">
+      <Filter>Engine\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="VisualComponent.h">
+    <ClInclude Include="BaseComponent.h">
       <Filter>Engine\Components</Filter>
     </ClInclude>
     <ClInclude Include="TextComponent.h">
       <Filter>Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualComponent.h">
+      <Filter>Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseObject.h">
+      <Filter>Engine\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform2D.h">
+      <Filter>Engine\Base</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>Engine\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\Logo.scale-200.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\SmallLogo.scale-200.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\SplashScreen.scale-200.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\StoreLogo.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\WideLogo.scale-200.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\cat.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\rocks.jpg">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\rocks_normalmap.dds">
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="DeviceResources.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec2.cpp">
+      <Filter>Engine\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseComponent.cpp">
+      <Filter>Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TextComponent.cpp">
+      <Filter>Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualComponent.cpp">
+      <Filter>Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseObject.cpp">
+      <Filter>Engine\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform2D.cpp">
+      <Filter>Engine\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="directx.ico">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest" />
+    <Manifest Include="settings.manifest">
+      <Filter>Assets</Filter>
+    </Manifest>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Arkanoid_TemporaryKey.pfx" />
     <None Include="packages.config" />
-    <None Include="Assets\courier.spritefont">
-      <Filter>Assets</Filter>
-    </None>
   </ItemGroup>
 </Project>
