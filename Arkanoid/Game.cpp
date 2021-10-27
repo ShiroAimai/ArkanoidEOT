@@ -4,6 +4,9 @@
 
 #include "pch.h"
 #include "Game.h"
+#include "VisualComponent.h"
+#include "TextComponent.h"
+#include "Sprite.h"
 
 extern void ExitGame() noexcept;
 
@@ -73,8 +76,32 @@ void Game::Render()
     m_deviceResources->PIXBeginEvent(L"Render");
     auto context = m_deviceResources->GetD3DDeviceContext();
 
-    // TODO: Add your rendering code here.
-    context;
+	context->OMSetBlendState(m_states->Opaque(), nullptr, 0xFFFFFFFF);
+	context->OMSetDepthStencilState(m_states->DepthNone(), 0);
+	context->RSSetState(m_states->CullNone());
+
+	m_effect->Apply(context);
+
+	context->IASetInputLayout(m_inputLayout.Get());
+
+	m_primitiveBatch->Begin();
+
+	m_primitiveBatch->End();
+
+	m_batch->Begin(
+		SpriteSortMode_Deferred,
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr,
+		m_world
+	);
+
+    m_obj->Render(m_batch.get());
+	//m_batch->Draw(m_texture.Get(), Vec2(0,0), nullptr, Colors::White, 0.f, m_origin);
+
+	m_batch->End();
 
     m_deviceResources->PIXEndEvent();
 
@@ -158,20 +185,50 @@ void Game::GetDefaultSize(int& width, int& height) const noexcept
 void Game::CreateDeviceDependentResources()
 {
     auto device = m_deviceResources->GetD3DDevice();
+	auto context = m_deviceResources->GetD3DDeviceContext();
 
-    // TODO: Initialize device dependent objects here (independent of window size).
-    device;
+	m_world = Matrix::Identity;
+
+	m_states = std::make_unique<CommonStates>(device);
+	m_effect = std::make_unique<BasicEffect>(device);
+	m_effect->SetVertexColorEnabled(true);
+
+	m_batch = std::make_unique<SpriteBatch>(context);
+	m_primitiveBatch = std::make_unique<PrimitiveBatch<VertexType>>(context);
+
+
+	DX::ThrowIfFailed(
+		CreateInputLayoutFromEffect<VertexType>(device, m_effect.get(),
+			m_inputLayout.ReleaseAndGetAddressOf())
+	);
+
+	m_primitiveBatch = std::make_unique<PrimitiveBatch<VertexType>>(context);
+
+    m_obj = std::make_unique<BaseObject>();
+    
+    Sprite* sprite = Sprite::Load(device, L"Assets/cat.png");
+    VisualComponent* vc = new VisualComponent(sprite->GetWidth(), sprite->GetHeight(), sprite);
+    m_obj->AddComponent(vc);
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
 void Game::CreateWindowSizeDependentResources()
 {
     // TODO: Initialize windows-size dependent objects here.
+	auto size = m_deviceResources->GetOutputSize();
+	m_world = Matrix::CreateTranslation(float(size.right) / 2.f, float(size.bottom) / 2.f, 0.f) * m_world;
 }
 
 void Game::OnDeviceLost()
 {
     // TODO: Add Direct3D resource cleanup here.
+	m_states.reset();
+	m_effect.reset();
+	m_batch.reset();
+	m_primitiveBatch.reset();
+
+	m_texture.Reset();
+	m_inputLayout.Reset();
 }
 
 void Game::OnDeviceRestored()

@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "Sprite.h"
-#include <d3d11_3.h>
 
-Sprite* Sprite::Load(ID3D11Device3* device, const wchar_t* path, int frameCount /*= 0*/, int framePerSecond /*= 0*/, bool isLooped /*= false*/)
+Sprite* Sprite::Load(ID3D11Device1* device, const wchar_t* path, int frameCount /*= 0*/, int framePerSecond /*= 0*/, bool isLooped /*= false*/)
 {
 	Sprite* NewSprite = new Sprite();
 	NewSprite->CreateSprite(device, path);
@@ -26,7 +25,7 @@ Sprite::~Sprite()
 	m_texture.Reset();
 }
 
-void Sprite::CreateSprite(ID3D11Device3* device, const wchar_t* path)
+void Sprite::CreateSprite(ID3D11Device1* device, const wchar_t* path)
 {
 	Microsoft::WRL::ComPtr<ID3D11Resource> res;
 	DX::ThrowIfFailed(
