@@ -9,6 +9,7 @@
 #include "Sprite.h"
 #include "FontManager.h"
 #include "TextureManager.h"
+#include "InputHandler.h"
 
 extern void ExitGame() noexcept;
 
@@ -32,6 +33,7 @@ void Game::Initialize(HWND window, int width, int height)
 
 	FontManager::Instance()->Init(m_deviceResources->GetD3DDevice());
 	TextureManager::Instance()->Init(m_deviceResources->GetD3DDevice());
+    InputHandler::Instance()->Init(window);
 
     CreateDeviceDependentResources();
     CreateWindowSizeDependentResources();
@@ -62,7 +64,16 @@ void Game::Update(DX::StepTimer const& timer)
     float elapsedTime = float(timer.GetElapsedSeconds());
 
     // TODO: Add your game logic here.
-    elapsedTime;
+    InputHandler::Instance()->Update(elapsedTime);
+
+    Vec2 movement = Vec2::Zero;
+
+    if(InputHandler::Instance()->IsKeyPressed(ArkanoidKeyboardInput::ARROW_LEFT))
+        movement.x -= 1.f;
+    if (InputHandler::Instance()->IsKeyPressed(ArkanoidKeyboardInput::ARROW_RIGHT))
+        movement.x += 1.f;
+
+    m_obj->SetPosition(m_obj->GetPosition() + movement);
 }
 #pragma endregion
 
@@ -210,7 +221,6 @@ void Game::CreateDeviceDependentResources()
 
     m_obj = std::make_unique<BaseObject>();
     
-    
     Sprite* sprite = Sprite::Load(L"Assets/cat.png");
 	VisualComponent* vc = new VisualComponent(sprite->GetWidth(), sprite->GetHeight(), sprite);
 	m_obj->AddComponent(vc);
@@ -221,7 +231,12 @@ void Game::CreateWindowSizeDependentResources()
 {
     // TODO: Initialize windows-size dependent objects here.
 	auto size = m_deviceResources->GetOutputSize();
-	m_world = Matrix::CreateTranslation(float(size.right) / 2.f, float(size.bottom) / 2.f, 0.f) * m_world;
+	m_world = Matrix::CreateTranslation(float(size.right) / 2.f, float(size.bottom) / 2.f, 0.f);
+
+    GameBounds.left = size.left;
+    GameBounds.right = size.right;
+    GameBounds.top = size.top;
+    GameBounds.bottom = size.bottom;
 }
 
 void Game::OnDeviceLost()

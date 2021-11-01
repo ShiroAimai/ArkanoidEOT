@@ -26,6 +26,9 @@
     <Filter Include="Engine\Resources">
       <UniqueIdentifier>{c85da0a0-f56b-4754-9653-fba40914fb81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Input">
+      <UniqueIdentifier>{9a87cf6e-483a-4e4f-b10e-f7eb369541e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -71,6 +74,7 @@
     <ClInclude Include="Texture.h">
       <Filter>Engine\Common</Filter>
     </ClInclude>
+    <ClInclude Include="InputHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -111,6 +115,7 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Engine\Common</Filter>
     </ClCompile>
+    <ClCompile Include="InputHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

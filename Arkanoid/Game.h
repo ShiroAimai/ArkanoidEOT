@@ -72,11 +72,10 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 
-	std::unique_ptr<DirectX::Keyboard> m_keyboard;
-	std::unique_ptr<DirectX::Mouse> m_mouse;
-
 	Matrix m_world;
 
 	std::unique_ptr<BaseObject> m_obj;
     std::unique_ptr<Sprite> m_sp;
+
+    RECT GameBounds;
 };
