@@ -7,6 +7,8 @@
 #include "VisualComponent.h"
 #include "TextComponent.h"
 #include "Sprite.h"
+#include "FontManager.h"
+#include "TextureManager.h"
 
 extern void ExitGame() noexcept;
 
@@ -26,9 +28,12 @@ void Game::Initialize(HWND window, int width, int height)
     m_deviceResources->SetWindow(window, width, height);
 
     m_deviceResources->CreateDeviceResources();
-    CreateDeviceDependentResources();
+	m_deviceResources->CreateWindowSizeDependentResources();
 
-    m_deviceResources->CreateWindowSizeDependentResources();
+	FontManager::Instance()->Init(m_deviceResources->GetD3DDevice());
+	TextureManager::Instance()->Init(m_deviceResources->GetD3DDevice());
+
+    CreateDeviceDependentResources();
     CreateWindowSizeDependentResources();
 
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
@@ -97,7 +102,6 @@ void Game::Render()
 		nullptr,
 		m_world
 	);
-
     m_obj->Render(m_batch.get());
 	//m_batch->Draw(m_texture.Get(), Vec2(0,0), nullptr, Colors::White, 0.f, m_origin);
 
@@ -206,9 +210,10 @@ void Game::CreateDeviceDependentResources()
 
     m_obj = std::make_unique<BaseObject>();
     
-    Sprite* sprite = Sprite::Load(device, L"Assets/cat.png");
-    VisualComponent* vc = new VisualComponent(sprite->GetWidth(), sprite->GetHeight(), sprite);
-    m_obj->AddComponent(vc);
+    
+    Sprite* sprite = Sprite::Load(L"Assets/cat.png");
+	VisualComponent* vc = new VisualComponent(sprite->GetWidth(), sprite->GetHeight(), sprite);
+	m_obj->AddComponent(vc);
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.

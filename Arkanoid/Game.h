@@ -7,7 +7,7 @@
 #include "DeviceResources.h"
 #include "StepTimer.h"
 #include "BaseObject.h"
-
+#include "Sprite.h"
 using DirectX::SimpleMath::Matrix;
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -46,7 +46,7 @@ public:
     void GetDefaultSize( int& width, int& height ) const noexcept;
 
 private:
-
+    
     void Update(DX::StepTimer const& timer);
     void Render();
 
@@ -63,7 +63,7 @@ private:
 
 	using VertexType = DirectX::VertexPositionColor;
 
-	std::unique_ptr<DirectX::SpriteBatch> m_batch;
+	std::unique_ptr<DirectX::SpriteBatch>   m_batch;
 	std::unique_ptr<DirectX::PrimitiveBatch<VertexType>> m_primitiveBatch;
 
 	std::unique_ptr<DirectX::CommonStates> m_states;
@@ -78,4 +78,5 @@ private:
 	Matrix m_world;
 
 	std::unique_ptr<BaseObject> m_obj;
+    std::unique_ptr<Sprite> m_sp;
 };

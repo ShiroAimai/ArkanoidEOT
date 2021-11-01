@@ -1,15 +1,22 @@
 #include "pch.h"
 #include "TextComponent.h"
+#include "FontManager.h"
 
-TextComponent::TextComponent(const std::wstring& Text, std::shared_ptr<DirectX::SpriteFont> Font)
-	: m_text(Text), m_font(Font), m_foreground(DirectX::Colors::Black), m_background(DirectX::Colors::Black)
+TextComponent::TextComponent(const std::wstring& Text, const std::wstring& Font)
+	: m_text(Text), m_foreground(DirectX::Colors::Black), m_background(DirectX::Colors::Black)
 {
-	SetRenderLayer(1);
+	Init(Font);
 }
 
-TextComponent::TextComponent(const std::wstring& Text, std::shared_ptr<DirectX::SpriteFont> Font, const Vec2& Offset)
-: m_text(Text), m_font(Font), m_textOffset(Offset), m_foreground(DirectX::Colors::Black), m_background(DirectX::Colors::Black)
+TextComponent::TextComponent(const std::wstring& Text, const std::wstring& Font, const Vec2& Offset)
+: m_text(Text), m_textOffset(Offset), m_foreground(DirectX::Colors::Black), m_background(DirectX::Colors::Black)
 {
+	Init(Font);
+}
+
+void TextComponent::Init(const std::wstring& Font)
+{
+	m_font = FontManager::Instance()->Load(Font);
 	SetRenderLayer(1);
 }
 

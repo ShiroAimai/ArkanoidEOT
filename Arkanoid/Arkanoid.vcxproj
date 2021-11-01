@@ -173,11 +173,14 @@
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="DeviceResources.h" />
+    <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StepTimer.h" />
     <ClInclude Include="TextComponent.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Vec2.h" />
@@ -187,6 +190,7 @@
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="DeviceResources.cpp" />
+    <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="pch.cpp">
@@ -197,6 +201,8 @@
     </ClCompile>
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TextComponent.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Transform2D.cpp" />
     <ClCompile Include="Vec2.cpp" />
     <ClCompile Include="VisualComponent.cpp" />

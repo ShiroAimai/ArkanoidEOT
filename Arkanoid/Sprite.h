@@ -4,6 +4,8 @@
 #include <SpriteBatch.h>
 #include "Vec2.h"
 
+class Texture;
+
 class Sprite
 {
 private:
@@ -21,14 +23,14 @@ private:
 	int m_textureWidth;
 	int m_textureHeigth;
 
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
+	std::shared_ptr<Texture> m_texture;
 
-	void CreateSprite(ID3D11Device1* device, const wchar_t* path);
+	void CreateSprite(const std::wstring& path);
 protected:
 	Sprite() noexcept;
 
 public:
-	static Sprite* Load(ID3D11Device1* device, const wchar_t* path, int frameCount = 0, int framePerSecond = 0, bool isLooped = false);
+	static Sprite* Load(const std::wstring& path, int frameCount = 0, int framePerSecond = 0, bool isLooped = false);
 
 	~Sprite();
 	Sprite(const Sprite&) = default;

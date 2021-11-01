@@ -1,12 +1,14 @@
 #include "pch.h"
 #include "Sprite.h"
+#include "Texture.h"
+#include "TextureManager.h"
 
-Sprite* Sprite::Load(ID3D11Device1* device, const wchar_t* path, int frameCount /*= 0*/, int framePerSecond /*= 0*/, bool isLooped /*= false*/)
+Sprite* Sprite::Load(const std::wstring& path, int frameCount /*= 0*/, int framePerSecond /*= 0*/, bool isLooped /*= false*/)
 {
 	Sprite* NewSprite = new Sprite();
-	NewSprite->CreateSprite(device, path);
+	NewSprite->CreateSprite(path);
 	NewSprite->m_isLooping = isLooped;
-	if(frameCount && framePerSecond > 0)
+	if (frameCount && framePerSecond > 0)
 	{
 		NewSprite->m_frameCount = frameCount;
 		NewSprite->m_timePerFrame = 1.f / framePerSecond;
@@ -22,28 +24,29 @@ Sprite* Sprite::Load(ID3D11Device1* device, const wchar_t* path, int frameCount 
 
 Sprite::~Sprite()
 {
-	m_texture.Reset();
+	
 }
 
-void Sprite::CreateSprite(ID3D11Device1* device, const wchar_t* path)
+void Sprite::CreateSprite(const std::wstring& path)
 {
-	Microsoft::WRL::ComPtr<ID3D11Resource> res;
-	DX::ThrowIfFailed(
-		DirectX::CreateWICTextureFromFile(
-			device,
-			path,
-			res.GetAddressOf(),
-			m_texture.ReleaseAndGetAddressOf()
-		));
+	m_texture = TextureManager::Instance()->Load(path);
 
-	Microsoft::WRL::ComPtr<ID3D11Texture2D> tex2D;
-	res.As(&tex2D);
+	if(m_texture)
+	{
+		ID3D11ShaderResourceView* internalDirectTexture = m_texture->GetTexture();
 
-	D3D11_TEXTURE2D_DESC desc;
-	tex2D->GetDesc(&desc);
+		Microsoft::WRL::ComPtr<ID3D11Resource> res;
+		internalDirectTexture->GetResource(&res);
 
-	m_textureWidth = int(desc.Width);
-	m_textureHeigth = int(desc.Height);
+		Microsoft::WRL::ComPtr<ID3D11Texture2D> tex2D;
+		res.As(&tex2D);
+
+		D3D11_TEXTURE2D_DESC desc;
+		tex2D->GetDesc(&desc);
+
+		m_textureWidth = int(desc.Width);
+		m_textureHeigth = int(desc.Height);
+	}
 }
 
 Sprite::Sprite() noexcept
@@ -75,24 +78,24 @@ void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int
 	sourceRect.right = sourceRect.left + frameWidth;
 	sourceRect.bottom = m_textureHeigth;
 
-	batch->Draw(m_texture.Get(), ScreenPosition, &sourceRect , DirectX::Colors::White, rotation, origin, scale, DirectX::SpriteEffects_None, RenderLayer);
+	batch->Draw(m_texture->GetTexture(), ScreenPosition, &sourceRect, DirectX::Colors::White, rotation, origin, scale, DirectX::SpriteEffects_None, RenderLayer);
 }
 
 void Sprite::Update(float deltaTime)
 {
-	if(!IsPlaying()) return;
+	if (!IsPlaying()) return;
 
 	m_elapsedTime += deltaTime;
 	m_currentFrameTime += deltaTime;
 
 	if (m_currentFrameTime >= m_timePerFrame)
-	{		
+	{
 		m_currentFrameTime -= m_timePerFrame;
 		if (m_currentFrame < (m_frameCount - 1))
 		{
 			++m_currentFrame;
 		}
-		else if(m_currentFrame == (m_frameCount - 1))
+		else if (m_currentFrame == (m_frameCount - 1))
 		{
 			if (IsLooped())
 			{
@@ -151,7 +154,7 @@ bool Sprite::IsLooped() const
 
 bool Sprite::IsAnimated() const
 {
-	return m_frameCount > 1; 
+	return m_frameCount > 1;
 }
 
 int Sprite::GetWidth() const

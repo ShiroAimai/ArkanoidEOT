@@ -69,6 +69,8 @@
 #include "VertexTypes.h"
 #include "WICTextureLoader.h"
 
+#include <iostream>
+
 #ifdef _DEBUG
 #include <dxgidebug.h>
 #endif

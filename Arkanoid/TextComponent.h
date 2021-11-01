@@ -23,9 +23,10 @@ private:
 	void DrawShadows(DirectX::SpriteBatch* Batch, const std::wstring& Text, const Vec2& ScreenPos, const Vec2& Origin, const Vec2& Scale, float rotation);
 	void DrawOutline(DirectX::SpriteBatch* Batch, const std::wstring& Text, const Vec2& ScreenPos, const Vec2& Origin, const Vec2& Scale, float rotation);
 
+	void Init(const std::wstring& Font);
 public:
-	TextComponent(const std::wstring& Text, std::shared_ptr<DirectX::SpriteFont> Font);
-	TextComponent(const std::wstring& Text, std::shared_ptr<DirectX::SpriteFont> Font, const Vec2& Offset);
+	TextComponent(const std::wstring& Text, const std::wstring& Font);
+	TextComponent(const std::wstring& Text, const std::wstring& Font, const Vec2& Offset);
 
 	virtual void Render(DirectX::SpriteBatch* batch) override;
 
