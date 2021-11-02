@@ -14,10 +14,10 @@ VisualComponent::VisualComponent(int width, int height, const vector<Sprite*>& s
 	SetRenderLayer(10);
 }
 
-VisualComponent::VisualComponent(int width, int height, Sprite* Sprite)
+VisualComponent::VisualComponent(Sprite* Sprite)
 	: m_currentRenderSprite(Sprite),
-	m_width(width),
-	m_height(height),
+	m_width(0),
+	m_height(0),
 	m_anchor(0.5f, 0.5f)
 {
 	m_sprites.push_back(Sprite);
@@ -52,6 +52,24 @@ void VisualComponent::Render(DirectX::SpriteBatch* batch)
 	float angleInRad = m_parent->GetAngle() * DirectX::XM_PI / 180.f;
 	
 	m_currentRenderSprite->Render(batch, m_parent->GetPosition(), origin, angleInRad, m_parent->GetScale(), GetRenderLayer());
+}
+
+void VisualComponent::OnCreateResources()
+{
+	for (Sprite* sprite : m_sprites)
+		sprite->OnCreateResources();
+
+	if (m_sprites.size() == 1)
+	{
+		m_width = m_sprites[0]->GetWidth();
+		m_height = m_sprites[0]->GetHeight();
+	}
+}
+
+void VisualComponent::OnReleaseResources()
+{
+	for(Sprite* sprite : m_sprites)
+		sprite->OnReleaseResources();
 }
 
 void VisualComponent::SetRenderSpriteIndex(int index)

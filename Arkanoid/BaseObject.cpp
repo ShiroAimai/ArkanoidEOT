@@ -39,19 +39,23 @@ void BaseObject::Render(DirectX::SpriteBatch* batch)
 	}
 }
 
+void BaseObject::OnCreateResources()
+{
+	for(BaseComponent* Comp : m_components)
+		Comp->OnCreateResources();
+}
+
+void BaseObject::OnReleaseResources()
+{
+	for (BaseComponent* Comp : m_components)
+		Comp->OnReleaseResources();
+}
+
 void BaseObject::AddComponent(BaseComponent* component)
 {
 	if(!component) return; //no valid component
 	component->SetParent(this);
-	std::vector<BaseComponent*>::iterator itt = m_components.begin();
-	for (; itt != m_components.end(); itt++)
-	{
-		if ((*itt)->GetUpdatePriority() >= component->GetUpdatePriority())
-		{
-			break;
-		}
-	}
-	m_components.insert(itt, component);
+	m_components.push_back(component);
 }
 
 BaseObject::~BaseObject()

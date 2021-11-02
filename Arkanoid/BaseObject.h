@@ -19,7 +19,10 @@ public:
 	virtual void Uninit();
 	virtual void Update(float deltaTime);
 	virtual void Render(DirectX::SpriteBatch* batch);
-
+	
+	void OnCreateResources();
+	void OnReleaseResources();
+	
 	void AddComponent(BaseComponent* component);
 	template<class TYPE> TYPE* GetComponent();
 

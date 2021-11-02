@@ -24,6 +24,7 @@ private:
 	int m_textureHeigth;
 
 	std::shared_ptr<Texture> m_texture;
+	std::wstring m_path;
 
 	void CreateSprite(const std::wstring& path);
 protected:
@@ -43,6 +44,9 @@ public:
 	void Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int frame, const Vec2& origin, float rotation, const Vec2& scale, float RenderLayer);
 	void Update(float deltaTime);
 	void Reset();
+
+	void OnCreateResources();
+	void OnReleaseResources();
 
 	void Play();
 	void Pause();

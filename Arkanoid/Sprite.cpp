@@ -6,8 +6,8 @@
 Sprite* Sprite::Load(const std::wstring& path, int frameCount /*= 0*/, int framePerSecond /*= 0*/, bool isLooped /*= false*/)
 {
 	Sprite* NewSprite = new Sprite();
-	NewSprite->CreateSprite(path);
 	NewSprite->m_isLooping = isLooped;
+	NewSprite->m_path = path;
 	if (frameCount && framePerSecond > 0)
 	{
 		NewSprite->m_frameCount = frameCount;
@@ -70,6 +70,8 @@ void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, con
 
 void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int frame, const Vec2& origin, float rotation, const Vec2& scale, float RenderLayer)
 {
+	if(!m_texture) return;
+
 	int frameWidth = m_textureWidth / m_frameCount;
 
 	RECT sourceRect;
@@ -114,6 +116,16 @@ void Sprite::Reset()
 {
 	m_currentFrame = 0;
 	m_elapsedTime = 0.f;
+}
+
+void Sprite::OnCreateResources()
+{
+	CreateSprite(m_path);
+}
+
+void Sprite::OnReleaseResources()
+{
+	m_texture.reset();
 }
 
 void Sprite::Play()

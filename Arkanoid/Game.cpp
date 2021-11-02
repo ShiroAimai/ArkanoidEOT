@@ -34,6 +34,9 @@ void Game::Initialize(HWND window, int width, int height)
 	FontManager::Instance()->Init(m_deviceResources->GetD3DDevice());
 	TextureManager::Instance()->Init(m_deviceResources->GetD3DDevice());
     InputHandler::Instance()->Init(window);
+    
+    State = std::make_unique<PlayState>();
+    State->OnEnter();
 
     CreateDeviceDependentResources();
     CreateWindowSizeDependentResources();
@@ -65,15 +68,7 @@ void Game::Update(DX::StepTimer const& timer)
 
     // TODO: Add your game logic here.
     InputHandler::Instance()->Update(elapsedTime);
-
-    Vec2 movement = Vec2::Zero;
-
-    if(InputHandler::Instance()->IsKeyPressed(ArkanoidKeyboardInput::ARROW_LEFT))
-        movement.x -= 1.f;
-    if (InputHandler::Instance()->IsKeyPressed(ArkanoidKeyboardInput::ARROW_RIGHT))
-        movement.x += 1.f;
-
-    m_obj->SetPosition(m_obj->GetPosition() + movement);
+    State->Update(elapsedTime);
 }
 #pragma endregion
 
@@ -113,9 +108,9 @@ void Game::Render()
 		nullptr,
 		m_world
 	);
-    m_obj->Render(m_batch.get());
+    
 	//m_batch->Draw(m_texture.Get(), Vec2(0,0), nullptr, Colors::White, 0.f, m_origin);
-
+    State->Render(m_batch.get());
 	m_batch->End();
 
     m_deviceResources->PIXEndEvent();
@@ -219,11 +214,7 @@ void Game::CreateDeviceDependentResources()
 
 	m_primitiveBatch = std::make_unique<PrimitiveBatch<VertexType>>(context);
 
-    m_obj = std::make_unique<BaseObject>();
-    
-    Sprite* sprite = Sprite::Load(L"Assets/cat.png");
-	VisualComponent* vc = new VisualComponent(sprite->GetWidth(), sprite->GetHeight(), sprite);
-	m_obj->AddComponent(vc);
+    State->OnCreateResources();
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
@@ -247,8 +238,9 @@ void Game::OnDeviceLost()
 	m_batch.reset();
 	m_primitiveBatch.reset();
 
-	m_texture.Reset();
 	m_inputLayout.Reset();
+    
+    State->OnReleaseResources();
 }
 
 void Game::OnDeviceRestored()

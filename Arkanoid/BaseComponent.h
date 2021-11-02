@@ -17,10 +17,13 @@ public:
 	virtual void Render(DirectX::SpriteBatch* batch);
 	virtual void Update(float deltaTime);
 
-	virtual uint8_t GetUpdatePriority() const = 0;
+	virtual void OnCreateResources() = 0;
+	virtual void OnReleaseResources() = 0;
+
 	//Contained in interval [0, 1]
 	virtual float GetRenderLayer() const { return m_renderLayer; } // Not rendered by default
 	void SetRenderLayer(uint8_t Layer);
+
 protected:
 	BaseObject* m_parent;
 

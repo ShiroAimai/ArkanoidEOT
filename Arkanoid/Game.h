@@ -8,6 +8,8 @@
 #include "StepTimer.h"
 #include "BaseObject.h"
 #include "Sprite.h"
+#include "PlayState.h"
+
 using DirectX::SimpleMath::Matrix;
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -69,13 +71,10 @@ private:
 	std::unique_ptr<DirectX::CommonStates> m_states;
 	std::unique_ptr<DirectX::BasicEffect> m_effect;
 
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 
 	Matrix m_world;
-
-	std::unique_ptr<BaseObject> m_obj;
-    std::unique_ptr<Sprite> m_sp;
-
     RECT GameBounds;
+
+    std::unique_ptr<GameState> State;
 };

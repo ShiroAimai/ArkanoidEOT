@@ -3,20 +3,14 @@
 #include "FontManager.h"
 
 TextComponent::TextComponent(const std::wstring& Text, const std::wstring& Font)
-	: m_text(Text), m_foreground(DirectX::Colors::Black), m_background(DirectX::Colors::Black)
+	: m_text(Text), m_fontName(Font), m_foreground(DirectX::Colors::Black), m_background(DirectX::Colors::Black)
 {
-	Init(Font);
+	SetRenderLayer(1);
 }
 
 TextComponent::TextComponent(const std::wstring& Text, const std::wstring& Font, const Vec2& Offset)
-: m_text(Text), m_textOffset(Offset), m_foreground(DirectX::Colors::Black), m_background(DirectX::Colors::Black)
+: m_text(Text), m_fontName(Font), m_textOffset(Offset), m_foreground(DirectX::Colors::Black), m_background(DirectX::Colors::Black)
 {
-	Init(Font);
-}
-
-void TextComponent::Init(const std::wstring& Font)
-{
-	m_font = FontManager::Instance()->Load(Font);
 	SetRenderLayer(1);
 }
 
@@ -42,6 +36,16 @@ void TextComponent::Render(DirectX::SpriteBatch* batch)
 	}
 
 	m_font->DrawString(batch, m_text.c_str(), Pos, m_foreground, angleInRad, origin, Scale, DirectX::SpriteEffects::SpriteEffects_None, GetRenderLayer());
+}
+
+void TextComponent::OnCreateResources()
+{
+	m_font = FontManager::Instance()->Load(m_fontName);
+}
+
+void TextComponent::OnReleaseResources()
+{
+	m_font.reset();
 }
 
 void TextComponent::SetForegroundColor(DirectX::XMVECTORF32 Color)
