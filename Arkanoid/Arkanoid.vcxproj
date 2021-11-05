@@ -173,6 +173,8 @@
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="BaseLevel.h" />
     <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="Collision.h" />
+    <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
@@ -195,6 +197,8 @@
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="BaseLevel.cpp" />
     <ClCompile Include="BaseObject.cpp" />
+    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Game.cpp" />

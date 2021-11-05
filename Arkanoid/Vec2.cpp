@@ -45,6 +45,17 @@ Vec2 Vec2::rotate(float angle) const
 	return Vec2(x * cos - y * sin, x * sin + y * cos);
 }
 
+Vec2 Vec2::Ortho() const
+{
+	return Vec2(-y, x);
+
+}
+
+Vec2 Vec2::OrthoR() const
+{
+	return Vec2(y, -x);
+}
+
 bool Vec2::operator!=(const Vec2& target) const
 {
 	return !(*this == target);

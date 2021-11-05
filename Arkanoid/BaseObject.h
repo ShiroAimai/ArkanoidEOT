@@ -4,6 +4,7 @@
 
 using std::vector;
 
+class GameState;
 class BaseComponent;
 
 class BaseObject
@@ -15,7 +16,7 @@ public:
 	BaseObject(const BaseObject&) = delete;
 	BaseObject& operator=(const BaseObject&) = delete;
 
-	virtual void Init();
+	virtual void Init(GameState* GameState);
 	virtual void Uninit();
 	virtual void Update(float deltaTime);
 	virtual void Render(DirectX::SpriteBatch* batch);
@@ -26,6 +27,10 @@ public:
 	void AddComponent(BaseComponent* component);
 	template<class TYPE> TYPE* GetComponent();
 
+	template <class T>
+	T* GetGameState() const;
+	void SetGameState(GameState* gameState);
+
 	Vec2 GetPosition() const { return m_transform.GetTranslation();}
 	void SetPosition(const Vec2& NewPos) { m_transform.SetTranslation(NewPos);}
 	float GetAngle() const { return m_transform.GetRotation(); }
@@ -35,6 +40,7 @@ public:
 private:
 	vector<BaseComponent*> m_components;
 	Transform2D m_transform;
+	GameState* m_gameState;
 };
 
 template<class TYPE>
@@ -48,5 +54,11 @@ TYPE* BaseObject::GetComponent()
 	}
 
 	return nullptr;
+}
+
+template <class T>
+T* BaseObject::GetGameState() const
+{
+	return dynamic_cast<T*>(m_gameState);
 }
 

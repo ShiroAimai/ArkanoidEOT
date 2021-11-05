@@ -17,14 +17,8 @@ struct Vec2 : public Vector2
 
 	Vec2 rotateByAngle(const Vec2& pivot, float angle) const;
 	Vec2 rotate(float angle) const;
+
+	Vec2 Ortho() const;
+	Vec2 OrthoR() const;
 };
 
-inline Vec2 Ortho(const Vec2& vec)
-{
-	return Vec2(-vec.y, vec.x);
-}
-
-inline Vec2 OrthoR(const Vec2& vec)
-{
-	return Vec2(vec.y, -vec.x);
-}

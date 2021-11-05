@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "BaseObject.h"
 #include <algorithm>
+#include "CollisionComponent.h"
 
 GameState::~GameState()
 {
@@ -48,7 +49,7 @@ void GameState::AddCallback(Callback callback)
 void GameState::AddGameObject(BaseObject* Object)
 {
 	m_gameObjects.push_back(Object);
-	Object->Init();
+	Object->Init(this);
 }
 
 void GameState::RemoveGameObject(BaseObject* Object, bool ShouldDelete /* = true */)
@@ -59,7 +60,7 @@ void GameState::RemoveGameObject(BaseObject* Object, bool ShouldDelete /* = true
 
 	if (std::find(cbegin, cend, Object) != cend)
 	{
-		m_gameObjects.erase(std::remove(m_gameObjects.begin(), m_gameObjects.end(), Object), m_gameObjects.end()); //erase alla elements
+		m_gameObjects.erase(std::remove(m_gameObjects.begin(), m_gameObjects.end(), Object), m_gameObjects.end()); //erase all elements
 		Object->Uninit();
 
 		if (ShouldDelete)
@@ -78,6 +79,30 @@ void GameState::Reset()
 	}
 
 	m_gameObjects.clear();
+}
+
+bool GameState::FindCollisions(const CollisionComponent& RequestorComp, GameObjects* collisions /*= nullptr*/, const GameObjects* ignores /*= nullptr*/) const
+{
+	if (collisions)
+	{
+		collisions->clear();
+	}
+
+	for (BaseObject* Obj : m_gameObjects)
+	{
+		CollisionComponent* collisionComp = Obj->GetComponent<CollisionComponent>();
+		if(!collisionComp) //object should never collide 
+			continue;
+		//Current Obj was added to list of objects to not consider during collision handling
+		if(ignores && std::find(ignores->begin(), ignores->end(), Obj) != ignores->end())
+			continue;
+		//no collision found between objects
+		if (!collisionComp->Intersect(RequestorComp))
+			continue;
+		collisions->push_back(Obj);
+	}
+
+	return collisions && collisions->size() > 0;
 }
 
 void GameState::ExecutePendingCallbacks()

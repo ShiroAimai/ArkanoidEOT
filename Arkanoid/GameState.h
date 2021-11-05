@@ -3,11 +3,14 @@
 #include <functional>
 
 class BaseObject;
+class CollisionComponent;
 
 class GameState
 {
 public:
 	using Callback = std::function<void()>;
+	using GameObjects = std::vector<BaseObject*>;
+	using PendingCallbacks = std::vector<Callback>;
 
 	GameState() = default;
 	virtual ~GameState();
@@ -28,6 +31,8 @@ public:
 	void RemoveGameObject(BaseObject* Object, bool ShouldDelete = true);
 
 	void Reset();
+
+	bool FindCollisions(const CollisionComponent& RequestorComp, GameObjects* Collisions = nullptr, const GameObjects* Ignores = nullptr) const;
 private:
 	void ExecutePendingCallbacks();
 
@@ -35,11 +40,7 @@ protected:
 	class BaseLevel* m_level = nullptr;
 
 private:
-
-	using GameObjects = std::vector<BaseObject*>;
 	GameObjects m_gameObjects;
-	
-	using PendingCallbacks = std::vector<Callback>;
 	PendingCallbacks m_callbacks;
 };
 

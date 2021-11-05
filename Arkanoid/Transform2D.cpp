@@ -120,10 +120,10 @@ Transform2D Transform2D::GetInverse() const
 Vec2 Transform2D::Apply(const Vec2& v) const
 {
 	// apply s r t
-	Vec2 res;
+	Vec2 res(v);
 	const Vec2 scale = GetScale();
 	res.x *= scale.x;
-	res.y = scale.y;
+	res.y *= scale.y;
 	const float rotation = GetRotation();
 	res = res.rotate(rotation);
 	const Vec2 translation = GetTranslation();

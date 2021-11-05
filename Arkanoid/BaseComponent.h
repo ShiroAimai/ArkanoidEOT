@@ -21,13 +21,17 @@ public:
 	virtual void OnReleaseResources() = 0;
 
 	//Contained in interval [0, 1]
-	virtual float GetRenderLayer() const { return m_renderLayer; } // Not rendered by default
+	float GetRenderLayer() const { return m_renderLayer; } // Not rendered by default
 	void SetRenderLayer(uint8_t Layer);
+
+	uint8_t GetUpdatePriority() const { return m_updatePriority; }
+	void SetUpdatePriority(uint8_t Priority);
 
 protected:
 	BaseObject* m_parent;
 
 private:
 	float m_renderLayer;
+	uint8_t m_updatePriority;
 };
 

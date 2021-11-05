@@ -1,14 +1,17 @@
 #include "pch.h"
 #include "BaseObject.h"
+#include "GameState.h"
 #include "BaseComponent.h"
+
 
 BaseObject::BaseObject()
 {
 	m_transform.SetIdentity();
 }
 
-void BaseObject::Init()
+void BaseObject::Init(GameState* GameState)
 {
+	m_gameState = GameState;
 	for (BaseComponent* component : m_components)
 	{
 		component->Init();
@@ -55,7 +58,20 @@ void BaseObject::AddComponent(BaseComponent* component)
 {
 	if(!component) return; //no valid component
 	component->SetParent(this);
-	m_components.push_back(component);
+	std::vector<BaseComponent*>::iterator itt = m_components.begin();
+	for (; itt != m_components.end(); itt++)
+	{
+		if ((*itt)->GetUpdatePriority() <= component->GetUpdatePriority())
+		{
+			m_components.insert(itt, component);
+			break;
+		}
+	}
+}
+
+void BaseObject::SetGameState(GameState* gameState)
+{
+	m_gameState = gameState; 
 }
 
 BaseObject::~BaseObject()

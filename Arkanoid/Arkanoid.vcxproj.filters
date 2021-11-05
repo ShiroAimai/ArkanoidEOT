@@ -38,6 +38,9 @@
     <Filter Include="App\Gameplay\Levels">
       <UniqueIdentifier>{2a755374-dbe2-46b2-83f1-fd77aa1b19ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Collisions">
+      <UniqueIdentifier>{09e1eaf9-63f8-4858-bd25-a4001eab1a18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -83,7 +86,6 @@
     <ClInclude Include="Texture.h">
       <Filter>Engine\Common</Filter>
     </ClInclude>
-    <ClInclude Include="InputHandler.h" />
     <ClInclude Include="GameState.h">
       <Filter>Engine\Base</Filter>
     </ClInclude>
@@ -95,6 +97,15 @@
     </ClInclude>
     <ClInclude Include="Level1.h">
       <Filter>App\Gameplay\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Engine\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionComponent.h">
+      <Filter>Engine\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -136,7 +147,6 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Engine\Common</Filter>
     </ClCompile>
-    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="GameState.cpp">
       <Filter>Engine\Base</Filter>
     </ClCompile>
@@ -148,6 +158,15 @@
     </ClCompile>
     <ClCompile Include="Level1.cpp">
       <Filter>App\Gameplay\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Engine\Collisions</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionComponent.cpp">
+      <Filter>Engine\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
