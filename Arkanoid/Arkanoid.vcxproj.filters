@@ -41,6 +41,12 @@
     <Filter Include="Engine\Collisions">
       <UniqueIdentifier>{09e1eaf9-63f8-4858-bd25-a4001eab1a18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Helpers">
+      <UniqueIdentifier>{023b1cf8-17cf-42b7-908c-76b1f15df7aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Gameplay\GameplayObjects">
+      <UniqueIdentifier>{9e1aee23-8463-43eb-a484-9b2d1d3ac4bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -107,6 +113,19 @@
     <ClInclude Include="CollisionComponent.h">
       <Filter>Engine\Components</Filter>
     </ClInclude>
+    <ClInclude Include="RendererData.h">
+      <Filter>Engine\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldHelper.h">
+      <Filter>Engine\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBar.h">
+      <Filter>App\Gameplay\GameplayObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="MovableObject.h">
+      <Filter>App\Gameplay\GameplayObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -168,6 +187,19 @@
     <ClCompile Include="CollisionComponent.cpp">
       <Filter>Engine\Components</Filter>
     </ClCompile>
+    <ClCompile Include="RendererData.cpp">
+      <Filter>Engine\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldHelper.cpp">
+      <Filter>Engine\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBar.cpp">
+      <Filter>App\Gameplay\GameplayObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="MovableObject.cpp">
+      <Filter>App\Gameplay\GameplayObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

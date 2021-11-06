@@ -178,11 +178,15 @@
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameplayObject.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Level1.h" />
+    <ClInclude Include="MovableObject.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PlayerBar.h" />
     <ClInclude Include="PlayState.h" />
+    <ClInclude Include="RendererData.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StepTimer.h" />
     <ClInclude Include="TextComponent.h" />
@@ -192,6 +196,7 @@
     <ClInclude Include="Util.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="VisualComponent.h" />
+    <ClInclude Include="WorldHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseComponent.cpp" />
@@ -202,17 +207,21 @@
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameplayObject.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MovableObject.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PlayerBar.cpp" />
     <ClCompile Include="PlayState.cpp" />
+    <ClCompile Include="RendererData.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TextComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -220,6 +229,7 @@
     <ClCompile Include="Transform2D.cpp" />
     <ClCompile Include="Vec2.cpp" />
     <ClCompile Include="VisualComponent.cpp" />
+    <ClCompile Include="WorldHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

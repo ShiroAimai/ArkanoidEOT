@@ -14,7 +14,7 @@ public:
 	virtual ~VisualComponent();
 
 	virtual void Update(float deltaTime) override;
-	virtual void Render(DirectX::SpriteBatch* batch) override;
+	virtual void Render(const RendererData& Renderer) override;
 
 	virtual void OnCreateResources() override;
 	virtual void OnReleaseResources() override;

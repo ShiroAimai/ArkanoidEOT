@@ -3,6 +3,9 @@
 #include "BaseObject.h"
 #include <algorithm>
 #include "CollisionComponent.h"
+#include "RendererData.h"
+#include "InputHandler.h"
+#include "WorldHelper.h"
 
 GameState::~GameState()
 {
@@ -14,10 +17,33 @@ GameState::~GameState()
 	m_gameObjects.clear();
 }	
 
-void GameState::Render(DirectX::SpriteBatch* batch)
+void GameState::Render(const RendererData& Renderer)
 {
+	std::vector<BaseComponent*> renderableSprites, renderablePrimitives;
 	for(BaseObject* Obj : m_gameObjects)
-		Obj->Render(batch);
+		Obj->Render(renderableSprites, renderablePrimitives);
+
+	Renderer.m_primitiveBatch->Begin();
+
+	for (BaseComponent* comp : renderablePrimitives)
+		comp->Render(Renderer);
+
+	Renderer.m_primitiveBatch->End();
+
+	Renderer.m_spriteBatch->Begin(
+		DirectX::SpriteSortMode_Deferred,
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr,
+		WorldHelper::Instance()->GetWorldMatrix()
+	);
+
+	for (BaseComponent* comp : renderableSprites)
+		comp->Render(Renderer);
+
+	Renderer.m_spriteBatch->End();
 }
 
 void GameState::Update(float deltaTime)
@@ -27,6 +53,9 @@ void GameState::Update(float deltaTime)
 
 	for(BaseObject* Obj : m_gameObjects)
 		Obj->Update(deltaTime);
+
+	if(InputHandler::Instance()->IsKeyPressed(ArkanoidKeyboardInput::C))
+		CollisionComponent::ShouldRenderCollision = !CollisionComponent::ShouldRenderCollision;
 }
 
 void GameState::OnCreateResources()

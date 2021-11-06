@@ -28,7 +28,7 @@ public:
 	TextComponent(const std::wstring& Text, const std::wstring& Font);
 	TextComponent(const std::wstring& Text, const std::wstring& Font, const Vec2& Offset);
 
-	virtual void Render(DirectX::SpriteBatch* batch) override;
+	virtual void Render(const RendererData& Renderer) override;
 
 	virtual void OnCreateResources() override;
 	virtual void OnReleaseResources() override;

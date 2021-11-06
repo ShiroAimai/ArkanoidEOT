@@ -34,11 +34,21 @@ void BaseObject::Update(float deltaTime)
 	}
 }
 
-void BaseObject::Render(DirectX::SpriteBatch* batch)
+void BaseObject::Render(std::vector<BaseComponent*>& RenderableSprites, std::vector<BaseComponent*>& RenderablePrimitives)
 {
 	for (BaseComponent* component : m_components)
 	{
-		component->Render(batch);
+		RenderMode CurrentCompRenderMode = component->GetRenderMode();
+
+		switch (CurrentCompRenderMode)
+		{
+		case RenderMode::Sprite:
+			RenderableSprites.push_back(component);
+			break;
+		case RenderMode::Primitive:
+			RenderablePrimitives.push_back(component);
+			break;
+		}
 	}
 }
 
@@ -61,12 +71,10 @@ void BaseObject::AddComponent(BaseComponent* component)
 	std::vector<BaseComponent*>::iterator itt = m_components.begin();
 	for (; itt != m_components.end(); itt++)
 	{
-		if ((*itt)->GetUpdatePriority() <= component->GetUpdatePriority())
-		{
-			m_components.insert(itt, component);
+		if ((*itt)->GetUpdatePriority() >= component->GetUpdatePriority())
 			break;
-		}
 	}
+	m_components.insert(itt, component);
 }
 
 void BaseObject::SetGameState(GameState* gameState)

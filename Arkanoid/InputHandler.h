@@ -6,7 +6,8 @@ enum class ArkanoidKeyboardInput
 	ARROW_RIGHT = 1,
 	SPACE_BAR = 2,
 	ESCAPE = 3,
-	INPUT_COUNT = 4 
+	C = 4,
+	INPUT_COUNT = 5
 };
 
 enum class ArkanoidMouseInput

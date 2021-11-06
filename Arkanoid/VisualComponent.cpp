@@ -41,7 +41,7 @@ void VisualComponent::Update(float deltaTime)
 	}
 }
 
-void VisualComponent::Render(DirectX::SpriteBatch* batch)
+void VisualComponent::Render(const RendererData& Renderer)
 {
 	if(!m_parent) return; //a configuration error
 	if(!m_currentRenderSprite) return; //no sprite to render
@@ -50,8 +50,8 @@ void VisualComponent::Render(DirectX::SpriteBatch* batch)
 	Vec2 origin((float)anchorOffsetX, (float)anchorOffsetY);
 	
 	float angleInRad = m_parent->GetAngle() * DirectX::XM_PI / 180.f;
-	
-	m_currentRenderSprite->Render(batch, m_parent->GetPosition(), origin, angleInRad, m_parent->GetScale(), GetRenderLayer());
+
+	m_currentRenderSprite->Render(Renderer.m_spriteBatch, m_parent->GetPosition(), origin, angleInRad, m_parent->GetScale(), GetRenderLayer());
 }
 
 void VisualComponent::OnCreateResources()

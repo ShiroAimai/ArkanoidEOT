@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Transform2D.h"
+#include "RendererData.h"
 
 using std::vector;
 
@@ -19,8 +20,8 @@ public:
 	virtual void Init(GameState* GameState);
 	virtual void Uninit();
 	virtual void Update(float deltaTime);
-	virtual void Render(DirectX::SpriteBatch* batch);
-	
+	virtual void Render(std::vector<BaseComponent*>& RenderableSprites, std::vector<BaseComponent*>& RenderablePrimitives);
+
 	void OnCreateResources();
 	void OnReleaseResources();
 	
@@ -37,6 +38,8 @@ public:
 	void SetAngle(float NewAngle) { m_transform.SetRotation(NewAngle); }
 	Vec2 GetScale() const { return m_transform.GetScale(); }
 	void SetScale(const Vec2& NewScale) { m_transform.SetScale(NewScale); }
+
+	const Transform2D& GetTransform() { return m_transform; }
 private:
 	vector<BaseComponent*> m_components;
 	Transform2D m_transform;

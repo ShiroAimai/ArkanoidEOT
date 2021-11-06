@@ -4,6 +4,9 @@
 
 class BaseObject;
 class CollisionComponent;
+class BaseComponent;
+
+struct RendererData;
 
 class GameState
 {
@@ -18,7 +21,8 @@ public:
 	GameState(const GameState&) = delete;
 	GameState& operator=(const GameState&) = delete;
 
-	virtual void Render(DirectX::SpriteBatch* batch);
+	virtual void Render(const RendererData& Renderer);
+
 	virtual void Update(float deltaTime);
 	virtual void OnCreateResources();
 	virtual void OnReleaseResources();

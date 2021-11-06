@@ -1,16 +1,15 @@
 #include "pch.h"
 #include "Level1.h"
-#include "BaseObject.h"
-#include "Sprite.h"
-#include "VisualComponent.h"
-#include "TextComponent.h"
+#include "PlayerBar.h"
+
 
 void Level1::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 {
-	BaseObject* m_obj = new BaseObject();
-	Sprite* sprite = Sprite::Load(L"Assets/cat.png");
-	VisualComponent* vc = new VisualComponent(sprite);
-	m_obj->AddComponent(vc);
+	PlayerBar* player = new PlayerBar;
+	GameObjects.push_back(player);
 
-	GameObjects.push_back(m_obj);
+	PlayerBar* player2 = new PlayerBar;
+	player2->SetPosition(Vec2(250, 250));
+	GameObjects.push_back(player2);
+
 }

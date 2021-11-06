@@ -7,8 +7,9 @@ bool CollisionComponent::ShouldRenderCollision = false;
 
 CollisionComponent::CollisionComponent(BaseShape* shape) : m_shape(shape)
 {
-	SetRenderLayer(1);
+	SetRenderLayer(10);
 	SetUpdatePriority(1);
+	m_renderMode = RenderMode::Primitive;
 }
 
 CollisionComponent::~CollisionComponent()
@@ -17,16 +18,24 @@ CollisionComponent::~CollisionComponent()
 		delete m_shape;
 }
 
-void CollisionComponent::Render(DirectX::SpriteBatch* batch)
+void CollisionComponent::Init()
+{
+	if(m_shape)
+		m_shape->Transform(m_parent->GetTransform());
+}
+
+void CollisionComponent::Render(const RendererData& Renderer)
 {
 	if (ShouldRenderCollision)
 	{
-		m_shape->Draw();
+		m_shape->Draw(Renderer.m_primitiveBatch);
 	}
 }
 
 void CollisionComponent::Update(float deltaTime)
 {
+	m_shape->Transform(m_parent->GetTransform());
+
 	m_collisions.clear();
 	if (m_shape)
 	{

@@ -69,6 +69,8 @@ bool InputHandler::IsKeyPressed(ArkanoidKeyboardInput input) const
 			return kb.Space;
 		case ArkanoidKeyboardInput::ESCAPE:
 			return kb.Escape;
+		case ArkanoidKeyboardInput::C:
+			return kb.C;
 	}
 
 	return false;

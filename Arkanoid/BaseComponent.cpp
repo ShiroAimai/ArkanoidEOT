@@ -2,7 +2,7 @@
 #include "BaseComponent.h"
 #include "BaseObject.h"
 
-BaseComponent::BaseComponent() : m_parent(nullptr), m_renderLayer(-1.f), m_updatePriority(10)
+BaseComponent::BaseComponent() : m_parent(nullptr), m_renderLayer(-1.f), m_updatePriority(10), m_renderMode(RenderMode::Sprite)
 {
 
 }
@@ -27,7 +27,7 @@ void BaseComponent::Uninit()
 
 }
 
-void BaseComponent::Render(DirectX::SpriteBatch* batch)
+void BaseComponent::Render(const RendererData& Renderer)
 {
 
 }

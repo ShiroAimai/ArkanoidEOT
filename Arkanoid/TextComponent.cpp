@@ -14,7 +14,7 @@ TextComponent::TextComponent(const std::wstring& Text, const std::wstring& Font,
 	SetRenderLayer(1);
 }
 
-void TextComponent::Render(DirectX::SpriteBatch* batch)
+void TextComponent::Render(const RendererData& Renderer)
 {
 	Vec2 Pos = m_parent->GetPosition();
 
@@ -25,17 +25,17 @@ void TextComponent::Render(DirectX::SpriteBatch* batch)
 	float angleInRad = m_parent->GetAngle() * DirectX::XM_PI / 180.f;
 
 	Vec2 Scale = m_parent->GetScale();
-
+	
 	if (m_effect == TextEffect::SHADOWS)
 	{
-		DrawShadows(batch, m_text, Pos, origin, Scale, angleInRad);
+		DrawShadows(Renderer.m_spriteBatch, m_text, Pos, origin, Scale, angleInRad);
 	}
 	else if (m_effect == TextEffect::OUTLINE)
 	{
-		DrawOutline(batch, m_text, Pos, origin, Scale, angleInRad);
+		DrawOutline(Renderer.m_spriteBatch, m_text, Pos, origin, Scale, angleInRad);
 	}
 
-	m_font->DrawString(batch, m_text.c_str(), Pos, m_foreground, angleInRad, origin, Scale, DirectX::SpriteEffects::SpriteEffects_None, GetRenderLayer());
+	m_font->DrawString(Renderer.m_spriteBatch, m_text.c_str(), Pos, m_foreground, angleInRad, origin, Scale, DirectX::SpriteEffects::SpriteEffects_None, GetRenderLayer());
 }
 
 void TextComponent::OnCreateResources()

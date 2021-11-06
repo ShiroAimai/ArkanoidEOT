@@ -73,8 +73,5 @@ private:
 
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 
-	Matrix m_world;
-    RECT GameBounds;
-
     std::unique_ptr<GameState> State;
 };

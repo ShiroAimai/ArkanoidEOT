@@ -4,12 +4,11 @@
 
 #include "pch.h"
 #include "Game.h"
-#include "VisualComponent.h"
-#include "TextComponent.h"
-#include "Sprite.h"
 #include "FontManager.h"
 #include "TextureManager.h"
 #include "InputHandler.h"
+#include "RendererData.h"
+#include "WorldHelper.h"
 
 extern void ExitGame() noexcept;
 
@@ -95,23 +94,9 @@ void Game::Render()
 
 	context->IASetInputLayout(m_inputLayout.Get());
 
-	m_primitiveBatch->Begin();
-
-	m_primitiveBatch->End();
-
-	m_batch->Begin(
-		SpriteSortMode_Deferred,
-		nullptr,
-		nullptr,
-		nullptr,
-		nullptr,
-		nullptr,
-		m_world
-	);
+    RendererData RenderData(m_batch.get(), m_primitiveBatch.get());
     
-	//m_batch->Draw(m_texture.Get(), Vec2(0,0), nullptr, Colors::White, 0.f, m_origin);
-    State->Render(m_batch.get());
-	m_batch->End();
+    State->Render(RenderData);
 
     m_deviceResources->PIXEndEvent();
 
@@ -197,8 +182,6 @@ void Game::CreateDeviceDependentResources()
     auto device = m_deviceResources->GetD3DDevice();
 	auto context = m_deviceResources->GetD3DDeviceContext();
 
-	m_world = Matrix::Identity;
-
 	m_states = std::make_unique<CommonStates>(device);
 	m_effect = std::make_unique<BasicEffect>(device);
 	m_effect->SetVertexColorEnabled(true);
@@ -222,12 +205,21 @@ void Game::CreateWindowSizeDependentResources()
 {
     // TODO: Initialize windows-size dependent objects here.
 	auto size = m_deviceResources->GetOutputSize();
-	m_world = Matrix::CreateTranslation(float(size.right) / 2.f, float(size.bottom) / 2.f, 0.f);
-
+	WorldHelper::Instance()->SetWorldMatrix(Matrix::CreateTranslation(float(size.right) / 2.f, float(size.bottom) / 2.f, 0.f));
+    
+    RECT GameBounds;
     GameBounds.left = size.left;
     GameBounds.right = size.right;
     GameBounds.top = size.top;
     GameBounds.bottom = size.bottom;
+    WorldHelper::Instance()->SetGameBounds(GameBounds);
+
+    //transform normalized space of primitive batch in pixel space
+	Matrix proj = Matrix::CreateScale(2.f / float(size.right),
+		-2.f / float(size.bottom), 1.f)
+		* Matrix::CreateTranslation(-1.f, 1.f, 0.f);
+    proj = WorldHelper::Instance()->GetWorldMatrix() * proj;
+	m_effect->SetProjection(proj);
 }
 
 void Game::OnDeviceLost()

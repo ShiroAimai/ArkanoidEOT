@@ -1,5 +1,6 @@
 #pragma once
 #include "Vec2.h"
+#include "Transform2D.h"
 
 struct AABB
 {
@@ -8,7 +9,8 @@ struct AABB
 	AABB() = default;
 	AABB(const Vec2& min, const Vec2& max) : m_min(min), m_max(max) {}
 
-	void Draw() {};
+	void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch);
+	void Transform(AABB& ShapeToUpdate, const Transform2D& transform);
 };
 
 struct Circle
@@ -19,7 +21,8 @@ struct Circle
 	Circle() = default;
 	Circle(const Vec2& center, float radius) : m_center(center), m_radius(radius) {}
 
-	void Draw() {};
+	void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch) {};
+	void Transform(Circle& ShapeToUpdate, const Transform2D& transform);
 };
 
 struct Line
@@ -29,7 +32,8 @@ struct Line
 	Line() = default;
 	Line(const Vec2& p0, const Vec2& p1) : m_p0(p0), m_p1(p1) {}
 
-	void Draw() {};
+	void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch) {};
+	void Transform(Line& ShapeToUpdate, const Transform2D& transform);
 };
 
 bool inside(const AABB& b0, const Vec2& p1);
@@ -54,32 +58,42 @@ public:
 	virtual bool intersect(const Circle& c1) const = 0;
 	virtual bool intersect(const BaseShape& other) const = 0;
 
-	virtual void Draw() = 0;
+	virtual void Transform(const Transform2D& transform) = 0;
+
+	virtual void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch) = 0;
 };
 
 template <class S>
 class Shape : public BaseShape {
+private:
+	S m_updatedShape;
+
 public:
-	S m_Shape;
+	S m_originalShape;
+
+	virtual void Transform(const Transform2D& transform) override
+	{
+		m_originalShape.Transform(m_updatedShape, transform);
+	}
 
 	virtual bool intersect(const AABB& b1) const override
 	{
-		return ::intersect(m_Shape, b1);
+		return ::intersect(m_updatedShape, b1);
 	}
 
 	virtual bool intersect(const Circle& c1) const override
 	{
-		return ::intersect(m_Shape, c1);
+		return ::intersect(m_updatedShape, c1);
 	}
 
 	virtual bool intersect(const BaseShape& other) const
 	{
-		return other.intersect(m_Shape);
+		return other.intersect(m_updatedShape);
 	}
 
-	virtual void Draw() override
+	virtual void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch) override
 	{
-		m_Shape.Draw();
+		m_updatedShape.Draw(Batch);
 	}
 
 };

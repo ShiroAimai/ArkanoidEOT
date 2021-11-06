@@ -12,7 +12,8 @@ public:
 	CollisionComponent(BaseShape* shape);
 	~CollisionComponent();
 
-	virtual void Render(DirectX::SpriteBatch* batch) override;
+	virtual void Init() override;
+	virtual void Render(const RendererData& Renderer) override;
 	virtual void Update(float deltaTime) override;
 
 	bool Intersect(const CollisionComponent& other) const;

@@ -1,6 +1,23 @@
 #include "pch.h"
 #include "Collision.h"
 #include "Util.h"
+#include <cassert>
+
+void AABB::Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch)
+{
+	using DirectX::VertexPositionColor;
+
+	VertexPositionColor v1(DirectX::SimpleMath::Vector3(m_min.x, m_max.y, 0.f), DirectX::Colors::Red);
+	VertexPositionColor v2(DirectX::SimpleMath::Vector3(m_max.x, m_max.y, 0.f), DirectX::Colors::Red);
+	VertexPositionColor v3(DirectX::SimpleMath::Vector3(m_min.x, m_min.y, 0.f), DirectX::Colors::Red);
+	VertexPositionColor v4(DirectX::SimpleMath::Vector3(m_max.x, m_min.y, 0.f), DirectX::Colors::Red);
+	Batch->DrawQuad(v1, v2, v3, v4);
+}
+void AABB::Transform(AABB& ShapeToUpdate, const Transform2D& transform)
+{
+	ShapeToUpdate.m_min = transform.Apply(m_min);
+	ShapeToUpdate.m_max = transform.Apply(m_max);
+}
 
 bool inside(const AABB& b0, const Vec2& p1)
 {
@@ -84,4 +101,18 @@ bool intersect(const AABB& b0, const Line& l1)
 		diag.m_p1 = b0.m_max;
 	}
 	return intersect(diag, l1);
+}
+
+void Line::Transform(Line& ShapeToUpdate, const Transform2D& transform)
+{
+	ShapeToUpdate.m_p0 = transform.Apply(m_p0);
+	ShapeToUpdate.m_p1 = transform.Apply(m_p1);
+}
+
+void Circle::Transform(Circle& ShapeToUpdate, const Transform2D& transform)
+{
+	const Vec2 scale = transform.GetScale();
+	assert(MathUtil::equalWithEpsilon(scale.x, scale.y, MathUtil::EPS));
+	ShapeToUpdate.m_radius = m_radius * scale.x;
+	ShapeToUpdate.m_center = transform.Apply(m_center);
 }
