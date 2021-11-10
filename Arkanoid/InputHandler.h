@@ -40,7 +40,9 @@ public:
 	bool IsMouseButtonPressed(ArkanoidMouseInput input) const;
 
 	/* Keyboard*/
+	bool IsKeyDown(ArkanoidKeyboardInput input) const;
 	bool IsKeyPressed(ArkanoidKeyboardInput input) const;
+	bool IsKeyReleased(ArkanoidKeyboardInput input) const;
 
 private:
 	InputHandler();
@@ -51,6 +53,7 @@ private:
 	
 	std::unique_ptr<DirectX::Keyboard> m_keyboard;
 	std::unique_ptr<DirectX::Mouse> m_mouse;
-	
+	DirectX::Keyboard::KeyboardStateTracker m_keys;
+	DirectX::Mouse::ButtonStateTracker m_mouseButtons;
 };
 

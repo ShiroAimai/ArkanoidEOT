@@ -128,8 +128,12 @@
     <ClInclude Include="MovableObject.h">
       <Filter>App\Gameplay\GameplayObjects</Filter>
     </ClInclude>
-    <ClInclude Include="GameplayObject.h" />
-    <ClInclude Include="LevelBorder.h" />
+    <ClInclude Include="LevelBorder.h">
+      <Filter>App\Gameplay\Levels\LevelObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayObject.h">
+      <Filter>App\Gameplay\GameplayObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -203,8 +207,12 @@
     <ClCompile Include="MovableObject.cpp">
       <Filter>App\Gameplay\GameplayObjects</Filter>
     </ClCompile>
-    <ClCompile Include="GameplayObject.cpp" />
-    <ClCompile Include="LevelBorder.cpp" />
+    <ClCompile Include="LevelBorder.cpp">
+      <Filter>App\Gameplay\Levels\LevelObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayObject.cpp">
+      <Filter>App\Gameplay\GameplayObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

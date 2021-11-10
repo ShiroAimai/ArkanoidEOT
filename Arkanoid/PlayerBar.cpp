@@ -23,7 +23,7 @@ PlayerBar::PlayerBar()
 void PlayerBar::Update(float deltaTime)
 {
 	Vec2 NewSpeed;
-	NewSpeed.x = float(InputHandler::Instance()->IsKeyPressed(ArkanoidKeyboardInput::ARROW_RIGHT) - InputHandler::Instance()->IsKeyPressed(ArkanoidKeyboardInput::ARROW_LEFT));
+	NewSpeed.x = float(InputHandler::Instance()->IsKeyDown(ArkanoidKeyboardInput::ARROW_RIGHT) - InputHandler::Instance()->IsKeyDown(ArkanoidKeyboardInput::ARROW_LEFT));
 	NewSpeed.x *= 100; //TODO Replace
 	SetSpeed(NewSpeed);
 	

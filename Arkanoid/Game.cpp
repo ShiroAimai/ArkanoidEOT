@@ -131,6 +131,7 @@ void Game::Clear()
 void Game::OnActivated()
 {
     // TODO: Game is becoming active window.
+    InputHandler::Instance()->Reset();
 }
 
 void Game::OnDeactivated()
@@ -148,6 +149,7 @@ void Game::OnResuming()
     m_timer.ResetElapsedTime();
 
     // TODO: Game is being power-resumed (or returning from minimize).
+    InputHandler::Instance()->Reset();
 }
 
 void Game::OnWindowMoved()
