@@ -64,6 +64,19 @@ void BaseObject::OnReleaseResources()
 		Comp->OnReleaseResources();
 }
 
+void BaseObject::OnWindowSizeUpdate(float xRatio, float yRatio)
+{
+	Vec2 NewPos = GetPosition();
+	NewPos.x *= xRatio;
+	NewPos.y *= yRatio;
+	SetPosition(NewPos);
+
+	Vec2 NewScale = GetScale();
+	NewScale.x *= xRatio;
+	NewScale.y *= yRatio;
+	SetScale(NewScale);
+}
+
 void BaseObject::AddComponent(BaseComponent* component)
 {
 	if(!component) return; //no valid component

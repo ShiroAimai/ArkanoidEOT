@@ -47,6 +47,9 @@
     <Filter Include="App\Gameplay\GameplayObjects">
       <UniqueIdentifier>{9e1aee23-8463-43eb-a484-9b2d1d3ac4bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="App\Gameplay\Levels\LevelObjects">
+      <UniqueIdentifier>{875d0c7d-6cc5-4d05-9be6-462c4ff307f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -126,6 +129,7 @@
       <Filter>App\Gameplay\GameplayObjects</Filter>
     </ClInclude>
     <ClInclude Include="GameplayObject.h" />
+    <ClInclude Include="LevelBorder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -200,6 +204,7 @@
       <Filter>App\Gameplay\GameplayObjects</Filter>
     </ClCompile>
     <ClCompile Include="GameplayObject.cpp" />
+    <ClCompile Include="LevelBorder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

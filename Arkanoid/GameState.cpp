@@ -70,6 +70,12 @@ void GameState::OnReleaseResources()
 		Obj->OnReleaseResources();
 }
 
+void GameState::OnWindowSizeUpdate(float xRatio, float yRatio)
+{
+	for (BaseObject* Obj : m_gameObjects)
+		Obj->OnWindowSizeUpdate(xRatio, yRatio);
+}
+
 void GameState::AddCallback(Callback callback)
 {
 	m_callbacks.push_back(callback);

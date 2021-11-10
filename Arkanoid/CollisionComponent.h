@@ -19,9 +19,8 @@ public:
 	bool Intersect(const CollisionComponent& other) const;
 	std::vector<BaseObject*>& GetCollisions();
 
-private:
 	BaseShape* GetShape() const;
-
+	
 private:
 	BaseShape* m_shape;
 	std::vector<BaseObject*> m_collisions;

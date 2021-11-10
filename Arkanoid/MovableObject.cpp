@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "MovableObject.h"
 #include "CollisionComponent.h"
+#include "Collision.h"
 
-MovableObject::MovableObject() : m_speed(Vec2::Zero)
+MovableObject::MovableObject() : m_speed(Vec2::Zero), m_collisionCompRef(nullptr)
 {
 
 }
@@ -28,5 +29,20 @@ bool MovableObject::CanMove(const Vec2& NewPosition) const
 {
 	if(NewPosition.Equals(Vec2::Zero)) return true; //its not moving
 	if(!m_collisionCompRef) return true;
+	Transform2D MovementProjTrans;
+	MovementProjTrans.Set(NewPosition, GetAngle(), GetScale());
+	//temporary move collision shape to new position in order to test collisions there
+	m_collisionCompRef->GetShape()->Transform(MovementProjTrans);
+	std::vector<BaseObject*>& collisions = m_collisionCompRef->GetCollisions();
+	//move back to its original position the collision shape
+	MovementProjTrans.SetTranslation(GetPosition());
+	m_collisionCompRef->GetShape()->Transform(MovementProjTrans);
+
+	for (BaseObject* collision : collisions)
+	{
+		if(IsBlocker(collision))
+			return false;
+	}
+	
 	return true;
 }

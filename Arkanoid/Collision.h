@@ -32,7 +32,7 @@ struct Line
 	Line() = default;
 	Line(const Vec2& p0, const Vec2& p1) : m_p0(p0), m_p1(p1) {}
 
-	void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch) {};
+	void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch);
 	void Transform(Line& ShapeToUpdate, const Transform2D& transform);
 };
 
@@ -56,6 +56,7 @@ public:
 	virtual ~BaseShape() {};
 	virtual bool intersect(const AABB& b1) const = 0;
 	virtual bool intersect(const Circle& c1) const = 0;
+	virtual bool intersect(const Line& l1) const = 0;
 	virtual bool intersect(const BaseShape& other) const = 0;
 
 	virtual void Transform(const Transform2D& transform) = 0;
@@ -84,6 +85,11 @@ public:
 	virtual bool intersect(const Circle& c1) const override
 	{
 		return ::intersect(m_updatedShape, c1);
+	}
+
+	virtual bool intersect(const Line& l1) const override
+	{
+		return ::intersect(m_updatedShape, l1);
 	}
 
 	virtual bool intersect(const BaseShape& other) const

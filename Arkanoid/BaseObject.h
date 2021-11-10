@@ -24,7 +24,8 @@ public:
 
 	void OnCreateResources();
 	void OnReleaseResources();
-	
+	void OnWindowSizeUpdate(float xRatio, float yRatio);
+
 	void AddComponent(BaseComponent* component);
 	template<class TYPE> TYPE* GetComponent();
 

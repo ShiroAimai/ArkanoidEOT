@@ -172,6 +172,13 @@ void Game::GetDefaultSize(int& width, int& height) const noexcept
     // TODO: Change to desired default window size (note minimum size is 320x200).
     width = 800;
     height = 600;
+
+	RECT GameBounds;
+	GameBounds.left = 0;
+	GameBounds.right = width;
+	GameBounds.top = 0;
+	GameBounds.bottom = height;
+	WorldHelper::Instance()->SetGameBounds(GameBounds);
 }
 #pragma endregion
 
@@ -207,6 +214,8 @@ void Game::CreateWindowSizeDependentResources()
 	auto size = m_deviceResources->GetOutputSize();
 	WorldHelper::Instance()->SetWorldMatrix(Matrix::CreateTranslation(float(size.right) / 2.f, float(size.bottom) / 2.f, 0.f));
     
+    RECT CurrentGameBounds = WorldHelper::Instance()->GetGameBounds();
+
     RECT GameBounds;
     GameBounds.left = size.left;
     GameBounds.right = size.right;
@@ -220,6 +229,18 @@ void Game::CreateWindowSizeDependentResources()
 		* Matrix::CreateTranslation(-1.f, 1.f, 0.f);
     proj = WorldHelper::Instance()->GetWorldMatrix() * proj;
 	m_effect->SetProjection(proj);
+
+    float xRatio = 1;
+    float yRatio = 1;
+    if (CurrentGameBounds.right != 0)
+    {
+        xRatio = float(GameBounds.right) / float(CurrentGameBounds.right);
+    }
+	if (CurrentGameBounds.bottom != 0)
+	{
+        yRatio = float(GameBounds.bottom) / float(CurrentGameBounds.bottom);
+	}
+    State->OnWindowSizeUpdate(xRatio, yRatio);
 }
 
 void Game::OnDeviceLost()

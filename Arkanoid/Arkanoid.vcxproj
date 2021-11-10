@@ -182,6 +182,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Level1.h" />
+    <ClInclude Include="LevelBorder.h" />
     <ClInclude Include="MovableObject.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PlayerBar.h" />
@@ -211,6 +212,7 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Level1.cpp" />
+    <ClCompile Include="LevelBorder.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MovableObject.cpp" />
     <ClCompile Include="pch.cpp">

@@ -26,6 +26,9 @@ void PlayerBar::Update(float deltaTime)
 	NewSpeed.x = float(InputHandler::Instance()->IsKeyPressed(ArkanoidKeyboardInput::ARROW_RIGHT) - InputHandler::Instance()->IsKeyPressed(ArkanoidKeyboardInput::ARROW_LEFT));
 	NewSpeed.x *= 100; //TODO Replace
 	SetSpeed(NewSpeed);
-
-	MovableObject::Update(deltaTime);
+	
+	if(CanMove(GetPosition() + NewSpeed * deltaTime))
+	{
+		MovableObject::Update(deltaTime);
+	}
 }

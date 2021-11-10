@@ -26,6 +26,7 @@ public:
 	virtual void Update(float deltaTime);
 	virtual void OnCreateResources();
 	virtual void OnReleaseResources();
+	virtual void OnWindowSizeUpdate(float xRatio, float yRatio);
 
 	virtual void OnEnter() = 0;
 	virtual void OnExit() = 0;

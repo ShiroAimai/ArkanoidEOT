@@ -103,6 +103,13 @@ bool intersect(const AABB& b0, const Line& l1)
 	return intersect(diag, l1);
 }
 
+void Line::Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch)
+{
+	DirectX::VertexPositionColor p0(DirectX::SimpleMath::Vector3(m_p0.x, m_p0.y, 0.f), DirectX::Colors::Red);
+	DirectX::VertexPositionColor p1(DirectX::SimpleMath::Vector3(m_p1.x , m_p1.y, 0.f), DirectX::Colors::Red);
+	Batch->DrawLine(p0, p1);
+}
+
 void Line::Transform(Line& ShapeToUpdate, const Transform2D& transform)
 {
 	ShapeToUpdate.m_p0 = transform.Apply(m_p0);

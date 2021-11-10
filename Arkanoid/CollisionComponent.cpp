@@ -37,13 +37,7 @@ void CollisionComponent::Update(float deltaTime)
 	m_shape->Transform(m_parent->GetTransform());
 
 	m_collisions.clear();
-	if (m_shape)
-	{
-		std::vector<BaseObject*> ObjectsToIgnore;
-		ObjectsToIgnore.push_back(m_parent);
-
-		m_parent->GetGameState<GameState>()->FindCollisions(*this, &m_collisions, &ObjectsToIgnore);
-	}
+	GetCollisions();
 }
 
 bool CollisionComponent::Intersect(const CollisionComponent& other) const
@@ -56,6 +50,13 @@ bool CollisionComponent::Intersect(const CollisionComponent& other) const
 
 std::vector<BaseObject*>& CollisionComponent::GetCollisions()
 {
+	if (m_shape)
+	{
+		std::vector<BaseObject*> ObjectsToIgnore;
+		ObjectsToIgnore.push_back(m_parent);
+
+		m_parent->GetGameState<GameState>()->FindCollisions(*this, &m_collisions, &ObjectsToIgnore);
+	}
 	return m_collisions;
 }
 
