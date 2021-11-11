@@ -9,7 +9,7 @@ struct AABB
 	AABB() = default;
 	AABB(const Vec2& min, const Vec2& max) : m_min(min), m_max(max) {}
 
-	void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch);
+	void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch, DirectX::XMVECTORF32 Color);
 	void Transform(AABB& ShapeToUpdate, const Transform2D& transform);
 };
 
@@ -21,7 +21,7 @@ struct Circle
 	Circle() = default;
 	Circle(const Vec2& center, float radius) : m_center(center), m_radius(radius) {}
 
-	void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch) {};
+	void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch, DirectX::XMVECTORF32 Color);
 	void Transform(Circle& ShapeToUpdate, const Transform2D& transform);
 };
 
@@ -32,7 +32,7 @@ struct Line
 	Line() = default;
 	Line(const Vec2& p0, const Vec2& p1) : m_p0(p0), m_p1(p1) {}
 
-	void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch);
+	void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch, DirectX::XMVECTORF32 Color);
 	void Transform(Line& ShapeToUpdate, const Transform2D& transform);
 };
 
@@ -61,7 +61,7 @@ public:
 
 	virtual void Transform(const Transform2D& transform) = 0;
 
-	virtual void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch) = 0;
+	virtual void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch, DirectX::XMVECTORF32 Color) = 0;
 };
 
 template <class S>
@@ -97,9 +97,9 @@ public:
 		return other.intersect(m_updatedShape);
 	}
 
-	virtual void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch) override
+	virtual void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch, DirectX::XMVECTORF32 Color) override
 	{
-		m_updatedShape.Draw(Batch);
+		m_updatedShape.Draw(Batch, Color);
 	}
 
 };

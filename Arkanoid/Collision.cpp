@@ -3,15 +3,19 @@
 #include "Util.h"
 #include <cassert>
 
-void AABB::Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch)
+void AABB::Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch, DirectX::XMVECTORF32 Color)
 {
 	using DirectX::VertexPositionColor;
 
-	VertexPositionColor v1(DirectX::SimpleMath::Vector3(m_min.x, m_max.y, 0.f), DirectX::Colors::Red);
-	VertexPositionColor v2(DirectX::SimpleMath::Vector3(m_max.x, m_max.y, 0.f), DirectX::Colors::Red);
-	VertexPositionColor v3(DirectX::SimpleMath::Vector3(m_min.x, m_min.y, 0.f), DirectX::Colors::Red);
-	VertexPositionColor v4(DirectX::SimpleMath::Vector3(m_max.x, m_min.y, 0.f), DirectX::Colors::Red);
-	Batch->DrawQuad(v1, v2, v3, v4);
+	VertexPositionColor v1(DirectX::SimpleMath::Vector3(m_min.x, m_max.y, 0.f), Color);
+	VertexPositionColor v2(DirectX::SimpleMath::Vector3(m_max.x, m_max.y, 0.f), Color);
+	VertexPositionColor v3(DirectX::SimpleMath::Vector3(m_min.x, m_min.y, 0.f), Color);
+	VertexPositionColor v4(DirectX::SimpleMath::Vector3(m_max.x, m_min.y, 0.f), Color);
+	
+	Batch->DrawLine(v1, v2);
+	Batch->DrawLine(v2, v4);
+	Batch->DrawLine(v3, v4);
+	Batch->DrawLine(v1, v3);
 }
 void AABB::Transform(AABB& ShapeToUpdate, const Transform2D& transform)
 {
@@ -103,10 +107,10 @@ bool intersect(const AABB& b0, const Line& l1)
 	return intersect(diag, l1);
 }
 
-void Line::Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch)
+void Line::Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch, DirectX::XMVECTORF32 Color)
 {
-	DirectX::VertexPositionColor p0(DirectX::SimpleMath::Vector3(m_p0.x, m_p0.y, 0.f), DirectX::Colors::Red);
-	DirectX::VertexPositionColor p1(DirectX::SimpleMath::Vector3(m_p1.x , m_p1.y, 0.f), DirectX::Colors::Red);
+	DirectX::VertexPositionColor p0(DirectX::SimpleMath::Vector3(m_p0.x, m_p0.y, 0.f), Color);
+	DirectX::VertexPositionColor p1(DirectX::SimpleMath::Vector3(m_p1.x , m_p1.y, 0.f), Color);
 	Batch->DrawLine(p0, p1);
 }
 
@@ -116,10 +120,22 @@ void Line::Transform(Line& ShapeToUpdate, const Transform2D& transform)
 	ShapeToUpdate.m_p1 = transform.Apply(m_p1);
 }
 
+void Circle::Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch, DirectX::XMVECTORF32 Color)
+{
+	static constexpr int CircleVertexCount = 128;
+	DirectX::VertexPositionColor lines[CircleVertexCount];
+	for (int i = 0; i < CircleVertexCount; ++i)
+	{
+			float t = DirectX::XM_PI * 2 * float(i) / 100;
+			lines[i] = DirectX::VertexPositionColor(DirectX::SimpleMath::Vector3(m_radius * cos(t) + m_center.x, m_center.y + m_radius * -sin(t), 0.f), Color);
+	}
+	Batch->Draw(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP, lines, CircleVertexCount);
+}
+
 void Circle::Transform(Circle& ShapeToUpdate, const Transform2D& transform)
 {
 	const Vec2 scale = transform.GetScale();
-	assert(MathUtil::equalWithEpsilon(scale.x, scale.y, MathUtil::EPS));
-	ShapeToUpdate.m_radius = m_radius * scale.x;
+	float maxScale = std::max(scale.x, scale.y);
+	ShapeToUpdate.m_radius = m_radius * maxScale;
 	ShapeToUpdate.m_center = transform.Apply(m_center);
 }

@@ -8,26 +8,27 @@
 
 PlayerBar::PlayerBar()
 {
-	Shape<AABB>* box = new Shape<AABB>;
-	box->m_originalShape.m_min = Vec2(-50, -50);
-	box->m_originalShape.m_max = Vec2(50, 50);
-	CollisionComponent* cc = new CollisionComponent(box);
-	AddComponent(cc);
-
-	Sprite* sprite = Sprite::Load(L"Assets/cat.png");
+	Sprite* sprite = Sprite::Load(L"Assets/player_bar.png");
 	VisualComponent* vc = new VisualComponent(sprite);
 	AddComponent(vc);
 
+	Shape<AABB>* box = new Shape<AABB>;
+	box->m_originalShape.m_min = Vec2(-70, -16);
+	box->m_originalShape.m_max = Vec2(70, 16);
+	CollisionComponent* cc = new CollisionComponent(box);
+	cc->SetShapeColor(DirectX::Colors::Yellow);
+	AddComponent(cc);
+
+	SetSpeed(160.f);
 }
 
 void PlayerBar::Update(float deltaTime)
 {
-	Vec2 NewSpeed;
-	NewSpeed.x = float(InputHandler::Instance()->IsKeyDown(ArkanoidKeyboardInput::ARROW_RIGHT) - InputHandler::Instance()->IsKeyDown(ArkanoidKeyboardInput::ARROW_LEFT));
-	NewSpeed.x *= 100; //TODO Replace
-	SetSpeed(NewSpeed);
+	Vec2 NewVelocity;
+	NewVelocity.x = float(InputHandler::Instance()->IsKeyDown(ArkanoidKeyboardInput::ARROW_RIGHT) - InputHandler::Instance()->IsKeyDown(ArkanoidKeyboardInput::ARROW_LEFT));
+	SetVelocity(NewVelocity);
 	
-	if(CanMove(GetPosition() + NewSpeed * deltaTime))
+	if(CanMove(GetPosition() + NewVelocity * deltaTime * GetSpeed()))
 	{
 		MovableObject::Update(deltaTime);
 	}

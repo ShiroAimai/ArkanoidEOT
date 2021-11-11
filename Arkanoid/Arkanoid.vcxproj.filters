@@ -134,6 +134,7 @@
     <ClInclude Include="GameplayObject.h">
       <Filter>App\Gameplay\GameplayObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Ball.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -213,12 +214,19 @@
     <ClCompile Include="GameplayObject.cpp">
       <Filter>App\Gameplay\GameplayObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Ball.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="directx.ico">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\cat.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\ball.png">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
@@ -229,5 +237,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Assets\courier.spritefont">
+      <Filter>Assets</Filter>
+    </None>
   </ItemGroup>
 </Project>

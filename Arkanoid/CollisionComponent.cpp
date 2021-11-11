@@ -5,7 +5,7 @@
 
 bool CollisionComponent::ShouldRenderCollision = false;
 
-CollisionComponent::CollisionComponent(BaseShape* shape) : m_shape(shape)
+CollisionComponent::CollisionComponent(BaseShape* shape) : m_shape(shape), m_shapeColor(DirectX::Colors::Red)
 {
 	SetRenderLayer(10);
 	SetUpdatePriority(1);
@@ -28,7 +28,7 @@ void CollisionComponent::Render(const RendererData& Renderer)
 {
 	if (ShouldRenderCollision)
 	{
-		m_shape->Draw(Renderer.m_primitiveBatch);
+		m_shape->Draw(Renderer.m_primitiveBatch, m_shapeColor);
 	}
 }
 

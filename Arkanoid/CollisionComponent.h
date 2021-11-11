@@ -7,6 +7,7 @@ class BaseShape;
 class CollisionComponent : public BaseComponent
 {
 public:
+	using ShapeColor = DirectX::XMVECTORF32;
 	static bool ShouldRenderCollision;
 
 	CollisionComponent(BaseShape* shape);
@@ -21,8 +22,11 @@ public:
 
 	BaseShape* GetShape() const;
 	
+	void SetShapeColor(ShapeColor Color) {m_shapeColor = Color;}
+	ShapeColor GetShapeColor() const { return m_shapeColor; }
 private:
 	BaseShape* m_shape;
+	ShapeColor m_shapeColor;
 	std::vector<BaseObject*> m_collisions;
 	std::vector<BaseObject*> m_ignoredObjects;
 };

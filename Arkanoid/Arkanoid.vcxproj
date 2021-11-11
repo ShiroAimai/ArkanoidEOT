@@ -170,6 +170,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Ball.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="BaseLevel.h" />
     <ClInclude Include="BaseObject.h" />
@@ -200,6 +201,7 @@
     <ClInclude Include="WorldHelper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="BaseLevel.cpp" />
     <ClCompile Include="BaseObject.cpp" />
@@ -237,12 +239,15 @@
     <ResourceCompile Include="resource.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\ball.png" />
+    <Image Include="Assets\cat.png" />
     <Image Include="directx.ico" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="settings.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\courier.spritefont" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -59,19 +59,20 @@ const Vec2 InputHandler::GetMousePosition() const
 bool InputHandler::IsKeyDown(ArkanoidKeyboardInput input) const
 {
 	if (input >= ArkanoidKeyboardInput::INPUT_COUNT) return false;
+	auto kb = m_keyboard->GetState();
 
 	switch (input)
 	{
 	case ArkanoidKeyboardInput::ARROW_LEFT:
-		return m_keys.pressed.Left;
+		return kb.Left;
 	case ArkanoidKeyboardInput::ARROW_RIGHT:
-		return m_keys.pressed.Right;
+		return kb.Right;
 	case ArkanoidKeyboardInput::SPACE_BAR:
-		return m_keys.pressed.Space;
+		return kb.Space;
 	case ArkanoidKeyboardInput::ESCAPE:
-		return m_keys.pressed.Escape;
+		return kb.Escape;
 	case ArkanoidKeyboardInput::C:
-		return m_keys.pressed.C;
+		return kb.C;
 	}
 
 	return false;

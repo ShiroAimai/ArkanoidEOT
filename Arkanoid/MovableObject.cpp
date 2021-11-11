@@ -3,7 +3,7 @@
 #include "CollisionComponent.h"
 #include "Collision.h"
 
-MovableObject::MovableObject() : m_speed(Vec2::Zero), m_collisionCompRef(nullptr)
+MovableObject::MovableObject() : m_velocity(Vec2::Zero), m_speed(1.f), m_collisionCompRef(nullptr)
 {
 
 }
@@ -16,7 +16,7 @@ void MovableObject::Init(GameState* GameState)
 
 void MovableObject::Update(float deltaTime)
 {
-	SetPosition(GetPosition() + (GetSpeed() * deltaTime));
+	SetPosition(GetPosition() + (GetVelocity() * deltaTime * GetSpeed()));
 	GameplayObject::Update(deltaTime);
 }
 
