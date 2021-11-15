@@ -21,7 +21,8 @@ public:
 	std::vector<BaseObject*>& GetCollisions();
 
 	BaseShape* GetShape() const;
-	
+	Vec2 GetCollisionNormalWithObject(BaseObject* OtherObject, const Vec2& Velocity) const;
+
 	void SetShapeColor(ShapeColor Color) {m_shapeColor = Color;}
 	ShapeColor GetShapeColor() const { return m_shapeColor; }
 private:
@@ -30,4 +31,5 @@ private:
 	std::vector<BaseObject*> m_collisions;
 	std::vector<BaseObject*> m_ignoredObjects;
 };
+
 

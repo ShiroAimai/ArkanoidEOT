@@ -4,10 +4,12 @@ enum class ArkanoidKeyboardInput
 {
 	ARROW_LEFT = 0,
 	ARROW_RIGHT = 1,
-	SPACE_BAR = 2,
-	ESCAPE = 3,
-	C = 4,
-	INPUT_COUNT = 5
+	ARROW_DOWN = 2,
+	ARROW_UP = 3,
+	SPACE_BAR = 4,
+	ESCAPE = 5,
+	C = 6,
+	INPUT_COUNT = 7
 };
 
 enum class ArkanoidMouseInput

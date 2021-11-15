@@ -12,7 +12,7 @@ void Level1::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 	GameObjects.push_back(player);
 	
 	Ball* ball = new Ball;
-	ball->SetPosition(Vec2(0, -200));
+	ball->SetPosition(Vec2(-200, -200));
 	GameObjects.push_back(ball);
 
 	RECT bounds = WorldHelper::Instance()->GetGameBounds();

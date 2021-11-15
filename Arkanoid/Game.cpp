@@ -214,8 +214,10 @@ void Game::CreateWindowSizeDependentResources()
 {
     // TODO: Initialize windows-size dependent objects here.
 	auto size = m_deviceResources->GetOutputSize();
-	WorldHelper::Instance()->SetWorldMatrix(Matrix::CreateTranslation(float(size.right) / 2.f, float(size.bottom) / 2.f, 0.f));
-    
+	
+    Matrix m_world = Matrix::CreateTranslation(float(size.right) / 2.f, float(size.bottom) / 2.f, 0.f);
+    WorldHelper::Instance()->SetWorldMatrix(m_world);
+
     RECT CurrentGameBounds = WorldHelper::Instance()->GetGameBounds();
 
     RECT GameBounds;

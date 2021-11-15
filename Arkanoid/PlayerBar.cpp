@@ -5,6 +5,7 @@
 #include "VisualComponent.h"
 #include "Collision.h"
 #include "CollisionComponent.h"
+#include "Ball.h"
 
 PlayerBar::PlayerBar()
 {

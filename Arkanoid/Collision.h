@@ -11,7 +11,43 @@ struct AABB
 
 	void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch, DirectX::XMVECTORF32 Color);
 	void Transform(AABB& ShapeToUpdate, const Transform2D& transform);
+	
+	template<class T>
+	Vec2 GetCollisionNormal(const T& OtherShape, const Vec2& Velocity) const;
 };
+
+template<class T>
+inline Vec2 AABB::GetCollisionNormal(const T& OtherShape, const Vec2& Velocity) const
+{
+	Line top(m_min, Vec2(m_max.x, m_min.y));
+	Line left(Vec2(m_min.x, m_max.y), m_min);
+	Line right(m_max, Vec2(m_max.x, m_min.y));
+	Line bottom(Vec2(m_min.x, m_max.y), m_max);
+
+	Vec2 Normal = Vec2::Zero;
+
+	if (::intersect(OtherShape, top))
+	{
+		Normal += -Vec2::UnitY;
+	}
+	
+	if (::intersect(OtherShape, bottom))
+	{
+		Normal += Vec2::UnitY;
+	}
+
+	if (::intersect(OtherShape, left))
+	{
+		Normal += -Vec2::UnitX;
+	}
+
+	if (::intersect(OtherShape, right))
+	{
+		Normal += Vec2::UnitX;
+	}
+
+	return Normal;
+}
 
 struct Circle
 {
@@ -23,7 +59,16 @@ struct Circle
 
 	void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch, DirectX::XMVECTORF32 Color);
 	void Transform(Circle& ShapeToUpdate, const Transform2D& transform);
+	
+	template<class T>
+	Vec2 GetCollisionNormal(const T& OtherShape, const Vec2& Velocity) const;
 };
+
+template<class T>
+inline Vec2 Circle::GetCollisionNormal(const T& OtherShape, const Vec2& Velocity) const
+{
+	return Vec2(-Velocity.x, -Velocity.y);
+}
 
 struct Line
 {
@@ -34,7 +79,24 @@ struct Line
 
 	void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch, DirectX::XMVECTORF32 Color);
 	void Transform(Line& ShapeToUpdate, const Transform2D& transform);
+	
+	template<class T>
+	Vec2 GetCollisionNormal(const T& OtherShape, const Vec2& Velocity) const;
 };
+
+template<class T>
+inline Vec2 Line::GetCollisionNormal(const T& OtherShape, const Vec2& Velocity) const
+{
+	Vec2 line = m_p1 - m_p0;
+	line.Normalize();
+
+	const Vec2 n1 = line.Ortho();
+	if (Velocity.Dot(n1) < 0.f) return n1;
+	const Vec2 n2 = line.OrthoR();
+	if (Velocity.Dot(n2) < 0.f) return n2;
+
+	return Vec2::Zero;
+}
 
 bool inside(const AABB& b0, const Vec2& p1);
 
@@ -51,6 +113,7 @@ inline bool intersect(const Circle& c0, const AABB& b1) { return intersect(b1, c
 inline bool intersect(const Line& l0, const Circle& c1) { return intersect(c1, l0); }
 inline bool intersect(const Line& l0, const AABB& b1) { return intersect(b1, l0); }
 
+
 class BaseShape {
 public:
 	virtual ~BaseShape() {};
@@ -58,6 +121,11 @@ public:
 	virtual bool intersect(const Circle& c1) const = 0;
 	virtual bool intersect(const Line& l1) const = 0;
 	virtual bool intersect(const BaseShape& other) const = 0;
+
+	virtual Vec2 GetCollisionNormal(const AABB& OtherShape, const Vec2& Velocity) const = 0;
+	virtual Vec2 GetCollisionNormal(const Circle& OtherShape, const Vec2& Velocity) const = 0;
+	virtual Vec2 GetCollisionNormal(const Line& OtherShape, const Vec2& Velocity) const = 0;
+	virtual Vec2 GetCollisionNormal(const BaseShape& OtherShape, const Vec2& Velocity) const = 0;
 
 	virtual void Transform(const Transform2D& transform) = 0;
 
@@ -102,4 +170,25 @@ public:
 		m_updatedShape.Draw(Batch, Color);
 	}
 
+	virtual Vec2 GetCollisionNormal(const AABB& OtherShape, const Vec2& Velocity) const override
+	{
+		return m_updatedShape.GetCollisionNormal<AABB>(OtherShape, Velocity);
+	}
+
+	virtual Vec2 GetCollisionNormal(const Circle& OtherShape, const Vec2& Velocity) const override
+	{
+		return m_updatedShape.GetCollisionNormal<Circle>(OtherShape, Velocity);
+	}
+	
+	virtual Vec2 GetCollisionNormal(const Line& OtherShape, const Vec2& Velocity) const override
+	{
+		return m_updatedShape.GetCollisionNormal<Line>(OtherShape, Velocity);
+	}
+
+	virtual Vec2 GetCollisionNormal(const BaseShape& OtherShape, const Vec2& Velocity) const override
+	{
+		if(!intersect(OtherShape)) return Vec2::Zero;
+		
+		return OtherShape.GetCollisionNormal(m_updatedShape, Velocity);
+	}
 };

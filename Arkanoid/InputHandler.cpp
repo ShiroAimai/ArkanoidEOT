@@ -67,6 +67,10 @@ bool InputHandler::IsKeyDown(ArkanoidKeyboardInput input) const
 		return kb.Left;
 	case ArkanoidKeyboardInput::ARROW_RIGHT:
 		return kb.Right;
+	case ArkanoidKeyboardInput::ARROW_UP:
+		return kb.Up;
+	case ArkanoidKeyboardInput::ARROW_DOWN:
+		return kb.Down;
 	case ArkanoidKeyboardInput::SPACE_BAR:
 		return kb.Space;
 	case ArkanoidKeyboardInput::ESCAPE:

@@ -64,3 +64,14 @@ BaseShape* CollisionComponent::GetShape() const
 {
 	return m_shape;
 }
+
+Vec2 CollisionComponent::GetCollisionNormalWithObject(BaseObject* OtherObject, const Vec2& Velocity) const
+{
+	if (std::find(m_collisions.begin(), m_collisions.end(), OtherObject) == m_collisions.end())
+		return Vec2::Zero; // non valid collision normal
+	
+	CollisionComponent* OtherComp = OtherObject->GetComponent<CollisionComponent>();
+	
+	return OtherComp != nullptr ? m_shape->GetCollisionNormal(*OtherComp->GetShape(), Velocity) : Vec2::Zero;
+}
+

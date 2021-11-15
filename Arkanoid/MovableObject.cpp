@@ -16,7 +16,8 @@ void MovableObject::Init(GameState* GameState)
 
 void MovableObject::Update(float deltaTime)
 {
-	SetPosition(GetPosition() + (GetVelocity() * deltaTime * GetSpeed()));
+	Vec2 NewPos = GetPosition() + (GetVelocity() * deltaTime * GetSpeed());
+	SetPosition(NewPos);
 	GameplayObject::Update(deltaTime);
 }
 
