@@ -24,16 +24,13 @@ Ball::Ball()
 	SetVelocity(Vec2(0.5f, 0.5f));
 }
 
-void Ball::Update(float deltaTime)
+void Ball::FixedUpdate()
 {
+	MovableObject::FixedUpdate();
+	
 	if (mCollisionComponent)
 	{
-		Vec2 NewPosition = GetPosition() + GetVelocity() * deltaTime * GetSpeed();
-		Transform2D MovementProjTrans;
-		MovementProjTrans.Set(NewPosition, GetAngle(), GetScale());
-		//temporary move collision shape to new position in order to test collisions there
-		mCollisionComponent->GetShape()->Transform(MovementProjTrans);
-		std::vector<BaseObject*>& collisions = mCollisionComponent->GetCollisions();
+		std::vector<BaseObject*> collisions = mCollisionComponent->GetCollisions();
 
 		if (collisions.size() > 0)
 		{
@@ -44,20 +41,22 @@ void Ball::Update(float deltaTime)
 				Vec2 CurrentVelocity = GetVelocity();
 				CurrentVelocity.Normalize();
 
-				FirstCollisionObjectCc->GetCollisions(); //make sure collision are updated without waiting for update call
+				FirstCollisionObjectCc->FixedUpdate(); //make sure collision are updated without waiting for update call
 				Vec2 CollisionNormal = mCollisionComponent->GetCollisionNormalWithObject(FirstCollisionObject, CurrentVelocity);
 				CollisionNormal.Normalize();
 
-				Vec2 NewVelocity = CurrentVelocity - 2.f * (CurrentVelocity.Dot(CollisionNormal) * CollisionNormal); //law of reflection
-				SetVelocity(NewVelocity); 
+				Vec2 ReflectedVelocity = CurrentVelocity - 2.f * (CurrentVelocity.Dot(CollisionNormal) * CollisionNormal); //law of reflection
+
+				MovableObject* FirstCollisionObjectAsMovable = dynamic_cast<MovableObject*>(FirstCollisionObject);
+				if (FirstCollisionObjectAsMovable)
+				{
+					ReflectedVelocity += FirstCollisionObjectAsMovable->GetVelocity();
+				}
+
+				SetVelocity(ReflectedVelocity);
 			}
 		}
-
-		//move back to its original position the collision shape
-		MovementProjTrans.SetTranslation(GetPosition());
-		mCollisionComponent->GetShape()->Transform(MovementProjTrans);
 	}
-	MovableObject::Update(deltaTime);
-
 }
+
 

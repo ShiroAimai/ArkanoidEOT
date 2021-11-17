@@ -8,7 +8,7 @@ class Ball : public MovableObject
 public:
 	Ball();
 
-	virtual void Update(float deltaTime) override;
+	virtual void FixedUpdate() override;
 private:
 	CollisionComponent* mCollisionComponent;
 };

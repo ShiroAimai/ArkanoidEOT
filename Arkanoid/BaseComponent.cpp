@@ -32,6 +32,11 @@ void BaseComponent::Render(const RendererData& Renderer)
 
 }
 
+void BaseComponent::FixedUpdate()
+{
+
+}
+
 void BaseComponent::Update(float deltaTime)
 {
 

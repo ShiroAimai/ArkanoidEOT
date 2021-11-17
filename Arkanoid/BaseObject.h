@@ -19,6 +19,7 @@ public:
 
 	virtual void Init(GameState* GameState);
 	virtual void Uninit();
+	virtual void FixedUpdate();
 	virtual void Update(float deltaTime);
 	virtual void Render(std::vector<BaseComponent*>& RenderableSprites, std::vector<BaseComponent*>& RenderablePrimitives);
 

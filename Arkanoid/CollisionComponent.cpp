@@ -32,12 +32,21 @@ void CollisionComponent::Render(const RendererData& Renderer)
 	}
 }
 
+void CollisionComponent::FixedUpdate()
+{
+	m_collisions.clear();
+	if (m_shape)
+	{
+		std::vector<BaseObject*> ObjectsToIgnore;
+		ObjectsToIgnore.push_back(m_parent);
+
+		m_parent->GetGameState<GameState>()->FindCollisions(*this, &m_collisions, &ObjectsToIgnore);
+	}
+}
+
 void CollisionComponent::Update(float deltaTime)
 {
 	m_shape->Transform(m_parent->GetTransform());
-
-	m_collisions.clear();
-	GetCollisions();
 }
 
 bool CollisionComponent::Intersect(const CollisionComponent& other) const
@@ -49,14 +58,7 @@ bool CollisionComponent::Intersect(const CollisionComponent& other) const
 }
 
 std::vector<BaseObject*>& CollisionComponent::GetCollisions()
-{
-	if (m_shape)
-	{
-		std::vector<BaseObject*> ObjectsToIgnore;
-		ObjectsToIgnore.push_back(m_parent);
-
-		m_parent->GetGameState<GameState>()->FindCollisions(*this, &m_collisions, &ObjectsToIgnore);
-	}
+{	
 	return m_collisions;
 }
 
@@ -73,5 +75,29 @@ Vec2 CollisionComponent::GetCollisionNormalWithObject(BaseObject* OtherObject, c
 	CollisionComponent* OtherComp = OtherObject->GetComponent<CollisionComponent>();
 	
 	return OtherComp != nullptr ? m_shape->GetCollisionNormal(*OtherComp->GetShape(), Velocity) : Vec2::Zero;
+}
+
+bool CollisionComponent::FindCollisionsInPosition(const Vec2& Position, std::vector<BaseObject*>* Collisions /*= nullptr*/, std::vector<BaseObject*>* Ignores /*= nullptr*/)
+{
+	Transform2D MovementProjTrans;
+	MovementProjTrans.Set(Position, m_parent->GetAngle(), m_parent->GetScale());
+	//temporary move collision shape to new position in order to test collisions there
+	m_shape->Transform(MovementProjTrans);
+
+	if (m_shape)
+	{
+		if (Ignores && std::find(Ignores->begin(), Ignores->end(), m_parent) == Ignores->end())
+		{
+			Ignores->push_back(m_parent);
+		}
+
+		m_parent->GetGameState<GameState>()->FindCollisions(*this, Collisions, Ignores);
+	}
+
+	//move back to its original position the collision shape
+	MovementProjTrans.SetTranslation(m_parent->GetPosition());
+	m_shape->Transform(MovementProjTrans);
+
+	return Collisions && Collisions->size() > 0;
 }
 

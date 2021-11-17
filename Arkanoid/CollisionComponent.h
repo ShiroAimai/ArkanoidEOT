@@ -15,6 +15,7 @@ public:
 
 	virtual void Init() override;
 	virtual void Render(const RendererData& Renderer) override;
+	virtual void FixedUpdate() override;
 	virtual void Update(float deltaTime) override;
 
 	bool Intersect(const CollisionComponent& other) const;
@@ -22,6 +23,7 @@ public:
 
 	BaseShape* GetShape() const;
 	Vec2 GetCollisionNormalWithObject(BaseObject* OtherObject, const Vec2& Velocity) const;
+	bool FindCollisionsInPosition(const Vec2& Position, std::vector<BaseObject*>* Collisions = nullptr, std::vector<BaseObject*>* Ignores = nullptr);
 
 	void SetShapeColor(ShapeColor Color) {m_shapeColor = Color;}
 	ShapeColor GetShapeColor() const { return m_shapeColor; }

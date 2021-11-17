@@ -13,7 +13,11 @@ public:
 	virtual bool CanMove(const Vec2& NewPosition) const;
 
 	Vec2 GetVelocity() const { return m_velocity; };
-	void SetVelocity(const Vec2& NewVelocity) { m_velocity = NewVelocity; };
+	void SetVelocity(const Vec2& NewVelocity) 
+	{ 
+		m_velocity = NewVelocity; 
+		m_velocity.Normalize();
+	};
 	float GetSpeed() const { return m_speed; };
 	void SetSpeed(float NewSpeed) { m_speed = NewSpeed; };
 private:

@@ -23,6 +23,7 @@ public:
 
 	virtual void Render(const RendererData& Renderer);
 
+	virtual void FixedUpdate();
 	virtual void Update(float deltaTime);
 	virtual void OnCreateResources();
 	virtual void OnReleaseResources();

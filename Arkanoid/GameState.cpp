@@ -46,6 +46,12 @@ void GameState::Render(const RendererData& Renderer)
 	Renderer.m_spriteBatch->End();
 }
 
+void GameState::FixedUpdate()
+{
+	for (BaseObject* Obj : m_gameObjects)
+		Obj->FixedUpdate();
+}
+
 void GameState::Update(float deltaTime)
 {
 	if(m_callbacks.size() > 0)

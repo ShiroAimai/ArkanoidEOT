@@ -26,6 +26,14 @@ void BaseObject::Uninit()
 	}
 }
 
+void BaseObject::FixedUpdate()
+{
+	for (BaseComponent* component : m_components)
+	{
+		component->FixedUpdate();
+	}
+}
+
 void BaseObject::Update(float deltaTime)
 {
 	for (BaseComponent* component : m_components)

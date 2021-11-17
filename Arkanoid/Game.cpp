@@ -52,11 +52,12 @@ void Game::Initialize(HWND window, int width, int height)
 // Executes the basic game loop.
 void Game::Tick()
 {
+    State->FixedUpdate();
+
     m_timer.Tick([&]()
     {
         Update(m_timer);
     });
-
     Render();
 }
 
