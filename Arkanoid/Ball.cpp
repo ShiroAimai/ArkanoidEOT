@@ -27,7 +27,7 @@ Ball::Ball()
 void Ball::FixedUpdate()
 {
 	MovableObject::FixedUpdate();
-	
+
 	if (mCollisionComponent)
 	{
 		std::vector<BaseObject*> collisions = mCollisionComponent->GetCollisions();
@@ -39,23 +39,16 @@ void Ball::FixedUpdate()
 			if (FirstCollisionObjectCc)
 			{
 				Vec2 CurrentVelocity = GetVelocity();
-				CurrentVelocity.Normalize();
 
-				FirstCollisionObjectCc->FixedUpdate(); //make sure collision are updated without waiting for update call
 				Vec2 CollisionNormal = mCollisionComponent->GetCollisionNormalWithObject(FirstCollisionObject, CurrentVelocity);
 				CollisionNormal.Normalize();
 
 				Vec2 ReflectedVelocity = CurrentVelocity - 2.f * (CurrentVelocity.Dot(CollisionNormal) * CollisionNormal); //law of reflection
-
-				MovableObject* FirstCollisionObjectAsMovable = dynamic_cast<MovableObject*>(FirstCollisionObject);
-				if (FirstCollisionObjectAsMovable)
-				{
-					ReflectedVelocity += FirstCollisionObjectAsMovable->GetVelocity();
-				}
-
+				
 				SetVelocity(ReflectedVelocity);
 			}
 		}
+
 	}
 }
 
