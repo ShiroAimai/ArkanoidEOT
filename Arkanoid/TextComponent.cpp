@@ -18,6 +18,11 @@ void TextComponent::Render(const RendererData& Renderer)
 {
 	Vec2 Pos = m_parent->GetPosition();
 
+	if (!m_font)
+	{
+		m_font = FontManager::Instance()->Load(m_fontName);
+	}
+
 	Vec2 origin = m_font->MeasureString(m_text.c_str());
 	origin /= 2.f;
 	origin += m_textOffset;

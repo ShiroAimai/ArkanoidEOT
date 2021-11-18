@@ -5,7 +5,7 @@
 
 bool CollisionComponent::ShouldRenderCollision = false;
 
-CollisionComponent::CollisionComponent(BaseShape* shape) : m_shape(shape), m_shapeColor(DirectX::Colors::Red)
+CollisionComponent::CollisionComponent(BaseShape* shape) : m_shape(shape), m_shapeColor(DirectX::Colors::Red), enabled(true)
 {
 	SetRenderLayer(10);
 	SetUpdatePriority(1);
@@ -47,6 +47,15 @@ void CollisionComponent::FixedUpdate()
 void CollisionComponent::Update(float deltaTime)
 {
 	m_shape->Transform(m_parent->GetTransform());
+
+	for (BaseObject* Collision : m_collisions)
+	{
+		auto it = m_callbacks.find(Collision);
+		if (it != m_callbacks.end())
+		{
+			it->second();
+		}
+	}
 }
 
 bool CollisionComponent::Intersect(const CollisionComponent& other) const
@@ -99,5 +108,19 @@ bool CollisionComponent::FindCollisionsInPosition(const Vec2& Position, std::vec
 	m_shape->Transform(MovementProjTrans);
 
 	return Collisions && Collisions->size() > 0;
+}
+
+void CollisionComponent::AddCallback(BaseObject* object, CollisionCallback callback)
+{
+	m_callbacks.insert(std::pair<BaseObject*, CollisionCallback>(object, callback));
+}
+
+void CollisionComponent::RemoveCallback(BaseObject* object)
+{
+	auto it = m_callbacks.find(object);
+	if (it != m_callbacks.end())
+	{
+		m_callbacks.erase(it);
+	}
 }
 

@@ -4,17 +4,24 @@
 #include "LevelBorder.h"
 #include "WorldHelper.h"
 #include "Ball.h"
+#include "CollisionComponent.h"
+#include "PlayState.h"
 
 
 void Level1::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 {
-	PlayerBar* player = new PlayerBar;
-	GameObjects.push_back(player);
-	
-	Ball* ball = new Ball;
+	Ball* ball = new Ball(16.5f);
+	Ball& ballref = *ball;
 	ball->SetPosition(Vec2(-200, -200));
+	ball->SetScale(Vec2(0.8f, 0.8f));
 	GameObjects.push_back(ball);
 
+	PlayerBar* player = new PlayerBar;
+	player->SetPosition(Vec2(0, 250));
+	player->StoreBall(ball);
+	GameObjects.push_back(player);
+
+	//level bounds
 	RECT bounds = WorldHelper::Instance()->GetGameBounds();
 	long halfWidth = bounds.right / 2;
 	long halfHeight = bounds.bottom / 2;
@@ -29,5 +36,9 @@ void Level1::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 	GameObjects.push_back(top);
 	LevelBorder* bottom = new LevelBorder(Vec2(-halfWidth, 0), Vec2(halfWidth, 0));
 	bottom->SetPosition(Vec2(0, halfHeight - 1));
+	bottom->GetComponent<CollisionComponent>()->AddCallback(ball, [&ballref] {
+		ballref.GetGameState<PlayState>()->GameOver();
+	});
 	GameObjects.push_back(bottom);
+
 }

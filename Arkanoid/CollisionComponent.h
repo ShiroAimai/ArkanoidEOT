@@ -1,13 +1,18 @@
 #pragma once
 #include "BaseComponent.h"
 #include <vector>
+#include <map>
+#include <functional>
 
 class BaseShape;
 
 class CollisionComponent : public BaseComponent
 {
 public:
+	using CollisionCallback = std::function<void()>;
+	using Callbacks = std::map<BaseObject*, CollisionCallback>;
 	using ShapeColor = DirectX::XMVECTORF32;
+	
 	static bool ShouldRenderCollision;
 
 	CollisionComponent(BaseShape* shape);
@@ -27,11 +32,19 @@ public:
 
 	void SetShapeColor(ShapeColor Color) {m_shapeColor = Color;}
 	ShapeColor GetShapeColor() const { return m_shapeColor; }
+
+	void AddCallback(BaseObject* object, CollisionCallback callback);
+	void RemoveCallback(BaseObject* object);
+
+public:
+	bool enabled;
+
 private:
 	BaseShape* m_shape;
 	ShapeColor m_shapeColor;
 	std::vector<BaseObject*> m_collisions;
-	std::vector<BaseObject*> m_ignoredObjects;
+
+	Callbacks m_callbacks;
 };
 
 

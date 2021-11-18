@@ -6,31 +6,30 @@
 #include "CollisionComponent.h"
 #include "InputHandler.h"
 
-Ball::Ball()
+Ball::Ball(float radius) : m_radius(radius)
 {
 	Shape<Circle>* circle = new Shape<Circle>;
 	circle->m_originalShape.m_center = Vec2(0, 0);
-	circle->m_originalShape.m_radius = 16.5f;
-	mCollisionComponent = new CollisionComponent(circle);
-	mCollisionComponent->SetShapeColor(DirectX::Colors::OrangeRed);
-	AddComponent(mCollisionComponent);
+	circle->m_originalShape.m_radius = m_radius;
+	m_collisionComp = new CollisionComponent(circle);
+	m_collisionComp->SetShapeColor(DirectX::Colors::OrangeRed);
+	AddComponent(m_collisionComp);
 
 	Sprite* sprite = Sprite::Load(L"Assets/ball.png");
-	VisualComponent* vc = new VisualComponent(sprite);
-	AddComponent(vc);
+	m_visualComp = new VisualComponent(sprite);
+	AddComponent(m_visualComp);
 
 	SetSpeed(240.f);
-
-	SetVelocity(Vec2(0.5f, 0.5f));
+	SetVelocity(Vec2(0.f, 0.f));
 }
 
 void Ball::FixedUpdate()
 {
 	MovableObject::FixedUpdate();
 
-	if (mCollisionComponent)
+	if (m_collisionComp)
 	{
-		std::vector<BaseObject*> collisions = mCollisionComponent->GetCollisions();
+		std::vector<BaseObject*> collisions = m_collisionComp->GetCollisions();
 
 		if (collisions.size() > 0)
 		{
@@ -40,7 +39,7 @@ void Ball::FixedUpdate()
 			{
 				Vec2 CurrentVelocity = GetVelocity();
 
-				Vec2 CollisionNormal = mCollisionComponent->GetCollisionNormalWithObject(FirstCollisionObject, CurrentVelocity);
+				Vec2 CollisionNormal = m_collisionComp->GetCollisionNormalWithObject(FirstCollisionObject, CurrentVelocity);
 				CollisionNormal.Normalize();
 
 				Vec2 ReflectedVelocity = CurrentVelocity - 2.f * (CurrentVelocity.Dot(CollisionNormal) * CollisionNormal); //law of reflection

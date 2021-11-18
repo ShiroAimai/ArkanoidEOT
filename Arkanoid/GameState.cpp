@@ -54,9 +54,6 @@ void GameState::FixedUpdate()
 
 void GameState::Update(float deltaTime)
 {
-	if(m_callbacks.size() > 0)
-		ExecutePendingCallbacks();
-
 	for(BaseObject* Obj : m_gameObjects)
 		Obj->Update(deltaTime);
 
@@ -80,11 +77,6 @@ void GameState::OnWindowSizeUpdate(float xRatio, float yRatio)
 {
 	for (BaseObject* Obj : m_gameObjects)
 		Obj->OnWindowSizeUpdate(xRatio, yRatio);
-}
-
-void GameState::AddCallback(Callback callback)
-{
-	m_callbacks.push_back(callback);
 }
 
 void GameState::AddGameObject(BaseObject* Object)
@@ -111,7 +103,6 @@ void GameState::RemoveGameObject(BaseObject* Object, bool ShouldDelete /* = true
 
 void GameState::Reset()
 {
-	m_callbacks.clear();
 	for (int i = 0; i < int(m_gameObjects.size()); i++)
 	{
 		BaseObject* gameObject = m_gameObjects[i];
@@ -129,10 +120,13 @@ bool GameState::FindCollisions(const CollisionComponent& RequestorComp, GameObje
 		collisions->clear();
 	}
 
+	if(!RequestorComp.enabled)
+		return false;
+
 	for (BaseObject* Obj : m_gameObjects)
 	{
 		CollisionComponent* collisionComp = Obj->GetComponent<CollisionComponent>();
-		if(!collisionComp) //object should never collide 
+		if(!collisionComp || !collisionComp->enabled) //object should never collide 
 			continue;
 		//Current Obj was added to list of objects to not consider during collision handling
 		if(ignores && std::find(ignores->begin(), ignores->end(), Obj) != ignores->end())
@@ -145,12 +139,3 @@ bool GameState::FindCollisions(const CollisionComponent& RequestorComp, GameObje
 
 	return collisions && collisions->size() > 0;
 }
-
-void GameState::ExecutePendingCallbacks()
-{
-	for (auto& cb : m_callbacks)
-		cb();
-	
-	m_callbacks.clear();
-}
-
