@@ -7,7 +7,7 @@
 #include "CollisionComponent.h"
 #include "Ball.h"
 
-PlayerBar::PlayerBar() : m_storedBall(nullptr), m_storedBallAttachOffset(Vec2(0, 0))
+PlayerBar::PlayerBar() : m_storedBall(nullptr), m_storedBallAttachOffset(Vec2::Zero)
 {
 	Sprite* sprite = Sprite::Load(L"Assets/player_bar.png");
 	m_visualComp = new VisualComponent(sprite);
@@ -28,11 +28,8 @@ void PlayerBar::Update(float deltaTime)
 	Vec2 NewVelocity;
 	NewVelocity.x = float(InputHandler::Instance()->IsKeyDown(ArkanoidKeyboardInput::ARROW_RIGHT) - InputHandler::Instance()->IsKeyDown(ArkanoidKeyboardInput::ARROW_LEFT));
 	SetVelocity(NewVelocity);
-	
-	if(CanMove(GetPosition() + NewVelocity * deltaTime * GetSpeed()))
-	{
-		MovableObject::Update(deltaTime);
-	}
+
+	MovableObject::Update(deltaTime);
 
 	bool ShouldLaunchBall = InputHandler::Instance()->IsKeyPressed(ArkanoidKeyboardInput::SPACE_BAR);
 	if (m_storedBall && ShouldLaunchBall)

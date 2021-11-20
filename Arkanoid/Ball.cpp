@@ -5,6 +5,8 @@
 #include "Collision.h"
 #include "CollisionComponent.h"
 #include "InputHandler.h"
+#include "Util.h"
+#include <iostream>
 
 Ball::Ball(float radius) : m_radius(radius)
 {
@@ -19,12 +21,13 @@ Ball::Ball(float radius) : m_radius(radius)
 	m_visualComp = new VisualComponent(sprite);
 	AddComponent(m_visualComp);
 
-	SetSpeed(240.f);
-	SetVelocity(Vec2(0.f, 0.f));
+	SetSpeed(250.f);
+	SetVelocity(Vec2::Zero);
 }
 
 void Ball::FixedUpdate()
 {
+	// evaluate collisions
 	MovableObject::FixedUpdate();
 
 	if (m_collisionComp)
@@ -33,22 +36,33 @@ void Ball::FixedUpdate()
 
 		if (collisions.size() > 0)
 		{
-			BaseObject* FirstCollisionObject = collisions[0];
-			CollisionComponent* FirstCollisionObjectCc = FirstCollisionObject->GetComponent<CollisionComponent>();
-			if (FirstCollisionObjectCc)
+			Vec2 ReflectedVelocity = Vec2::Zero;
+
+			for (BaseObject* collision : collisions)
 			{
-				Vec2 CurrentVelocity = GetVelocity();
+				CollisionComponent* collissionCc = collision->GetComponent<CollisionComponent>();
+				if (collissionCc)
+				{
+					Vec2 CurrentVelocity = ReflectedVelocity.Equals(Vec2::Zero) ? GetVelocity() : ReflectedVelocity;
 
-				Vec2 CollisionNormal = m_collisionComp->GetCollisionNormalWithObject(FirstCollisionObject, CurrentVelocity);
-				CollisionNormal.Normalize();
+					Vec2 CollisionNormal = m_collisionComp->GetCollisionNormalWithObject(collision, CurrentVelocity);
+					CollisionNormal.Normalize();
 
-				Vec2 ReflectedVelocity = CurrentVelocity - 2.f * (CurrentVelocity.Dot(CollisionNormal) * CollisionNormal); //law of reflection
-				
-				SetVelocity(ReflectedVelocity);
+					const float ReflectionQuantity = CurrentVelocity.Dot(CollisionNormal);
+					
+					ReflectedVelocity += CurrentVelocity - 2.f * (ReflectionQuantity * CollisionNormal); //law of reflection			
+
+					if (MovableObject* Movable = dynamic_cast<MovableObject*>(collision))
+					{
+						ReflectedVelocity += 0.45f * Movable->GetVelocity();
+					}
+
+					std::string out = "Velocity X" + std::to_string(ReflectedVelocity.x) + "Y " + std::to_string(ReflectedVelocity.y);
+					OutputDebugStringA(out.c_str());
+					SetVelocity(ReflectedVelocity);
+				}
 			}
 		}
-
 	}
 }
-
 

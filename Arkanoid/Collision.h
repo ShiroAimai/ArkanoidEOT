@@ -67,7 +67,8 @@ struct Circle
 template<class T>
 inline Vec2 Circle::GetCollisionNormal(const T& OtherShape, const Vec2& Velocity) const
 {
-	return Vec2(-Velocity.x, -Velocity.y);
+	//return Vec2(-Velocity.x, -Velocity.y);
+	return Vec2::Zero;
 }
 
 struct Line
@@ -98,7 +99,10 @@ inline Vec2 Line::GetCollisionNormal(const T& OtherShape, const Vec2& Velocity) 
 	return Vec2::Zero;
 }
 
-bool inside(const AABB& b0, const Vec2& p1);
+bool inside(const AABB& b, const Vec2& p);
+bool inside(const Circle& c, const Vec2& p);
+bool inside(const Line& l, const Vec2& p);
+
 
 bool intersect(const AABB& b0, const AABB& b1);
 bool intersect(const AABB& b0, const Circle& c1);
@@ -127,6 +131,8 @@ public:
 	virtual Vec2 GetCollisionNormal(const Line& OtherShape, const Vec2& Velocity) const = 0;
 	virtual Vec2 GetCollisionNormal(const BaseShape& OtherShape, const Vec2& Velocity) const = 0;
 
+	virtual bool Inside(const Vec2& p) const = 0;
+
 	virtual void Transform(const Transform2D& transform) = 0;
 
 	virtual void Draw(DirectX::PrimitiveBatch<DirectX::VertexPositionColor>* Batch, DirectX::XMVECTORF32 Color) = 0;
@@ -145,6 +151,11 @@ public:
 		m_originalShape.Transform(m_updatedShape, transform);
 	}
 
+	virtual bool Inside(const Vec2& p) const override
+	{
+		return ::inside(m_updatedShape, p);
+	}
+		
 	virtual bool intersect(const AABB& b1) const override
 	{
 		return ::intersect(m_updatedShape, b1);

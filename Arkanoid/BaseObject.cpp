@@ -9,6 +9,15 @@ BaseObject::BaseObject()
 	m_transform.SetIdentity();
 }
 
+BaseObject::~BaseObject()
+{
+	for (BaseComponent* comp : m_components)
+	{
+		delete comp;
+	}
+	m_components.clear();
+}
+
 void BaseObject::Init(GameState* GameState)
 {
 	m_gameState = GameState;
@@ -101,13 +110,4 @@ void BaseObject::AddComponent(BaseComponent* component)
 void BaseObject::SetGameState(GameState* gameState)
 {
 	m_gameState = gameState; 
-}
-
-BaseObject::~BaseObject()
-{
-	for (BaseComponent* comp : m_components)
-	{
-		delete comp;
-	}
-	m_components.clear();
 }

@@ -29,6 +29,21 @@ bool inside(const AABB& b0, const Vec2& p1)
 		b0.m_min.y <= p1.y && p1.y <= b0.m_max.y;
 }
 
+bool inside(const Circle& c, const Vec2& p)
+{
+	return (p - c.m_center).LengthSquared() <= MathUtil::sqr(c.m_radius);
+}
+
+bool inside(const Line& l, const Vec2& p)
+{
+	Vec2 v0 = l.m_p1 - l.m_p0;
+	float t = v0.Dot(p - l.m_p0) / v0.Dot(v0);
+	Vec2 closest = l.m_p0 + v0 * t;
+	if (!closest.Equals(p))
+		return false;
+	return 0.0f <= t && t <= 1.0f;
+}
+
 bool intersect(const AABB& b0, const AABB& b1)
 {
 	return !(b0.m_min.x > b1.m_max.x || b0.m_max.x < b1.m_min.x ||

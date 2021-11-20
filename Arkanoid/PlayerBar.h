@@ -9,6 +9,7 @@ class PlayerBar : public MovableObject
 {
 public:
 	PlayerBar();
+	
 	virtual void Update(float deltaTime) override;
 
 	bool StoreBall(Ball* ball);

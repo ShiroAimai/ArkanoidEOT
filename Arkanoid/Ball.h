@@ -12,7 +12,11 @@ public:
 	virtual void FixedUpdate() override;
 
 	void SetRadius(float radius) { m_radius = radius; }
-	float GetRadius() const { return m_radius;}
+	float GetRadius() const { 
+		Vec2 Scale = GetScale();
+		assert(Scale.x == Scale.y);
+		return m_radius * Scale.x;
+	}
 private:
 	float m_radius;
 	VisualComponent* m_visualComp;

@@ -20,6 +20,8 @@ public:
 	};
 	float GetSpeed() const { return m_speed; };
 	void SetSpeed(float NewSpeed) { m_speed = NewSpeed; };
+	
+	bool IsStandingStill() const;
 private:
 	Vec2 m_velocity;
 	float m_speed;
