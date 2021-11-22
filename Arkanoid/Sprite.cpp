@@ -63,14 +63,17 @@ Sprite::Sprite() noexcept
 
 }
 
-void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, const Vec2& origin, float rotation, const Vec2& scale, float RenderLayer)
+void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, const Vec2& origin, float rotation, const Vec2& scale, float RenderLayer, DirectX::XMVECTORF32 color /* = DirectX::Colors::White*/)
 {
-	Render(batch, ScreenPosition, m_currentFrame, origin, rotation, scale, RenderLayer);
+	Render(batch, ScreenPosition, m_currentFrame, origin, rotation, scale, RenderLayer, color);
 }
 
-void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int frame, const Vec2& origin, float rotation, const Vec2& scale, float RenderLayer)
+void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int frame, const Vec2& origin, float rotation, const Vec2& scale, float RenderLayer, DirectX::XMVECTORF32 color /* = DirectX::Colors::White*/)
 {
-	if(!m_texture) return;
+	if (!m_texture)
+	{
+		CreateSprite(m_path);
+	}
 
 	int frameWidth = m_textureWidth / m_frameCount;
 
@@ -80,7 +83,13 @@ void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int
 	sourceRect.right = sourceRect.left + frameWidth;
 	sourceRect.bottom = m_textureHeigth;
 
-	batch->Draw(m_texture->GetTexture(), ScreenPosition, &sourceRect, DirectX::Colors::White, rotation, origin, scale, DirectX::SpriteEffects_None, RenderLayer);
+	float halfWidth = m_textureWidth / 2.f;
+	float halfHeight = m_textureHeigth / 2.f;
+	Vec2 AdjustedScreenPos = ScreenPosition;
+	AdjustedScreenPos.x -= halfWidth * scale.x;
+	AdjustedScreenPos.y -= halfHeight * scale.y;
+
+	batch->Draw(m_texture->GetTexture(), AdjustedScreenPos, &sourceRect, color, rotation, origin, scale, DirectX::SpriteEffects_None, RenderLayer);
 }
 
 void Sprite::Update(float deltaTime)
@@ -118,12 +127,12 @@ void Sprite::Reset()
 	m_elapsedTime = 0.f;
 }
 
-void Sprite::OnCreateResources()
+void Sprite::CreateResources()
 {
 	CreateSprite(m_path);
 }
 
-void Sprite::OnReleaseResources()
+void Sprite::ReleaseResources()
 {
 	m_texture.reset();
 }

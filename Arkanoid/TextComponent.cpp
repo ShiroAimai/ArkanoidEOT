@@ -43,12 +43,12 @@ void TextComponent::Render(const RendererData& Renderer)
 	m_font->DrawString(Renderer.m_spriteBatch, m_text.c_str(), Pos, m_foreground, angleInRad, origin, Scale, DirectX::SpriteEffects::SpriteEffects_None, GetRenderLayer());
 }
 
-void TextComponent::OnCreateResources()
+void TextComponent::CreateResources()
 {
 	m_font = FontManager::Instance()->Load(m_fontName);
 }
 
-void TextComponent::OnReleaseResources()
+void TextComponent::ReleaseResources()
 {
 	m_font.reset();
 }

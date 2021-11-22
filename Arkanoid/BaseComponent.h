@@ -25,8 +25,8 @@ public:
 	virtual void FixedUpdate();
 	virtual void Update(float deltaTime);
 
-	virtual void OnCreateResources() {};
-	virtual void OnReleaseResources() {};
+	virtual void CreateResources() {};
+	virtual void ReleaseResources() {};
 
 	RenderMode GetRenderMode() const { return m_renderMode; }
 	//Contained in interval [0, 1]

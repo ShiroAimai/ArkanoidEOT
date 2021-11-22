@@ -15,12 +15,12 @@ GameState::~GameState()
 	}
 
 	m_gameObjects.clear();
-}	
+}
 
 void GameState::Render(const RendererData& Renderer)
 {
 	std::vector<BaseComponent*> renderableSprites, renderablePrimitives;
-	for(BaseObject* Obj : m_gameObjects)
+	for (BaseObject* Obj : m_gameObjects)
 		Obj->Render(renderableSprites, renderablePrimitives);
 
 	Renderer.m_primitiveBatch->Begin();
@@ -54,23 +54,29 @@ void GameState::FixedUpdate()
 
 void GameState::Update(float deltaTime)
 {
-	for(BaseObject* Obj : m_gameObjects)
+	for (auto cb : m_pendingCallbacks)
+	{
+		cb();
+	}
+	m_pendingCallbacks.clear();
+
+	for (BaseObject* Obj : m_gameObjects)
 		Obj->Update(deltaTime);
 
-	if(InputHandler::Instance()->IsKeyPressed(ArkanoidKeyboardInput::C))
+	if (InputHandler::Instance()->IsKeyPressed(ArkanoidKeyboardInput::C))
 		CollisionComponent::ShouldRenderCollision = !CollisionComponent::ShouldRenderCollision;
 }
 
-void GameState::OnCreateResources()
+void GameState::CreateResources()
 {
 	for (BaseObject* Obj : m_gameObjects)
-		Obj->OnCreateResources();
+		Obj->CreateResources();
 }
 
-void GameState::OnReleaseResources()
+void GameState::ReleaseResources()
 {
-	for(BaseObject* Obj : m_gameObjects)
-		Obj->OnReleaseResources();
+	for (BaseObject* Obj : m_gameObjects)
+		Obj->ReleaseResources();
 }
 
 void GameState::OnWindowSizeUpdate(float xRatio, float yRatio)
@@ -79,27 +85,6 @@ void GameState::OnWindowSizeUpdate(float xRatio, float yRatio)
 		Obj->OnWindowSizeUpdate(xRatio, yRatio);
 }
 
-void GameState::AddGameObject(BaseObject* Object)
-{
-	m_gameObjects.push_back(Object);
-	Object->Init(this);
-}
-
-void GameState::RemoveGameObject(BaseObject* Object, bool ShouldDelete /* = true */)
-{
-	//Is GameObject still in list? Or it was already destroyed by another callback?
-	auto cbegin = m_gameObjects.cbegin();
-	auto cend = m_gameObjects.cend();
-
-	if (std::find(cbegin, cend, Object) != cend)
-	{
-		m_gameObjects.erase(std::remove(m_gameObjects.begin(), m_gameObjects.end(), Object), m_gameObjects.end()); //erase all elements
-		Object->Uninit();
-
-		if (ShouldDelete)
-			delete Object;
-	}
-}
 
 void GameState::Reset()
 {
@@ -120,16 +105,16 @@ bool GameState::FindCollisions(const CollisionComponent& RequestorComp, GameObje
 		collisions->clear();
 	}
 
-	if(!RequestorComp.enabled)
+	if (!RequestorComp.enabled)
 		return false;
 
 	for (BaseObject* Obj : m_gameObjects)
 	{
 		CollisionComponent* collisionComp = Obj->GetComponent<CollisionComponent>();
-		if(!collisionComp || !collisionComp->enabled) //object should never collide 
+		if (!collisionComp || !collisionComp->enabled) //object should never collide 
 			continue;
 		//Current Obj was added to list of objects to not consider during collision handling
-		if(ignores && std::find(ignores->begin(), ignores->end(), Obj) != ignores->end())
+		if (ignores && std::find(ignores->begin(), ignores->end(), Obj) != ignores->end())
 			continue;
 		//no collision found between objects
 		if (!collisionComp->Intersect(RequestorComp))
@@ -138,4 +123,26 @@ bool GameState::FindCollisions(const CollisionComponent& RequestorComp, GameObje
 	}
 
 	return collisions && collisions->size() > 0;
+}
+
+void GameState::AddGameObject(BaseObject* object)
+{
+	m_pendingCallbacks.push_back([=] {
+		m_gameObjects.push_back(object);
+		object->Init(this);
+	});
+}
+
+void GameState::RemoveGameObject(BaseObject* object, bool doDelete /*= true*/)
+{
+	m_pendingCallbacks.push_back([=] {
+		//it's still there?
+		if (std::find(m_gameObjects.begin(), m_gameObjects.end(), object) != m_gameObjects.end()) {
+			m_gameObjects.erase(std::remove(m_gameObjects.begin(), m_gameObjects.end(), object), m_gameObjects.end());
+			object->Uninit();
+			if (doDelete) {
+				delete object;
+			}
+		}
+	});
 }

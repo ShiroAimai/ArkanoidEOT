@@ -30,8 +30,8 @@ public:
 
 	virtual void Render(const RendererData& Renderer) override;
 
-	virtual void OnCreateResources() override;
-	virtual void OnReleaseResources() override;
+	virtual void CreateResources() override;
+	virtual void ReleaseResources() override;
 
 	void SetForegroundColor(DirectX::XMVECTORF32 Color);
 	void SetBackgroundColor(DirectX::XMVECTORF32 Color);

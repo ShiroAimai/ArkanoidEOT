@@ -10,6 +10,7 @@ public:
 	Ball(float radius);
 
 	virtual void FixedUpdate() override;
+	virtual bool IsBlocker(BaseObject* Object) const override;
 
 	void SetRadius(float radius) { m_radius = radius; }
 	float GetRadius() const { 

@@ -23,8 +23,8 @@ public:
 	virtual void Update(float deltaTime);
 	virtual void Render(std::vector<BaseComponent*>& RenderableSprites, std::vector<BaseComponent*>& RenderablePrimitives);
 
-	virtual void OnCreateResources();
-	virtual void OnReleaseResources();
+	virtual void CreateResources();
+	virtual void ReleaseResources();
 	virtual void OnWindowSizeUpdate(float xRatio, float yRatio);
 
 	void AddComponent(BaseComponent* component);

@@ -207,7 +207,7 @@ void Game::CreateDeviceDependentResources()
 
 	m_primitiveBatch = std::make_unique<PrimitiveBatch<VertexType>>(context);
 
-    State->OnCreateResources();
+    State->CreateResources();
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
@@ -258,7 +258,7 @@ void Game::OnDeviceLost()
 
 	m_inputLayout.Reset();
     
-    State->OnReleaseResources();
+    State->ReleaseResources();
 }
 
 void Game::OnDeviceRestored()

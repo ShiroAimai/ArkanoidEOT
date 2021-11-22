@@ -69,16 +69,16 @@ void BaseObject::Render(std::vector<BaseComponent*>& RenderableSprites, std::vec
 	}
 }
 
-void BaseObject::OnCreateResources()
+void BaseObject::CreateResources()
 {
 	for(BaseComponent* Comp : m_components)
-		Comp->OnCreateResources();
+		Comp->CreateResources();
 }
 
-void BaseObject::OnReleaseResources()
+void BaseObject::ReleaseResources()
 {
 	for (BaseComponent* Comp : m_components)
-		Comp->OnReleaseResources();
+		Comp->ReleaseResources();
 }
 
 void BaseObject::OnWindowSizeUpdate(float xRatio, float yRatio)

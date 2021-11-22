@@ -16,14 +16,18 @@ public:
 	virtual void Update(float deltaTime) override;
 	virtual void Render(const RendererData& Renderer) override;
 
-	virtual void OnCreateResources() override;
-	virtual void OnReleaseResources() override;
+	virtual void CreateResources() override;
+	virtual void ReleaseResources() override;
 
 	void SetRenderSpriteIndex(int index);
 	const Vec2& GetAnchor()    const { return m_anchor; }
 	void SetAnchor(const Vec2& anchor) { m_anchor = anchor; }
 
+	DirectX::XMVECTORF32 GetColor() const { return m_color; }
+	void SetColor(DirectX::XMVECTORF32 color) { m_color = color; }
+
 private:
+	DirectX::XMVECTORF32 m_color;
 	Vec2 m_anchor;
 	int m_width, m_height;
 	vector<Sprite*> m_sprites;

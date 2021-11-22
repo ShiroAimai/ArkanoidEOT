@@ -40,13 +40,13 @@ public:
 	Sprite(Sprite&&) = default;
 	Sprite& operator= (Sprite&&) = default;
 
-	void Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, const Vec2& origin, float rotation, const Vec2& scale, float RenderLayer);
-	void Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int frame, const Vec2& origin, float rotation, const Vec2& scale, float RenderLayer);
+	void Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, const Vec2& origin, float rotation, const Vec2& scale, float RenderLayer, DirectX::XMVECTORF32 color = DirectX::Colors::White);
+	void Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int frame, const Vec2& origin, float rotation, const Vec2& scale, float RenderLayer, DirectX::XMVECTORF32 color = DirectX::Colors::White);
 	void Update(float deltaTime);
 	void Reset();
 
-	void OnCreateResources();
-	void OnReleaseResources();
+	void CreateResources();
+	void ReleaseResources();
 
 	void Play();
 	void Pause();

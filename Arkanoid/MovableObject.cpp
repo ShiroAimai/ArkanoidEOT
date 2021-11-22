@@ -2,9 +2,10 @@
 #include "MovableObject.h"
 #include "CollisionComponent.h"
 #include "Collision.h"
+#include "Util.h"
 
 namespace {
-	float LerpFindingAdjustedPosStep = 0.1f;
+	float LerpFindingAdjustedPosStep = MathUtil::EPS;
 }
 
 MovableObject::MovableObject() : m_velocity(Vec2::Zero), m_speed(1.f), m_collisionCompRef(nullptr)
@@ -27,7 +28,7 @@ void MovableObject::Update(float deltaTime)
 		const Vec2 TargetPos = GetPosition() + GetVelocity() * deltaTime * GetSpeed();
 
 		//evaluate step by step only if TargetPos detect a collision
-		if (!CanMove(TargetPos))
+ 		if (!CanMove(TargetPos))
 		{
 			Vec2 LastPos = Vec2::Lerp(CurrentPos, TargetPos, LerpFindingAdjustedPosStep);
 			for (;;)
@@ -36,8 +37,6 @@ void MovableObject::Update(float deltaTime)
 				if (!CanMove(LerpPos))
 				{
 					SetPosition(LerpPos);
-					std::string out = "LerpPos X" + std::to_string(LerpPos.x) + "Y " + std::to_string(LerpPos.y);
-					OutputDebugStringA(out.c_str());
 					break;
 				}
 				//New last post is last LerpPos
@@ -47,8 +46,6 @@ void MovableObject::Update(float deltaTime)
 		else
 		{
 			SetPosition(TargetPos);
-			std::string out = "TargetPos X" + std::to_string(TargetPos.x) + "Y " + std::to_string(TargetPos.y);
-			OutputDebugStringA(out.c_str());
 		}
 	}
 	GameplayObject::Update(deltaTime);

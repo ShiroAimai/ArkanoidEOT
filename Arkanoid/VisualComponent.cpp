@@ -7,6 +7,7 @@ VisualComponent::VisualComponent(int width, int height, const vector<Sprite*>& s
  : m_currentRenderSprite(nullptr),
    m_width(width),
    m_height(height),
+   m_color(DirectX::Colors::White),
    m_anchor(0.5f, 0.5f)
 {
 	m_sprites.insert(m_sprites.end(), sprites.begin(), sprites.end());
@@ -18,6 +19,7 @@ VisualComponent::VisualComponent(Sprite* Sprite)
 	: m_currentRenderSprite(Sprite),
 	m_width(0),
 	m_height(0),
+	m_color(DirectX::Colors::White),
 	m_anchor(0.5f, 0.5f)
 {
 	m_sprites.push_back(Sprite);
@@ -51,13 +53,13 @@ void VisualComponent::Render(const RendererData& Renderer)
 	
 	float angleInRad = m_parent->GetAngle() * DirectX::XM_PI / 180.f;
 
-	m_currentRenderSprite->Render(Renderer.m_spriteBatch, m_parent->GetPosition(), origin, angleInRad, m_parent->GetScale(), GetRenderLayer());
+	m_currentRenderSprite->Render(Renderer.m_spriteBatch, m_parent->GetPosition(), origin, angleInRad, m_parent->GetScale(), GetRenderLayer(), m_color);
 }
 
-void VisualComponent::OnCreateResources()
+void VisualComponent::CreateResources()
 {
 	for (Sprite* sprite : m_sprites)
-		sprite->OnCreateResources();
+		sprite->CreateResources();
 
 	if (m_sprites.size() == 1)
 	{
@@ -66,10 +68,10 @@ void VisualComponent::OnCreateResources()
 	}
 }
 
-void VisualComponent::OnReleaseResources()
+void VisualComponent::ReleaseResources()
 {
 	for(Sprite* sprite : m_sprites)
-		sprite->OnReleaseResources();
+		sprite->ReleaseResources();
 }
 
 void VisualComponent::SetRenderSpriteIndex(int index)

@@ -7,6 +7,11 @@
 #include "InputHandler.h"
 #include "Util.h"
 #include <iostream>
+#include "Brick.h"
+
+namespace {
+	float CollidedMovableVelocityMultiplier = 0.45f;
+}
 
 Ball::Ball(float radius) : m_radius(radius)
 {
@@ -21,14 +26,15 @@ Ball::Ball(float radius) : m_radius(radius)
 	m_visualComp = new VisualComponent(sprite);
 	AddComponent(m_visualComp);
 
-	SetSpeed(250.f);
+	SetSpeed(300.f);
 	SetVelocity(Vec2::Zero);
 }
+
 
 void Ball::FixedUpdate()
 {
 	// evaluate collisions
-	MovableObject::FixedUpdate();
+ 	MovableObject::FixedUpdate();
 
 	if (m_collisionComp)
 	{
@@ -38,31 +44,32 @@ void Ball::FixedUpdate()
 		{
 			Vec2 ReflectedVelocity = Vec2::Zero;
 
-			for (BaseObject* collision : collisions)
+			BaseObject* Other = collisions[0];
+			CollisionComponent* collissionCc = Other->GetComponent<CollisionComponent>();
+			if (collissionCc)
 			{
-				CollisionComponent* collissionCc = collision->GetComponent<CollisionComponent>();
-				if (collissionCc)
+				Vec2 CurrentVelocity = GetVelocity();
+				Vec2 CollisionNormal = m_collisionComp->GetCollisionNormalWithObject(Other, CurrentVelocity);
+				CollisionNormal.Normalize();
+
+				const float ReflectionAngle = CurrentVelocity.Dot(CollisionNormal);
+
+				ReflectedVelocity = CurrentVelocity - 2.f * (ReflectionAngle * CollisionNormal); //law of reflection			
+
+				if (MovableObject* Movable = dynamic_cast<MovableObject*>(Other))
 				{
-					Vec2 CurrentVelocity = ReflectedVelocity.Equals(Vec2::Zero) ? GetVelocity() : ReflectedVelocity;
-
-					Vec2 CollisionNormal = m_collisionComp->GetCollisionNormalWithObject(collision, CurrentVelocity);
-					CollisionNormal.Normalize();
-
-					const float ReflectionQuantity = CurrentVelocity.Dot(CollisionNormal);
-					
-					ReflectedVelocity += CurrentVelocity - 2.f * (ReflectionQuantity * CollisionNormal); //law of reflection			
-
-					if (MovableObject* Movable = dynamic_cast<MovableObject*>(collision))
-					{
-						ReflectedVelocity += 0.45f * Movable->GetVelocity();
-					}
-
-					std::string out = "Velocity X" + std::to_string(ReflectedVelocity.x) + "Y " + std::to_string(ReflectedVelocity.y);
-					OutputDebugStringA(out.c_str());
-					SetVelocity(ReflectedVelocity);
+					ReflectedVelocity += CollidedMovableVelocityMultiplier * Movable->GetVelocity();
 				}
+
+				SetVelocity(ReflectedVelocity);
 			}
+
 		}
 	}
+}
+
+bool Ball::IsBlocker(BaseObject* Object) const
+{
+	return dynamic_cast<Brick*>(Object) || MovableObject::IsBlocker(Object);
 }
 

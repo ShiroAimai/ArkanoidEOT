@@ -11,7 +11,6 @@ class GameState
 {
 public:
 	using GameObjects = std::vector<BaseObject*>;
-
 	GameState() = default;
 	virtual ~GameState();
 	
@@ -22,24 +21,27 @@ public:
 
 	virtual void FixedUpdate();
 	virtual void Update(float deltaTime);
-	virtual void OnCreateResources();
-	virtual void OnReleaseResources();
+	virtual void CreateResources();
+	virtual void ReleaseResources();
 	virtual void OnWindowSizeUpdate(float xRatio, float yRatio);
 
 	virtual void OnEnter() = 0;
 	virtual void OnExit() = 0;
 
-	void AddGameObject(BaseObject* Object);
-	void RemoveGameObject(BaseObject* Object, bool ShouldDelete = true);
-
 	void Reset();
 
 	bool FindCollisions(const CollisionComponent& RequestorComp, GameObjects* Collisions = nullptr, const GameObjects* Ignores = nullptr) const;
 
+	virtual void AddGameObject(BaseObject* object);
+	virtual void RemoveGameObject(BaseObject* object, bool doDelete = true);
 protected:
 	class BaseLevel* m_level = nullptr;
 
 private:
+	using Callback = std::function<void()>;
+	using PendingCallbacks = std::vector<Callback>;
+
 	GameObjects m_gameObjects;
+	PendingCallbacks m_pendingCallbacks;
 };
 
