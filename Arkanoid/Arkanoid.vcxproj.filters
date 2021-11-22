@@ -137,6 +137,9 @@
     <ClInclude Include="Ball.h">
       <Filter>App\Gameplay\GameplayObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>App\Gameplay\GameplayObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -217,6 +220,9 @@
       <Filter>App\Gameplay\GameplayObjects</Filter>
     </ClCompile>
     <ClCompile Include="Ball.cpp">
+      <Filter>App\Gameplay\GameplayObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
       <Filter>App\Gameplay\GameplayObjects</Filter>
     </ClCompile>
   </ItemGroup>
