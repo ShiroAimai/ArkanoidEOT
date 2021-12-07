@@ -14,7 +14,9 @@ enum class ArkanoidKeyboardInput
 
 enum class ArkanoidMouseInput
 {
-	INPUT_COUNT = 0
+	LEFT = 0,
+	RIGHT = 1,
+	INPUT_COUNT = 2
 };
 
 struct Vec2;

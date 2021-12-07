@@ -19,13 +19,18 @@ public:
 	virtual void CreateResources() override;
 	virtual void ReleaseResources() override;
 
-	void SetRenderSpriteIndex(int index);
+	void SetRenderSpriteByIndex(int index);
+	void SetRenderSpriteById(const std::string& Id);
 	const Vec2& GetAnchor()    const { return m_anchor; }
 	void SetAnchor(const Vec2& anchor) { m_anchor = anchor; }
 
 	DirectX::XMVECTORF32 GetColor() const { return m_color; }
 	void SetColor(DirectX::XMVECTORF32 color) { m_color = color; }
 
+	int GetWidth() const { return m_width; }
+	int GetHeight() const { return m_height; }
+
+	
 private:
 	DirectX::XMVECTORF32 m_color;
 	Vec2 m_anchor;

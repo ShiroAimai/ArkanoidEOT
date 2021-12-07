@@ -7,9 +7,11 @@ class PlayState : public GameState
 public:
 	PlayState(Game* GameInstance);
 	
+	virtual void Update(float deltaTime) override;
+
 	void GameOver();
 
-	virtual void OnEnter() override;
-	virtual void OnExit() override;
+private:
+	bool bIsGameOver;
 };
 

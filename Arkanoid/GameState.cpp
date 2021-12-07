@@ -44,7 +44,7 @@ void GameState::Render(const RendererData& Renderer)
 	Renderer.m_primitiveBatch->End();
 
 	Renderer.m_spriteBatch->Begin(
-		DirectX::SpriteSortMode_Deferred,
+		DirectX::SpriteSortMode_FrontToBack,
 		nullptr,
 		nullptr,
 		nullptr,
@@ -98,6 +98,19 @@ void GameState::OnWindowSizeUpdate(float xRatio, float yRatio)
 		Obj->OnWindowSizeUpdate(xRatio, yRatio);
 }
 
+
+void GameState::OnEnter()
+{
+	if (m_level)
+	{
+		m_level->Load(this);
+	}
+}
+
+void GameState::OnExit()
+{
+	Reset();
+}
 
 void GameState::Reset()
 {

@@ -275,4 +275,10 @@ void Game::UpdateGameState(GameState* NewState)
 {
     assert(NewState != nullptr);   
     State.reset(NewState);
+    State->OnEnter();
+}
+
+void Game::Quit() const
+{
+    ExitGame();
 }

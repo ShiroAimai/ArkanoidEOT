@@ -50,6 +50,9 @@
     <Filter Include="App\Gameplay\BrickConfig">
       <UniqueIdentifier>{49c19c5a-62ea-49d2-9c64-5f8173f235a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="App\UI">
+      <UniqueIdentifier>{bfcd0115-6e40-449a-abaa-d256506c85c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -143,6 +146,18 @@
     <ClInclude Include="PlayerBar.h">
       <Filter>App\Gameplay</Filter>
     </ClInclude>
+    <ClInclude Include="EndGameState.h">
+      <Filter>App\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>App\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EndGameLevel.h">
+      <Filter>App\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="TextButton.h">
+      <Filter>App\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -230,6 +245,18 @@
     </ClCompile>
     <ClCompile Include="PlayerBar.cpp">
       <Filter>App\Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="EndGameState.cpp">
+      <Filter>App\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>App\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EndGameLevel.cpp">
+      <Filter>App\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="TextButton.cpp">
+      <Filter>App\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

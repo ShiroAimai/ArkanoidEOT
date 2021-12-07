@@ -9,7 +9,7 @@
 
 PlayerBar::PlayerBar() : m_storedBall(nullptr), m_storedBallAttachOffset(Vec2::Zero)
 {
-	Sprite* sprite = Sprite::Load(L"Assets/player_bar.png");
+	Sprite* sprite = Sprite::LoadStatic("paddle", L"Assets/player_bar.png");
 	m_visualComp = new VisualComponent(sprite);
 	AddComponent(m_visualComp);
 

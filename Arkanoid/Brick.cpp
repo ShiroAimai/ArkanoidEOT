@@ -16,7 +16,7 @@ Brick::Brick(int width, int height) : m_width(width), m_height(height)
 	m_collisionComp->SetShapeColor(DirectX::Colors::Violet);
 	AddComponent(m_collisionComp);
 
-	Sprite* sprite = Sprite::Load(L"Assets/brick.png");
+	Sprite* sprite = Sprite::LoadStatic("brick", L"Assets/brick.png");
 	m_visualComp = new VisualComponent(sprite);
 	m_visualComp->SetColor(DirectX::Colors::Red);
 	AddComponent(m_visualComp);

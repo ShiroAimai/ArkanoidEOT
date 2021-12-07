@@ -22,7 +22,7 @@ Ball::Ball(float radius) : m_radius(radius)
 	m_collisionComp->SetShapeColor(DirectX::Colors::OrangeRed);
 	AddComponent(m_collisionComp);
 
-	Sprite* sprite = Sprite::Load(L"Assets/ball.png");
+	Sprite* sprite = Sprite::LoadStatic("ball", L"Assets/ball.png");
 	m_visualComp = new VisualComponent(sprite);
 	AddComponent(m_visualComp);
 

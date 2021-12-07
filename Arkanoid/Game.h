@@ -48,6 +48,8 @@ public:
     void GetDefaultSize( int& width, int& height ) const noexcept;
 
 	void UpdateGameState(GameState* NewState);
+
+    void Quit() const;
 private:
     
     void Update(DX::StepTimer const& timer);

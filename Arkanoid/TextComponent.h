@@ -25,8 +25,8 @@ private:
 	void DrawOutline(DirectX::SpriteBatch* Batch, const std::wstring& Text, const Vec2& ScreenPos, const Vec2& Origin, const Vec2& Scale, float rotation);
 
 public:
-	TextComponent(const std::wstring& Text, const std::wstring& Font);
-	TextComponent(const std::wstring& Text, const std::wstring& Font, const Vec2& Offset);
+	TextComponent(const std::wstring& Font);
+	TextComponent(const std::wstring& Font, const Vec2& Offset);
 
 	virtual void Render(const RendererData& Renderer) override;
 

@@ -26,8 +26,8 @@ public:
 	virtual void ReleaseResources();
 	virtual void OnWindowSizeUpdate(float xRatio, float yRatio);
 
-	virtual void OnEnter() = 0;
-	virtual void OnExit() = 0;
+	virtual void OnEnter();
+	virtual void OnExit();
 
 	void Reset();
 
@@ -40,14 +40,13 @@ public:
 protected:
 	class BaseLevel* m_level = nullptr;
 
+	/* Does not own GameInstace*/
+	class Game* game;
 private:
 	using Callback = std::function<void()>;
 	using PendingCallbacks = std::vector<Callback>;
 
 	GameObjects m_gameObjects;
 	PendingCallbacks m_pendingCallbacks;
-
-	/* Does not own GameInstace*/
-	class Game* game;
 };
 

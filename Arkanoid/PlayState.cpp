@@ -1,28 +1,24 @@
 #include "pch.h"
 #include "PlayState.h"
 #include "Level1.h"
-#include "BaseObject.h"
-#include "TextComponent.h"
+#include "EndGameState.h"
+#include "EndGameLevel.h"
 
-PlayState::PlayState(Game* GameInstance) : GameState(GameInstance)
+PlayState::PlayState(Game* GameInstance) : GameState(GameInstance), bIsGameOver(false)
 {
 	m_level = new Level1();
 }
 
-void PlayState::GameOver()
+void PlayState::Update(float deltaTime)
 {
-	// #Todo manage Game Over
-}
-
-void PlayState::OnEnter()
-{
-	if (m_level)
+	GameState::Update(deltaTime);
+	if (bIsGameOver)
 	{
-		m_level->Load(this);
+		UpdateGameState(new EndGameState(game));
 	}
 }
 
-void PlayState::OnExit()
+void PlayState::GameOver()
 {
-	Reset();
+	bIsGameOver = true;
 }

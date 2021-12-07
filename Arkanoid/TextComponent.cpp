@@ -2,20 +2,20 @@
 #include "TextComponent.h"
 #include "FontManager.h"
 
-TextComponent::TextComponent(const std::wstring& Text, const std::wstring& Font)
-	: m_text(Text), m_fontName(Font), m_foreground(DirectX::Colors::Black), m_background(DirectX::Colors::Black)
+TextComponent::TextComponent(const std::wstring& Font)
+	: m_fontName(Font), m_foreground(DirectX::Colors::Black), m_background(DirectX::Colors::Black)
 {
-	SetRenderLayer(1);
+	SetRenderLayer(100);
 	if (!m_font)
 	{
 		CreateResources();
 	}
 }
 
-TextComponent::TextComponent(const std::wstring& Text, const std::wstring& Font, const Vec2& Offset)
-: m_text(Text), m_fontName(Font), m_textOffset(Offset), m_foreground(DirectX::Colors::Black), m_background(DirectX::Colors::Black)
+TextComponent::TextComponent(const std::wstring& Font, const Vec2& Offset)
+: m_fontName(Font), m_textOffset(Offset), m_foreground(DirectX::Colors::Black), m_background(DirectX::Colors::Black)
 {
-	SetRenderLayer(1);
+	SetRenderLayer(100);
 	if (!m_font)
 	{
 		CreateResources();

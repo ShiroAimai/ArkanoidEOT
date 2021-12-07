@@ -175,9 +175,13 @@
     <ClInclude Include="BaseLevel.h" />
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="BrickConfig.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="DeviceResources.h" />
+    <ClInclude Include="EndGameLevel.h" />
+    <ClInclude Include="EndGameState.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameplayObject.h" />
@@ -192,6 +196,7 @@
     <ClInclude Include="RendererData.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StepTimer.h" />
+    <ClInclude Include="TextButton.h" />
     <ClInclude Include="TextComponent.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
@@ -207,9 +212,13 @@
     <ClCompile Include="BaseLevel.cpp" />
     <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="BrickConfig.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="DeviceResources.cpp" />
+    <ClCompile Include="EndGameLevel.cpp" />
+    <ClCompile Include="EndGameState.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameplayObject.cpp" />
@@ -229,6 +238,7 @@
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="RendererData.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="TextButton.cpp" />
     <ClCompile Include="TextComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />

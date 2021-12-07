@@ -127,6 +127,15 @@ bool InputHandler::IsKeyReleased(ArkanoidKeyboardInput input) const
 bool InputHandler::IsMouseButtonPressed(ArkanoidMouseInput input) const
 {
 	if(input >= ArkanoidMouseInput::INPUT_COUNT) return false;
-	return false;
+	
+	switch (input)
+	{
+	case ArkanoidMouseInput::LEFT:
+		return m_mouseButtons.leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED;
+	case ArkanoidMouseInput::RIGHT:
+		return m_mouseButtons.rightButton == DirectX::Mouse::ButtonStateTracker::PRESSED;
+	default:
+		return false;
+	}
 }
 

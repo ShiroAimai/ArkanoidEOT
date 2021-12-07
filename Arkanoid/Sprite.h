@@ -23,15 +23,18 @@ private:
 	int m_textureWidth;
 	int m_textureHeigth;
 
+	int m_x, m_y;
 	std::shared_ptr<Texture> m_texture;
 	std::wstring m_path;
+	std::string m_id;
 
 	void CreateSprite(const std::wstring& path);
 protected:
 	Sprite() noexcept;
 
 public:
-	static Sprite* Load(const std::wstring& path, int frameCount = 0, int framePerSecond = 0, bool isLooped = false);
+	static Sprite* LoadStatic(const std::string& id, const std::wstring& path, int u = 0, int v = 0, int width = -1, int height = -1);
+	static Sprite* LoadAnimSprite(const std::string& id, const std::wstring& path, int frameCount = 0, int framePerSecond = 0, bool isLooped = false);
 
 	~Sprite();
 	Sprite(const Sprite&) = default;
@@ -47,6 +50,8 @@ public:
 
 	void CreateResources();
 	void ReleaseResources();
+
+	const std::string GetId() const { return m_id;}
 
 	void Play();
 	void Pause();

@@ -76,7 +76,7 @@ void VisualComponent::ReleaseResources()
 		sprite->ReleaseResources();
 }
 
-void VisualComponent::SetRenderSpriteIndex(int index)
+void VisualComponent::SetRenderSpriteByIndex(int index)
 {
 	if (index < m_sprites.size() && m_currentRenderSprite != m_sprites[index])
 	{
@@ -85,5 +85,17 @@ void VisualComponent::SetRenderSpriteIndex(int index)
 			m_currentRenderSprite->Stop();
 		}
 		m_currentRenderSprite = m_sprites[index];
+	}
+}
+
+void VisualComponent::SetRenderSpriteById(const std::string& Id)
+{
+	for (Sprite* sprite : m_sprites)
+	{
+		if (sprite->GetId() == Id)
+		{
+			m_currentRenderSprite = sprite;
+			break;
+		}
 	}
 }
