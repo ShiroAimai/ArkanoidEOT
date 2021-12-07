@@ -19,6 +19,9 @@ Sprite* Sprite::Load(const std::wstring& path, int frameCount /*= 0*/, int frame
 		NewSprite->m_timePerFrame = 0.f;
 	}
 	NewSprite->m_totalTime = NewSprite->m_frameCount * NewSprite->m_timePerFrame;
+
+	NewSprite->CreateSprite(NewSprite->m_path);
+
 	return NewSprite;
 }
 
@@ -29,6 +32,7 @@ Sprite::~Sprite()
 
 void Sprite::CreateSprite(const std::wstring& path)
 {
+	m_texture.reset();
 	m_texture = TextureManager::Instance()->Load(path);
 
 	if(m_texture)
@@ -70,11 +74,6 @@ void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, con
 
 void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int frame, const Vec2& origin, float rotation, const Vec2& scale, float RenderLayer, DirectX::XMVECTORF32 color /* = DirectX::Colors::White*/)
 {
-	if (!m_texture)
-	{
-		CreateSprite(m_path);
-	}
-
 	int frameWidth = m_textureWidth / m_frameCount;
 
 	RECT sourceRect;
@@ -83,13 +82,7 @@ void Sprite::Render(DirectX::SpriteBatch* batch, const Vec2& ScreenPosition, int
 	sourceRect.right = sourceRect.left + frameWidth;
 	sourceRect.bottom = m_textureHeigth;
 
-	float halfWidth = m_textureWidth / 2.f;
-	float halfHeight = m_textureHeigth / 2.f;
-	Vec2 AdjustedScreenPos = ScreenPosition;
-	AdjustedScreenPos.x -= halfWidth * scale.x;
-	AdjustedScreenPos.y -= halfHeight * scale.y;
-
-	batch->Draw(m_texture->GetTexture(), AdjustedScreenPos, &sourceRect, color, rotation, origin, scale, DirectX::SpriteEffects_None, RenderLayer);
+	batch->Draw(m_texture->GetTexture(), ScreenPosition, &sourceRect, color, rotation, origin, scale, DirectX::SpriteEffects_None, RenderLayer);
 }
 
 void Sprite::Update(float deltaTime)

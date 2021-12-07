@@ -35,7 +35,6 @@ void Game::Initialize(HWND window, int width, int height)
     InputHandler::Instance()->Init(window);
     
     State = std::make_unique<PlayState>();
-    State->OnEnter();
 
     CreateDeviceDependentResources();
     CreateWindowSizeDependentResources();
@@ -46,6 +45,8 @@ void Game::Initialize(HWND window, int width, int height)
     m_timer.SetFixedTimeStep(true);
     m_timer.SetTargetElapsedSeconds(1.0 / 60);
     */
+
+	State->OnEnter();
 }
 
 #pragma region Frame Update

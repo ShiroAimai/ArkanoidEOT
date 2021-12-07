@@ -13,6 +13,7 @@ VisualComponent::VisualComponent(int width, int height, const vector<Sprite*>& s
 	m_sprites.insert(m_sprites.end(), sprites.begin(), sprites.end());
 	m_currentRenderSprite = m_sprites.size() > 0 ? m_sprites[0] : nullptr;
 	SetRenderLayer(10);
+	CreateResources();
 }
 
 VisualComponent::VisualComponent(Sprite* Sprite)
@@ -24,6 +25,7 @@ VisualComponent::VisualComponent(Sprite* Sprite)
 {
 	m_sprites.push_back(Sprite);
 	SetRenderLayer(10);
+	CreateResources();
 }
 
 VisualComponent::~VisualComponent()

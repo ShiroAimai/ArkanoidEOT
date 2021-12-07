@@ -6,22 +6,25 @@ TextComponent::TextComponent(const std::wstring& Text, const std::wstring& Font)
 	: m_text(Text), m_fontName(Font), m_foreground(DirectX::Colors::Black), m_background(DirectX::Colors::Black)
 {
 	SetRenderLayer(1);
+	if (!m_font)
+	{
+		CreateResources();
+	}
 }
 
 TextComponent::TextComponent(const std::wstring& Text, const std::wstring& Font, const Vec2& Offset)
 : m_text(Text), m_fontName(Font), m_textOffset(Offset), m_foreground(DirectX::Colors::Black), m_background(DirectX::Colors::Black)
 {
 	SetRenderLayer(1);
+	if (!m_font)
+	{
+		CreateResources();
+	}
 }
 
 void TextComponent::Render(const RendererData& Renderer)
 {
 	Vec2 Pos = m_parent->GetPosition();
-
-	if (!m_font)
-	{
-		m_font = FontManager::Instance()->Load(m_fontName);
-	}
 
 	Vec2 origin = m_font->MeasureString(m_text.c_str());
 	origin /= 2.f;
@@ -45,6 +48,7 @@ void TextComponent::Render(const RendererData& Renderer)
 
 void TextComponent::CreateResources()
 {
+	m_font.reset();
 	m_font = FontManager::Instance()->Load(m_fontName);
 }
 
