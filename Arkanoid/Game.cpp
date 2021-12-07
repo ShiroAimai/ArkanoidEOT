@@ -34,7 +34,7 @@ void Game::Initialize(HWND window, int width, int height)
 	TextureManager::Instance()->Init(m_deviceResources->GetD3DDevice());
     InputHandler::Instance()->Init(window);
     
-    State = std::make_unique<PlayState>();
+    State.reset(new PlayState(this));
 
     CreateDeviceDependentResources();
     CreateWindowSizeDependentResources();
@@ -184,6 +184,7 @@ void Game::GetDefaultSize(int& width, int& height) const noexcept
 	GameBounds.bottom = height;
 	WorldHelper::Instance()->SetGameBounds(GameBounds);
 }
+
 #pragma endregion
 
 #pragma region Direct3D Resources
@@ -269,3 +270,9 @@ void Game::OnDeviceRestored()
     CreateWindowSizeDependentResources();
 }
 #pragma endregion
+
+void Game::UpdateGameState(GameState* NewState)
+{
+    assert(NewState != nullptr);   
+    State.reset(NewState);
+}

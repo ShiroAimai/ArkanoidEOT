@@ -4,14 +4,14 @@
 #include "BaseObject.h"
 #include "TextComponent.h"
 
-PlayState::PlayState()
+PlayState::PlayState(Game* GameInstance) : GameState(GameInstance)
 {
 	m_level = new Level1();
 }
 
 void PlayState::GameOver()
 {
-	//Todo manage Game Over
+	// #Todo manage Game Over
 }
 
 void PlayState::OnEnter()

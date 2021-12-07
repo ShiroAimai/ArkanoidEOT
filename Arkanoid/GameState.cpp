@@ -6,6 +6,14 @@
 #include "RendererData.h"
 #include "InputHandler.h"
 #include "WorldHelper.h"
+#include <memory>
+#include "Game.h"
+#include "BaseLevel.h"
+
+GameState::GameState(Game* GameInstance)
+{
+	game = GameInstance;
+}
 
 GameState::~GameState()
 {
@@ -15,6 +23,11 @@ GameState::~GameState()
 	}
 
 	m_gameObjects.clear();
+	
+	if (m_level)
+	{
+		delete m_level;
+	}
 }
 
 void GameState::Render(const RendererData& Renderer)
@@ -145,4 +158,9 @@ void GameState::RemoveGameObject(BaseObject* object, bool doDelete /*= true*/)
 			}
 		}
 	});
+}
+
+void GameState::UpdateGameState(GameState* NewState)
+{
+	game->UpdateGameState(NewState);
 }

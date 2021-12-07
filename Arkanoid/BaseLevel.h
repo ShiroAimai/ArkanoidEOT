@@ -7,6 +7,7 @@ class BaseObject;
 class BaseLevel
 {
 public:
+	virtual ~BaseLevel();
 	void Load(GameState* ParentGameState);
 
 protected:

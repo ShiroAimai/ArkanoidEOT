@@ -7,11 +7,12 @@ class BaseComponent;
 
 struct RendererData;
 
+class Game;
 class GameState
 {
 public:
 	using GameObjects = std::vector<BaseObject*>;
-	GameState() = default;
+	GameState(Game* GameInstance);
 	virtual ~GameState();
 	
 	GameState(const GameState&) = delete;
@@ -34,6 +35,8 @@ public:
 
 	virtual void AddGameObject(BaseObject* object);
 	virtual void RemoveGameObject(BaseObject* object, bool doDelete = true);
+
+	void UpdateGameState(GameState* NewState);
 protected:
 	class BaseLevel* m_level = nullptr;
 
@@ -43,5 +46,8 @@ private:
 
 	GameObjects m_gameObjects;
 	PendingCallbacks m_pendingCallbacks;
+
+	/* Does not own GameInstace*/
+	class Game* game;
 };
 

@@ -47,6 +47,7 @@ public:
     // Properties
     void GetDefaultSize( int& width, int& height ) const noexcept;
 
+	void UpdateGameState(GameState* NewState);
 private:
     
     void Update(DX::StepTimer const& timer);

@@ -1,10 +1,11 @@
 #pragma once
 #include "GameState.h"
 
+class Game;
 class PlayState : public GameState
 {
 public:
-	PlayState();
+	PlayState(Game* GameInstance);
 	
 	void GameOver();
 
