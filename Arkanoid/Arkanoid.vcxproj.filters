@@ -32,23 +32,23 @@
     <Filter Include="App\Gameplay">
       <UniqueIdentifier>{e01c8277-6a57-4c4d-b817-a8912ce94650}</UniqueIdentifier>
     </Filter>
-    <Filter Include="App\Gameplay\GameStates">
-      <UniqueIdentifier>{cb0330cc-e0a3-4edd-a15a-ba3c54e21bac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="App\Gameplay\Levels">
-      <UniqueIdentifier>{2a755374-dbe2-46b2-83f1-fd77aa1b19ae}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Collisions">
       <UniqueIdentifier>{09e1eaf9-63f8-4858-bd25-a4001eab1a18}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Helpers">
       <UniqueIdentifier>{023b1cf8-17cf-42b7-908c-76b1f15df7aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="App\Gameplay\GameplayObjects">
-      <UniqueIdentifier>{9e1aee23-8463-43eb-a484-9b2d1d3ac4bc}</UniqueIdentifier>
+    <Filter Include="App\GameStates">
+      <UniqueIdentifier>{cb0330cc-e0a3-4edd-a15a-ba3c54e21bac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="App\Gameplay\Levels\LevelObjects">
+    <Filter Include="App\Levels">
+      <UniqueIdentifier>{2a755374-dbe2-46b2-83f1-fd77aa1b19ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Levels\LevelObjects">
       <UniqueIdentifier>{875d0c7d-6cc5-4d05-9be6-462c4ff307f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Gameplay\BrickConfig">
+      <UniqueIdentifier>{49c19c5a-62ea-49d2-9c64-5f8173f235a7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -99,13 +99,13 @@
       <Filter>Engine\Base</Filter>
     </ClInclude>
     <ClInclude Include="PlayState.h">
-      <Filter>App\Gameplay\GameStates</Filter>
+      <Filter>App\GameStates</Filter>
     </ClInclude>
     <ClInclude Include="BaseLevel.h">
-      <Filter>App\Gameplay\Levels</Filter>
+      <Filter>App\Levels</Filter>
     </ClInclude>
     <ClInclude Include="Level1.h">
-      <Filter>App\Gameplay\Levels</Filter>
+      <Filter>App\Levels</Filter>
     </ClInclude>
     <ClInclude Include="InputHandler.h">
       <Filter>Engine\Input</Filter>
@@ -122,23 +122,26 @@
     <ClInclude Include="WorldHelper.h">
       <Filter>Engine\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerBar.h">
-      <Filter>App\Gameplay\GameplayObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="MovableObject.h">
-      <Filter>App\Gameplay\GameplayObjects</Filter>
-    </ClInclude>
     <ClInclude Include="LevelBorder.h">
-      <Filter>App\Gameplay\Levels\LevelObjects</Filter>
+      <Filter>App\Levels\LevelObjects</Filter>
     </ClInclude>
-    <ClInclude Include="GameplayObject.h">
-      <Filter>App\Gameplay\GameplayObjects</Filter>
+    <ClInclude Include="BrickConfig.h">
+      <Filter>App\Gameplay\BrickConfig</Filter>
     </ClInclude>
     <ClInclude Include="Ball.h">
-      <Filter>App\Gameplay\GameplayObjects</Filter>
+      <Filter>App\Gameplay</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
-      <Filter>App\Gameplay\GameplayObjects</Filter>
+      <Filter>App\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayObject.h">
+      <Filter>App\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="MovableObject.h">
+      <Filter>App\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBar.h">
+      <Filter>App\Gameplay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -184,13 +187,13 @@
       <Filter>Engine\Base</Filter>
     </ClCompile>
     <ClCompile Include="PlayState.cpp">
-      <Filter>App\Gameplay\GameStates</Filter>
+      <Filter>App\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="BaseLevel.cpp">
-      <Filter>App\Gameplay\Levels</Filter>
+      <Filter>App\Levels</Filter>
     </ClCompile>
     <ClCompile Include="Level1.cpp">
-      <Filter>App\Gameplay\Levels</Filter>
+      <Filter>App\Levels</Filter>
     </ClCompile>
     <ClCompile Include="InputHandler.cpp">
       <Filter>Engine\Input</Filter>
@@ -207,23 +210,26 @@
     <ClCompile Include="WorldHelper.cpp">
       <Filter>Engine\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerBar.cpp">
-      <Filter>App\Gameplay\GameplayObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="MovableObject.cpp">
-      <Filter>App\Gameplay\GameplayObjects</Filter>
-    </ClCompile>
     <ClCompile Include="LevelBorder.cpp">
-      <Filter>App\Gameplay\Levels\LevelObjects</Filter>
+      <Filter>App\Levels\LevelObjects</Filter>
     </ClCompile>
-    <ClCompile Include="GameplayObject.cpp">
-      <Filter>App\Gameplay\GameplayObjects</Filter>
+    <ClCompile Include="BrickConfig.cpp">
+      <Filter>App\Gameplay\BrickConfig</Filter>
     </ClCompile>
     <ClCompile Include="Ball.cpp">
-      <Filter>App\Gameplay\GameplayObjects</Filter>
+      <Filter>App\Gameplay</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
-      <Filter>App\Gameplay\GameplayObjects</Filter>
+      <Filter>App\Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayObject.cpp">
+      <Filter>App\Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="MovableObject.cpp">
+      <Filter>App\Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBar.cpp">
+      <Filter>App\Gameplay</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
