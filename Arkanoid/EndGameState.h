@@ -6,14 +6,20 @@ class Game;
 class EndGameState : public GameState
 {
 public:
-	EndGameState(Game* GameInstance);
+	static const std::string GameOverLabelId;
+	static const std::string ScoreLabelId;
+
+	EndGameState(bool HasWon, Game* GameInstance);
 
 	virtual void Update(float deltaTime) override;
 	
+	virtual void OnEnter() override;
+
 	void Quit();
 	void Restart();
 
 private:
+	bool bWin;
 	bool bRequestedQuit;
 	bool bRequestedRestart;
 };

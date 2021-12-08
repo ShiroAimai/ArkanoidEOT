@@ -4,12 +4,46 @@
 
 TextButton::TextButton(VisualComponent* VisualButton) : Button(VisualButton)
 {
-	m_textComp = new TextComponent(L"Assets/courier.spritefont");
-	AddComponent(m_textComp);
+	m_label = new Label();
 }
 
-void TextButton::SetForegroundColor(DirectX::XMVECTORF32 Color) { m_textComp->SetForegroundColor(Color); }
-void TextButton::SetBackgroundColor(DirectX::XMVECTORF32 Color) { m_textComp->SetBackgroundColor(Color); }
-void TextButton::SetTextOffset(const Vec2& OffsetPosition) { m_textComp->SetOffset(OffsetPosition); }
-void TextButton::SetTextEffect(TextEffect Effect) { m_textComp->SetEffect(Effect); }
-void TextButton::SetText(const std::wstring& Text) { m_textComp->SetText(Text); }
+void TextButton::SetPosition(const Vec2& NewPos)
+{
+	Button::SetPosition(NewPos);
+	m_label->SetPosition(NewPos + m_label->GetPosition());
+}
+
+void TextButton::SetAngle(float NewAngle)
+{
+	Button::SetAngle(NewAngle);
+	m_label->SetAngle(NewAngle + m_label->GetAngle());
+}
+
+void TextButton::SetScale(const Vec2& NewScale)
+{
+	Button::SetScale(NewScale);
+	m_label->SetScale(NewScale + m_label->GetScale());
+}
+
+void TextButton::Update(float deltaTime)
+{
+	Button::Update(deltaTime);
+	m_label->Update(deltaTime);
+}
+
+void TextButton::Render(std::vector<BaseComponent*>& RenderableSprites, std::vector<BaseComponent*>& RenderablePrimitives)
+{
+	Button::Render(RenderableSprites, RenderablePrimitives);
+	m_label->Render(RenderableSprites, RenderablePrimitives);
+}
+
+void TextButton::SetForegroundColor(DirectX::XMVECTORF32 Color) { m_label->SetForegroundColor(Color); }
+void TextButton::SetBackgroundColor(DirectX::XMVECTORF32 Color) { m_label->SetBackgroundColor(Color); }
+void TextButton::SetTextOffset(const Vec2& OffsetPosition) { m_label->SetTextOffset(OffsetPosition); }
+void TextButton::SetTextEffect(TextEffect Effect) { m_label->SetTextEffect(Effect); }
+void TextButton::SetText(const std::wstring& Text) { m_label->SetText(Text); }
+
+void TextButton::SetTextScale(const Vec2& Scale)
+{
+	m_label->SetScale(Scale);
+}

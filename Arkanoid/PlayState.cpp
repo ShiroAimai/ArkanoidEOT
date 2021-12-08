@@ -14,7 +14,7 @@ void PlayState::Update(float deltaTime)
 	GameState::Update(deltaTime);
 	if (bIsGameOver)
 	{
-		UpdateGameState(new EndGameState(game));
+		UpdateGameState(new EndGameState(true, game)); //todo update with game logic
 	}
 }
 

@@ -8,7 +8,7 @@ class BaseLevel
 {
 public:
 	virtual ~BaseLevel();
-	void Load(GameState* ParentGameState);
+	void Load(std::vector<BaseObject*>& LevelObjects);
 
 protected:
 	virtual void GetLevelObjects(std::vector<BaseObject*>& GameObjects) = 0;

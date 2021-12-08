@@ -7,11 +7,7 @@ BaseLevel::~BaseLevel()
 
 }
 
-void BaseLevel::Load(GameState* ParentGameState)
+void BaseLevel::Load(std::vector<BaseObject*>& LevelObjects)
 {
-	std::vector<BaseObject*> GameObjects;
-	GetLevelObjects(GameObjects);
-
-	for(BaseObject* obj : GameObjects)
-		ParentGameState->AddGameObject(obj);
+	GetLevelObjects(LevelObjects);
 }

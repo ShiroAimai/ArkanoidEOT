@@ -35,17 +35,21 @@ public:
 	void SetGameState(GameState* gameState);
 
 	Vec2 GetPosition() const { return m_transform.GetTranslation();}
-	void SetPosition(const Vec2& NewPos) { m_transform.SetTranslation(NewPos);}
+	virtual void SetPosition(const Vec2& NewPos) { m_transform.SetTranslation(NewPos);}
 	float GetAngle() const { return m_transform.GetRotation(); }
-	void SetAngle(float NewAngle) { m_transform.SetRotation(NewAngle); }
+	virtual void SetAngle(float NewAngle) { m_transform.SetRotation(NewAngle); }
 	Vec2 GetScale() const { return m_transform.GetScale(); }
-	void SetScale(const Vec2& NewScale) { m_transform.SetScale(NewScale); }
+	virtual void SetScale(const Vec2& NewScale) { m_transform.SetScale(NewScale); }
 
 	const Transform2D& GetTransform() { return m_transform; }
+
+	const std::string& GetId() const { return m_id; }
+	void SetId(const std::string& Id) { m_id = Id; }
 private:
 	vector<BaseComponent*> m_components;
 	Transform2D m_transform;
 	GameState* m_gameState;
+	std::string m_id;
 };
 
 template<class TYPE>

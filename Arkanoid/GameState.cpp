@@ -103,7 +103,11 @@ void GameState::OnEnter()
 {
 	if (m_level)
 	{
-		m_level->Load(this);
+		std::vector<BaseObject*> LevelObjects;
+		m_level->Load(LevelObjects);
+
+		for(BaseObject* obj : LevelObjects)
+			AddGameObjectImmediate(obj);
 	}
 }
 
@@ -157,6 +161,12 @@ void GameState::AddGameObject(BaseObject* object)
 		m_gameObjects.push_back(object);
 		object->Init(this);
 	});
+}
+
+void GameState::AddGameObjectImmediate(BaseObject* object)
+{
+	m_gameObjects.push_back(object);
+	object->Init(this);
 }
 
 void GameState::RemoveGameObject(BaseObject* object, bool doDelete /*= true*/)

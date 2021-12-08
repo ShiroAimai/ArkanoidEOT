@@ -2,11 +2,15 @@
 #include "EndGameState.h"
 #include "Game.h"
 #include "EndGameLevel.h"
+#include "Label.h"
 
-EndGameState::EndGameState(Game* GameInstance) 
-: GameState(GameInstance),
+const std::string EndGameState::GameOverLabelId = "GameOverLabel";
+const std::string EndGameState::ScoreLabelId = "ScoreLabel";
+
+EndGameState::EndGameState(bool HasWon, Game* GameInstance) : GameState(GameInstance),
 bRequestedQuit(false),
-bRequestedRestart(false)
+bRequestedRestart(false),
+bWin(HasWon)
 {
 	m_level = new EndGameLevel();
 }
@@ -24,6 +28,24 @@ void EndGameState::Update(float deltaTime)
 	if (bRequestedRestart)
 	{
 		UpdateGameState(new PlayState(game));
+	}
+}
+
+void EndGameState::OnEnter()
+{
+	GameState::OnEnter();
+	std::vector<BaseObject*>& GameObjects = GetGameObjects();
+
+	for (BaseObject* object : GameObjects)
+	{
+		if (object->GetId() == GameOverLabelId)
+		{
+			if (Label* label = dynamic_cast<Label*>(object))
+			{
+				label->SetText(bWin ? L"LEVEL COMPLETED" : L"LEVEL FAILED");
+				label->SetForegroundColor(bWin ? DirectX::Colors::LawnGreen : DirectX::Colors::DarkRed);
+			}
+		}
 	}
 }
 

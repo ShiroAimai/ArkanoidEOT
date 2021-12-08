@@ -4,9 +4,18 @@
 #include "VisualComponent.h"
 #include "TextButton.h"
 #include "EndGameState.h"
+#include "Label.h"
 
 void EndGameLevel::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 {
+	Label* endGameLabel = new Label();
+	endGameLabel->SetPosition(Vec2(0.f, -200.f));
+	endGameLabel->SetScale(Vec2(1.4f, 1.4f));
+	endGameLabel->SetText(L"Default");
+	endGameLabel->SetForegroundColor(DirectX::Colors::Yellow);
+	endGameLabel->SetId(EndGameState::GameOverLabelId);
+	GameObjects.push_back(endGameLabel);
+
 	std::vector<Sprite*> restartButtonStates;
 	restartButtonStates.push_back(Sprite::LoadStatic("idle", L"Assets/button.png",0, 0, 256, 128));
 	restartButtonStates.push_back(Sprite::LoadStatic("pressed", L"Assets/button.png", 256, 0, 256, 128));
@@ -15,7 +24,8 @@ void EndGameLevel::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 	
 	TextButton* restartButton = new TextButton(new VisualComponent(width, height, restartButtonStates));
 	restartButton->SetPosition(Vec2(0, -height / 2.f));
-	restartButton->SetText(L"RESTART");
+	restartButton->SetText(L"PLAY AGAIN");
+	restartButton->SetTextScale(Vec2(0.85f, 0.85f));
 	restartButton->SetTextEffect(TextEffect::OUTLINE);
 	restartButton->SetForegroundColor(DirectX::Colors::Green);
 	TextButton& restartButtonRef = *restartButton;
@@ -29,6 +39,7 @@ void EndGameLevel::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 	TextButton* quitButton = new TextButton(new VisualComponent(width, height, quitButtonStates));
 	quitButton->SetPosition(Vec2(0, 128));
 	quitButton->SetText(L"QUIT");
+	quitButton->SetTextScale(Vec2(0.85f, 0.85f));
 	quitButton->SetTextEffect(TextEffect::OUTLINE);
 	quitButton->SetForegroundColor(DirectX::Colors::OrangeRed);
 	TextButton& quitButtonRef = *quitButton;

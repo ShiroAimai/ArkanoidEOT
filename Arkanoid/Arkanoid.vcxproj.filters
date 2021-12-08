@@ -158,6 +158,7 @@
     <ClInclude Include="TextButton.h">
       <Filter>App\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Label.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -258,6 +259,7 @@
     <ClCompile Include="TextButton.cpp">
       <Filter>App\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Label.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

@@ -42,6 +42,9 @@ protected:
 
 	/* Does not own GameInstace*/
 	class Game* game;
+
+	virtual void AddGameObjectImmediate(BaseObject* object);
+	std::vector<BaseObject*>& GetGameObjects() { return m_gameObjects; }
 private:
 	using Callback = std::function<void()>;
 	using PendingCallbacks = std::vector<Callback>;
