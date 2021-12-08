@@ -20,7 +20,7 @@ PlayerBar::PlayerBar() : m_storedBall(nullptr), m_storedBallAttachOffset(Vec2::Z
 	m_collisionComp->SetShapeColor(DirectX::Colors::Yellow);
 	AddComponent(m_collisionComp);
 
-	SetSpeed(200.f);
+	SetSpeed(250.f);
 }
 
 void PlayerBar::Update(float deltaTime)

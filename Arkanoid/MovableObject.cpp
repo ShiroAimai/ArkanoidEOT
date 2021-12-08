@@ -21,7 +21,7 @@ void MovableObject::Init(GameState* GameState)
 
 void MovableObject::Update(float deltaTime)
 {
-	//evaluate only if ball is moving
+	//evaluate only if object is moving
 	if (!GetVelocity().Equals(Vec2::Zero))
 	{
 		const Vec2 CurrentPos = GetPosition();
@@ -31,6 +31,9 @@ void MovableObject::Update(float deltaTime)
  		if (!CanMove(TargetPos))
 		{
 			Vec2 LastPos = Vec2::Lerp(CurrentPos, TargetPos, LerpFindingAdjustedPosStep);
+			//if we can't move already neither in current or last pos, stop 
+			if(!CanMove(CurrentPos) && !CanMove(LastPos)) return;
+
 			for (;;)
 			{
 				Vec2 LerpPos = Vec2::Lerp(LastPos, TargetPos, deltaTime);

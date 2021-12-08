@@ -26,7 +26,7 @@ Ball::Ball(float radius) : m_radius(radius)
 	m_visualComp = new VisualComponent(sprite);
 	AddComponent(m_visualComp);
 
-	SetSpeed(300.f);
+	SetSpeed(350.f);
 	SetVelocity(Vec2::Zero);
 }
 
