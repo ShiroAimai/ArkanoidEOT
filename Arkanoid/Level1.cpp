@@ -17,9 +17,8 @@ namespace {
 
 void Level1::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 {
-	Ball* ball = new Ball(16.5f);
+	Ball* ball = new Ball(12.5f);
 	ball->SetId("ball");
-	ball->SetScale(Vec2(0.8f, 0.8f));
 
 	PlayerBar* player = new PlayerBar;
 	player->SetPosition(Vec2(0, 260));
