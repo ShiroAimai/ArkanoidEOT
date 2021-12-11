@@ -6,11 +6,19 @@
 #include "Sprite.h"
 #include "GameState.h"
 
-Brick::Brick(int width, int height, BrickType type) 
-: m_width(width), 
-  m_height(height), 
+Brick::Brick(BrickType type) 
+: m_width(0), 
+  m_height(0), 
   m_config(BrickHelper::Instance()->GetBrickConfigByType(type))
 {
+	Sprite* sprite = Sprite::LoadStatic("brick", L"Assets/brick.png");
+	m_visualComp = new VisualComponent(sprite);
+	m_visualComp->SetColor(m_config->m_color);
+	AddComponent(m_visualComp);
+
+	m_width = m_visualComp->GetWidth();
+	m_height = m_visualComp->GetHeight();
+
 	float halfWidth = m_width / 2.f;
 	float halfHeight = m_height / 2.f;
 	Shape<AABB>* box = new Shape<AABB>();
@@ -20,10 +28,15 @@ Brick::Brick(int width, int height, BrickType type)
 	m_collisionComp->SetShapeColor(DirectX::Colors::Violet);
 	AddComponent(m_collisionComp);
 
-	Sprite* sprite = Sprite::LoadStatic("brick", L"Assets/brick.png");
-	m_visualComp = new VisualComponent(sprite);
-	m_visualComp->SetColor(m_config->m_color);
-	AddComponent(m_visualComp);
+}
+
+void Brick::SetBrickType(BrickType type)
+{
+	m_config = BrickHelper::Instance()->GetBrickConfigByType(type);
+	if (m_config)
+	{
+		m_visualComp->SetColor(m_config->m_color);
+	}
 }
 
 void Brick::Hit()

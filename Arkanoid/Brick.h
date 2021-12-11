@@ -8,7 +8,7 @@ class VisualComponent;
 class Brick : public GameplayObject
 {
 public:
-	Brick(int width, int height, BrickType type);
+	Brick(BrickType type);
 
 	int GetWidth() const { return m_width; }
 	int GetHeight() const { return m_height; }
@@ -16,6 +16,7 @@ public:
 	int GetLifePoints() const { return m_config->m_lifePoints;}
 	DirectX::XMVECTORF32 GetColor() const { return m_config->m_color; }
 
+	void SetBrickType(BrickType type);
 	/*
 	 * Handles brick hit. It manages the change of internal config properties like lifePoints and color
 	*/
