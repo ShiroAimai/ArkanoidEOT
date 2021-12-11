@@ -43,7 +43,7 @@ void EndGameState::OnEnter()
 			if (Label* label = dynamic_cast<Label*>(object))
 			{
 				label->SetText(bWin ? L"LEVEL COMPLETED" : L"LEVEL FAILED");
-				label->SetForegroundColor(bWin ? DirectX::Colors::LawnGreen : DirectX::Colors::DarkRed);
+				label->SetForegroundColor(bWin ? DirectX::Colors::Green : DirectX::Colors::Red);
 			}
 		}
 	}

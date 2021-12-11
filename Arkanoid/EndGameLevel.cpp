@@ -8,13 +8,7 @@
 
 void EndGameLevel::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 {
-	Label* endGameLabel = new Label();
-	endGameLabel->SetPosition(Vec2(0.f, -200.f));
-	endGameLabel->SetScale(Vec2(1.4f, 1.4f));
-	endGameLabel->SetText(L"Default");
-	endGameLabel->SetForegroundColor(DirectX::Colors::Yellow);
-	endGameLabel->SetId(EndGameState::GameOverLabelId);
-	GameObjects.push_back(endGameLabel);
+	std::wstring Fontpath = L"Assets/courier-bold.spritefont";
 
 	std::vector<Sprite*> restartButtonStates;
 	restartButtonStates.push_back(Sprite::LoadStatic("idle", L"Assets/button.png",0, 0, 256, 128));
@@ -22,7 +16,7 @@ void EndGameLevel::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 	int width = restartButtonStates[0]->GetWidth();
 	int height = restartButtonStates[0]->GetHeight();
 	
-	TextButton* restartButton = new TextButton(new VisualComponent(width, height, restartButtonStates));
+	TextButton* restartButton = new TextButton(Fontpath, new VisualComponent(width, height, restartButtonStates));
 	restartButton->SetPosition(Vec2(0, -height / 2.f));
 	restartButton->SetText(L"PLAY AGAIN");
 	restartButton->SetTextScale(Vec2(0.85f, 0.85f));
@@ -36,7 +30,7 @@ void EndGameLevel::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 	quitButtonStates.push_back(Sprite::LoadStatic("idle", L"Assets/button.png", 0, 0, 256, 128));
 	quitButtonStates.push_back(Sprite::LoadStatic("pressed", L"Assets/button.png", 256, 0, 256, 128));
 
-	TextButton* quitButton = new TextButton(new VisualComponent(width, height, quitButtonStates));
+	TextButton* quitButton = new TextButton(Fontpath, new VisualComponent(width, height, quitButtonStates));
 	quitButton->SetPosition(Vec2(0, 128));
 	quitButton->SetText(L"QUIT");
 	quitButton->SetTextScale(Vec2(0.85f, 0.85f));
@@ -47,4 +41,11 @@ void EndGameLevel::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 		quitButtonRef.GetGameState<EndGameState>()->Quit();
 	};
 	GameObjects.push_back(quitButton);
+
+	Label* endGameLabel = new Label(Fontpath);
+	endGameLabel->SetPosition(Vec2(0.f, -200.f));
+	endGameLabel->SetScale(Vec2(1.4f, 1.4f));
+	endGameLabel->SetTextEffect(TextEffect::OUTLINE);
+	endGameLabel->SetId(EndGameState::GameOverLabelId);
+	GameObjects.push_back(endGameLabel);
 }

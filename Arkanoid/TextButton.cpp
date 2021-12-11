@@ -2,9 +2,9 @@
 #include "TextButton.h"
 #include "TextComponent.h"
 
-TextButton::TextButton(VisualComponent* VisualButton) : Button(VisualButton)
+TextButton::TextButton(const std::wstring& FontPath, VisualComponent* VisualButton) : Button(VisualButton)
 {
-	m_label = new Label();
+	m_label = new Label(FontPath);
 }
 
 void TextButton::SetPosition(const Vec2& NewPos)

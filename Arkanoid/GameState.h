@@ -37,6 +37,8 @@ public:
 	virtual void RemoveGameObject(BaseObject* object, bool doDelete = true);
 
 	void UpdateGameState(GameState* NewState);
+
+	DirectX::XMVECTORF32 GetLevelBackground() const;
 protected:
 	class BaseLevel* m_level = nullptr;
 

@@ -5,7 +5,7 @@
 class Label : public BaseObject
 {
 public:
-	Label();
+	Label(const std::wstring& FontPath);
 
 	void SetForegroundColor(DirectX::XMVECTORF32 Color);
 	void SetBackgroundColor(DirectX::XMVECTORF32 Color);

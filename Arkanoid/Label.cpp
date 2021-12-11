@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "Label.h"
 
-Label::Label()
+Label::Label(const std::wstring& FontPath)
 {
-	m_textComp = new TextComponent(L"Assets/courier.spritefont");
+	m_textComp = new TextComponent(FontPath);
 	AddComponent(m_textComp);
 }
 

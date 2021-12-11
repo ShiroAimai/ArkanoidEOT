@@ -187,3 +187,8 @@ void GameState::UpdateGameState(GameState* NewState)
 {
 	game->UpdateGameState(NewState);
 }
+
+DirectX::XMVECTORF32 GameState::GetLevelBackground() const
+{
+	return m_level->GetLevelBackground();
+}

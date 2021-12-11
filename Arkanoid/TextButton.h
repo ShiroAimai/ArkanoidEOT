@@ -6,7 +6,7 @@
 class TextButton : public Button
 {
 public:
-	TextButton(VisualComponent* VisualButton);
+	TextButton(const std::wstring& FontPath, VisualComponent* VisualButton);
 
 	virtual void SetPosition(const Vec2& NewPos) override;
 	virtual void SetAngle(float NewAngle) override;
