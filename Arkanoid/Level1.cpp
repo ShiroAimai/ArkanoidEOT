@@ -43,13 +43,13 @@ void Level1::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 			yCurrent += BrickVerticalOffset + 24;
 		}
 
-		Brick* brick = new Brick(64, 24); //Todo define in some other file
+		Brick* brick = new Brick(64, 24, BrickType::Red); //Todo define in some other file
 		brick->SetPosition(Vec2(xCurrent, yCurrent));
 		CollisionComponent* brickCc = brick->GetComponent<CollisionComponent>();
 		if (brickCc)
 		{
 			Brick& brickRef = *brick;
-			brickCc->AddCallback(ball, [&ballref, &brickRef] { brickRef.GetGameState<PlayState>()->RemoveGameObject(&brickRef); });
+			brickCc->AddCallback(ball, [&brickRef] { brickRef.Hit(); });
 		}
 		GameObjects.push_back(brick);
 
@@ -57,7 +57,6 @@ void Level1::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 	}
 
 	//level bounds
-	
 	LevelBorder* left = new LevelBorder(Vec2(0, halfHeight), Vec2(0, -halfHeight));
 	left->SetPosition(Vec2(-halfWidth + 1, 0));
 	GameObjects.push_back(left);
