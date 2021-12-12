@@ -4,10 +4,6 @@
 #include "Collision.h"
 #include "Util.h"
 
-namespace {
-	float LerpFindingAdjustedPosStep = MathUtil::EPS;
-}
-
 MovableObject::MovableObject() : m_velocity(Vec2::Zero), m_speed(1.f), m_collisionCompRef(nullptr)
 {
 
@@ -21,6 +17,10 @@ void MovableObject::Init(GameState* GameState)
 
 void MovableObject::Update(float deltaTime)
 {
+	/*
+	 * Sort of a simple implementation of a Continuous collision detection approach
+	 * A movable object moves in the direction of its velocity until it collides with something
+	*/
 	//evaluate only if object is moving
 	if (!GetVelocity().Equals(Vec2::Zero))
 	{
@@ -30,27 +30,33 @@ void MovableObject::Update(float deltaTime)
 		//evaluate step by step only if TargetPos detect a collision
  		if (!CanMove(TargetPos))
 		{
-			Vec2 LastPos = Vec2::Lerp(CurrentPos, TargetPos, LerpFindingAdjustedPosStep);
+			Vec2 PosAfterRestitution = Vec2::Lerp(CurrentPos, TargetPos, deltaTime);
 			//if we can't move already neither in current or last pos, stop 
-			if(!CanMove(CurrentPos) && !CanMove(LastPos)) return;
+			if(!CanMove(CurrentPos) && !CanMove(PosAfterRestitution)) return;
 
 			for (;;)
 			{
-				Vec2 LerpPos = Vec2::Lerp(LastPos, TargetPos, deltaTime);
-				if (!CanMove(LerpPos))
+				Vec2 NewRestitutionPos = Vec2::Lerp(PosAfterRestitution, TargetPos, deltaTime);
+				if (!CanMove(NewRestitutionPos))
 				{
-					SetPosition(LerpPos);
+					SetPosition(NewRestitutionPos);
 					break;
 				}
 				//New last post is last LerpPos
-				LastPos = LerpPos;
+				PosAfterRestitution = NewRestitutionPos;
 			}
 		}
 		else
 		{
+			/**
+			 * 	no obstacles detected in target pos
+			 *  either we tunnelled the obstacle
+			 *  or the path is free
+			 */
 			SetPosition(TargetPos);
 		}
 	}
+
 	GameplayObject::Update(deltaTime);
 }
 

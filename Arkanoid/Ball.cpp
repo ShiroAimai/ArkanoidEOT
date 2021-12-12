@@ -44,7 +44,21 @@ void Ball::FixedUpdate()
 		{
 			Vec2 ReflectedVelocity = Vec2::Zero;
 
-			BaseObject* Other = collisions[0];
+			BaseObject* Other = nullptr;
+			//we take the one closest to ball
+			float minDistance = std::numeric_limits<float>::max();
+			for (BaseObject* Collision : collisions)
+			{
+				float CollisionDistanceFromBall = (GetPosition() - Collision->GetPosition()).Length();
+				if (CollisionDistanceFromBall < minDistance)
+				{
+					Other = Collision;
+					minDistance = CollisionDistanceFromBall;
+				}
+			}
+
+			assert(Other != nullptr); //Other cannot be nullptr at this point
+
 			CollisionComponent* collissionCc = Other->GetComponent<CollisionComponent>();
 			if (collissionCc)
 			{
