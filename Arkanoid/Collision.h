@@ -24,29 +24,43 @@ inline Vec2 AABB::GetCollisionNormal(const T& OtherShape, const Vec2& Velocity) 
 	Line right(m_max, Vec2(m_max.x, m_min.y));
 	Line bottom(Vec2(m_min.x, m_max.y), m_max);
 
-	Vec2 Normal = Vec2::Zero;
+	std::vector<Vec2> Normals;
 
 	if (::intersect(OtherShape, top))
 	{
-		return -Vec2::UnitY;
+		Normals.push_back(-Vec2::UnitY);
 	}
 	
 	if (::intersect(OtherShape, bottom))
 	{
-		return Vec2::UnitY;
+		Normals.push_back(Vec2::UnitY);
 	}
 
 	if (::intersect(OtherShape, left))
 	{
-		return -Vec2::UnitX;
+		Normals.push_back(-Vec2::UnitX);
 	}
 
 	if (::intersect(OtherShape, right))
 	{
-		return Vec2::UnitX;
+		Normals.push_back(Vec2::UnitX);
 	}
 
-	return Normal;
+	Vec2 SelectedNormal = Vec2::Zero;
+	float BestMatch = 1.f; 
+	Vec2 VelDirection = Velocity;
+	VelDirection.Normalize();
+	for (Vec2 Normal : Normals)
+	{
+		float cos = VelDirection.Dot(Normal);
+		if (cos < BestMatch)
+		{
+			BestMatch = cos;
+			SelectedNormal = Normal;
+		}
+	}
+
+	return SelectedNormal;
 }
 
 struct Circle
@@ -67,8 +81,7 @@ struct Circle
 template<class T>
 inline Vec2 Circle::GetCollisionNormal(const T& OtherShape, const Vec2& Velocity) const
 {
-	//return Vec2(-Velocity.x, -Velocity.y);
-	return Vec2::Zero;
+	return Vec2(-Velocity.x, -Velocity.y);
 }
 
 struct Line

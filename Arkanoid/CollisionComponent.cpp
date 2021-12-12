@@ -35,8 +35,14 @@ void CollisionComponent::Render(const RendererData& Renderer)
 void CollisionComponent::FixedUpdate()
 {
 	m_collisions.clear();
-	if(m_parent->IsPendingDelete()) return;
-
+	if (m_parent->IsPendingDelete())
+	{
+		if (enabled)
+		{
+			enabled = false;
+		}
+		return;
+	}
 	if (m_shape)
 	{
 		std::vector<BaseObject*> ObjectsToIgnore;

@@ -17,7 +17,7 @@ namespace {
 
 void Level1::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 {
-	Ball* ball = new Ball(12.5f);
+	Ball* ball = new Ball(12.f);
 	ball->SetId("ball");
 
 	PlayerBar* player = new PlayerBar;
