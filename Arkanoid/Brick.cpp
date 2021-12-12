@@ -22,8 +22,8 @@ Brick::Brick(BrickType type)
 	float halfWidth = m_width / 2.f;
 	float halfHeight = m_height / 2.f;
 	Shape<AABB>* box = new Shape<AABB>();
-	box->m_originalShape.m_min = Vec2(-halfWidth - 0.5f, -halfHeight);
-	box->m_originalShape.m_max = Vec2(halfWidth + 0.5f, halfHeight);
+	box->m_originalShape.m_min = Vec2(-halfWidth, -halfHeight);
+	box->m_originalShape.m_max = Vec2(halfWidth, halfHeight);
 	m_collisionComp = new CollisionComponent(box);
 	m_collisionComp->SetShapeColor(DirectX::Colors::Violet);
 	AddComponent(m_collisionComp);

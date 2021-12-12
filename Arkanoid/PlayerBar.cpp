@@ -13,9 +13,12 @@ PlayerBar::PlayerBar() : m_storedBall(nullptr), m_storedBallAttachOffset(Vec2::Z
 	m_visualComp = new VisualComponent(sprite);
 	AddComponent(m_visualComp);
 
+	float halfWidth = m_visualComp->GetWidth() / 2.f;
+	float halfHeight = m_visualComp->GetHeight() / 2.f;
+
 	Shape<AABB>* box = new Shape<AABB>;
-	box->m_originalShape.m_min = Vec2(-70, -16);
-	box->m_originalShape.m_max = Vec2(70, 16);
+	box->m_originalShape.m_min = Vec2(-halfWidth, -halfHeight);
+	box->m_originalShape.m_max = Vec2(halfWidth, halfHeight);
 	m_collisionComp = new CollisionComponent(box);
 	m_collisionComp->SetShapeColor(DirectX::Colors::Yellow);
 	AddComponent(m_collisionComp);
