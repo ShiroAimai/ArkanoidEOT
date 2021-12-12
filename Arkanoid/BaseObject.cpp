@@ -4,7 +4,7 @@
 #include "BaseComponent.h"
 
 
-BaseObject::BaseObject()
+BaseObject::BaseObject() : m_pendingDelete(false)
 {
 	m_transform.SetIdentity();
 }

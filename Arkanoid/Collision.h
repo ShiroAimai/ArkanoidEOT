@@ -28,22 +28,22 @@ inline Vec2 AABB::GetCollisionNormal(const T& OtherShape, const Vec2& Velocity) 
 
 	if (::intersect(OtherShape, top))
 	{
-		Normal += -Vec2::UnitY;
+		return -Vec2::UnitY;
 	}
 	
 	if (::intersect(OtherShape, bottom))
 	{
-		Normal += Vec2::UnitY;
+		return Vec2::UnitY;
 	}
 
 	if (::intersect(OtherShape, left))
 	{
-		Normal += -Vec2::UnitX;
+		return -Vec2::UnitX;
 	}
 
 	if (::intersect(OtherShape, right))
 	{
-		Normal += Vec2::UnitX;
+		return Vec2::UnitX;
 	}
 
 	return Normal;

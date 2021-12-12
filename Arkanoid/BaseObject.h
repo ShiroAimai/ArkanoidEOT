@@ -45,11 +45,16 @@ public:
 
 	const std::string& GetId() const { return m_id; }
 	void SetId(const std::string& Id) { m_id = Id; }
+
+	bool IsPendingDelete() const { return m_pendingDelete; }
+	void SetPendingDelete() { m_pendingDelete = true; }
 private:
 	vector<BaseComponent*> m_components;
 	Transform2D m_transform;
 	GameState* m_gameState;
 	std::string m_id;
+
+	bool m_pendingDelete;
 };
 
 template<class TYPE>

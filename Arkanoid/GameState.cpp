@@ -171,6 +171,11 @@ void GameState::AddGameObjectImmediate(BaseObject* object)
 
 void GameState::RemoveGameObject(BaseObject* object, bool doDelete /*= true*/)
 {
+	if (doDelete)
+	{
+		object->SetPendingDelete();
+	}
+
 	m_pendingCallbacks.push_back([=] {
 		//it's still there?
 		if (std::find(m_gameObjects.begin(), m_gameObjects.end(), object) != m_gameObjects.end()) {
