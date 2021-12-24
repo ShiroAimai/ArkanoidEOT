@@ -24,10 +24,14 @@ public:
 	virtual void Update(float deltaTime) override;
 
 	bool Intersect(const CollisionComponent& other) const;
+	
 	std::vector<BaseObject*>& GetCollisions();
 
 	BaseShape* GetShape() const;
+	
+	/*Returns the Normal at the surface of OtherObject in which we collided*/
 	Vec2 GetCollisionNormalWithObject(BaseObject* OtherObject, const Vec2& Velocity) const;
+	
 	bool FindCollisionsInPosition(const Vec2& Position, std::vector<BaseObject*>* Collisions = nullptr, std::vector<BaseObject*>* Ignores = nullptr);
 
 	void SetShapeColor(ShapeColor Color) {m_shapeColor = Color;}

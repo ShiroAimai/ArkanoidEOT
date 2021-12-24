@@ -21,6 +21,7 @@ public:
 
 	void SetRenderSpriteByIndex(int index);
 	void SetRenderSpriteById(const std::string& Id);
+	
 	const Vec2& GetAnchor()    const { return m_anchor; }
 	void SetAnchor(const Vec2& anchor) { m_anchor = anchor; }
 

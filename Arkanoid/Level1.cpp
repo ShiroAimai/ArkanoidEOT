@@ -9,10 +9,10 @@
 #include "Brick.h"
 
 namespace {
-	long BrickHorizontalDistanceFromBorder = 100L;
-	long BrickVerticalDistanceFromBorder = 50L;
-	long BrickHorizontalOffset = 11L;
-	long BrickVerticalOffset = 34L;
+	long BrickHorizontalDistanceFromBorder = 80L;
+	long BrickVerticalDistanceFromBorder = 40L;
+	long BrickHorizontalOffset = 6L;
+	long BrickVerticalOffset = 28L;
 }
 
 void Level1::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
@@ -47,9 +47,8 @@ void Level1::GetLevelObjects(std::vector<BaseObject*>& GameObjects)
 	LevelBorder* bottom = new LevelBorder(Vec2(-halfWidth, 0), Vec2(halfWidth, 0));
 	bottom->SetPosition(Vec2(0, halfHeight - 1));
 
-	Ball& ballRef = *ball;
-	bottom->GetComponent<CollisionComponent>()->AddCallback(ball, [&ballRef] {
-		ballRef.GetGameState<PlayState>()->GameOver();
+	bottom->GetComponent<CollisionComponent>()->AddCallback(ball, [ball] {
+		ball->GetGameState<PlayState>()->GameOver();
 	});
 	GameObjects.push_back(bottom);
 
@@ -96,8 +95,7 @@ void Level1::GetEasyLevel(Ball* LevelBall, std::vector<BaseObject*>& GameObjects
 		CollisionComponent* brickCc = brick->GetComponent<CollisionComponent>();
 		if (brickCc)
 		{
-			Brick& brickRef = *brick;
-			brickCc->AddCallback(LevelBall, [&brickRef] { brickRef.Hit(); });
+			brickCc->AddCallback(LevelBall, [brick] { brick->Hit(); });
 		}
 		GameObjects.push_back(brick);
 		x += brick->GetWidth() + BrickHorizontalOffset;
@@ -114,8 +112,7 @@ void Level1::GetEasyLevel(Ball* LevelBall, std::vector<BaseObject*>& GameObjects
 		CollisionComponent* brickCc = brick->GetComponent<CollisionComponent>();
 		if (brickCc)
 		{
-			Brick& brickRef = *brick;
-			brickCc->AddCallback(LevelBall, [&brickRef] { brickRef.Hit(); });
+			brickCc->AddCallback(LevelBall, [brick] { brick->Hit(); });
 		}
 		GameObjects.push_back(brick);
 		x += brick->GetWidth() + BrickHorizontalOffset;
@@ -132,12 +129,12 @@ void Level1::GetEasyLevel(Ball* LevelBall, std::vector<BaseObject*>& GameObjects
 		CollisionComponent* brickCc = brick->GetComponent<CollisionComponent>();
 		if (brickCc)
 		{
-			Brick& brickRef = *brick;
-			brickCc->AddCallback(LevelBall, [&brickRef] { brickRef.Hit(); });
+			brickCc->AddCallback(LevelBall, [brick] { brick->Hit(); });
 		}
 		GameObjects.push_back(brick);
 		x += brick->GetWidth() + BrickHorizontalOffset;
 	}
+
 }
 
 //red bricks only in the first and last column, and first and last row
@@ -160,8 +157,7 @@ void Level1::GetNormalLevel(Ball* LevelBall, std::vector<BaseObject*>& GameObjec
 		CollisionComponent* brickCc = brick->GetComponent<CollisionComponent>();
 		if (brickCc)
 		{
-			Brick& brickRef = *brick;
-			brickCc->AddCallback(LevelBall, [&brickRef] { brickRef.Hit(); });
+			brickCc->AddCallback(LevelBall, [brick] { brick->Hit(); });
 		}
 		GameObjects.push_back(brick);
 		x += brick->GetWidth() + BrickHorizontalOffset;
@@ -178,8 +174,7 @@ void Level1::GetNormalLevel(Ball* LevelBall, std::vector<BaseObject*>& GameObjec
 		CollisionComponent* brickCc = brick->GetComponent<CollisionComponent>();
 		if (brickCc)
 		{
-			Brick& brickRef = *brick;
-			brickCc->AddCallback(LevelBall, [&brickRef] { brickRef.Hit(); });
+			brickCc->AddCallback(LevelBall, [brick] { brick->Hit(); });
 		}
 		GameObjects.push_back(brick);
 		x += brick->GetWidth() + BrickHorizontalOffset;
@@ -201,8 +196,7 @@ void Level1::GetNormalLevel(Ball* LevelBall, std::vector<BaseObject*>& GameObjec
 		CollisionComponent* brickCc = brick->GetComponent<CollisionComponent>();
 		if (brickCc)
 		{
-			Brick& brickRef = *brick;
-			brickCc->AddCallback(LevelBall, [&brickRef] { brickRef.Hit(); });
+			brickCc->AddCallback(LevelBall, [brick] { brick->Hit(); });
 		}
 		GameObjects.push_back(brick);
 		x += brick->GetWidth() + BrickHorizontalOffset;
@@ -228,8 +222,7 @@ void Level1::GetHardLevel(Ball* LevelBall, std::vector<BaseObject*>& GameObjects
 		CollisionComponent* brickCc = brick->GetComponent<CollisionComponent>();
 		if (brickCc)
 		{
-			Brick& brickRef = *brick;
-			brickCc->AddCallback(LevelBall, [&brickRef] { brickRef.Hit(); });
+			brickCc->AddCallback(LevelBall, [brick] { brick->Hit(); });
 		}
 		GameObjects.push_back(brick);
 		x += brick->GetWidth() + BrickHorizontalOffset;
@@ -246,8 +239,7 @@ void Level1::GetHardLevel(Ball* LevelBall, std::vector<BaseObject*>& GameObjects
 		CollisionComponent* brickCc = brick->GetComponent<CollisionComponent>();
 		if (brickCc)
 		{
-			Brick& brickRef = *brick;
-			brickCc->AddCallback(LevelBall, [&brickRef] { brickRef.Hit(); });
+			brickCc->AddCallback(LevelBall, [brick] { brick->Hit(); });
 		}
 		GameObjects.push_back(brick);
 		x += brick->GetWidth() + BrickHorizontalOffset;
@@ -270,8 +262,7 @@ void Level1::GetHardLevel(Ball* LevelBall, std::vector<BaseObject*>& GameObjects
 		CollisionComponent* brickCc = brick->GetComponent<CollisionComponent>();
 		if (brickCc)
 		{
-			Brick& brickRef = *brick;
-			brickCc->AddCallback(LevelBall, [&brickRef] { brickRef.Hit(); });
+			brickCc->AddCallback(LevelBall, [brick] { brick->Hit(); });
 		}
 		GameObjects.push_back(brick);
 		x += brick->GetWidth() + BrickHorizontalOffset;
@@ -293,8 +284,7 @@ void Level1::GetHardLevel(Ball* LevelBall, std::vector<BaseObject*>& GameObjects
 		CollisionComponent* brickCc = brick->GetComponent<CollisionComponent>();
 		if (brickCc)
 		{
-			Brick& brickRef = *brick;
-			brickCc->AddCallback(LevelBall, [&brickRef] { brickRef.Hit(); });
+			brickCc->AddCallback(LevelBall, [brick] { brick->Hit(); });
 		}
 		GameObjects.push_back(brick);
 		x += brick->GetWidth() + BrickHorizontalOffset;

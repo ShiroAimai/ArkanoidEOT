@@ -59,6 +59,7 @@ void Ball::FixedUpdate()
 
 			assert(Other != nullptr); //Other cannot be nullptr at this point
 
+			//evaluate collision response and set response velocity
 			CollisionComponent* collissionCc = Other->GetComponent<CollisionComponent>();
 			if (collissionCc)
 			{

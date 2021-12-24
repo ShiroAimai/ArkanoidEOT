@@ -35,8 +35,10 @@ public:
 
 	void SetForegroundColor(DirectX::XMVECTORF32 Color);
 	void SetBackgroundColor(DirectX::XMVECTORF32 Color);
+	
 	void SetOffset(Vec2 OffsetPosition);
 	void SetEffect(TextEffect Effect);
+	
 	void SetText(const std::wstring& Text);
 };
 
