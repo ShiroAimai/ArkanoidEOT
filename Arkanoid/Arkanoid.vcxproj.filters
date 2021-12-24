@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>d641287d-337f-44c0-aca1-1e7a45bb33a4</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dds;dlg;fbx;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{fe59fa9e-b240-4997-bebe-b30ac6b9e051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Common">
+      <UniqueIdentifier>15015019-62fb-48c4-84ce-111b606e5f88</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App">
+      <UniqueIdentifier>{c0837865-c893-48a7-88ba-5ea741730cc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Math">
+      <UniqueIdentifier>{96971507-abd9-42b7-b6a4-6f89d1012ea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Components">
+      <UniqueIdentifier>{f9b6c6d7-acc5-431b-b43c-7c012ea73ef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Base">
+      <UniqueIdentifier>{5fca592d-6743-4a39-be01-5ccee91ff7a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resources">
+      <UniqueIdentifier>{c85da0a0-f56b-4754-9653-fba40914fb81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Input">
+      <UniqueIdentifier>{9a87cf6e-483a-4e4f-b10e-f7eb369541e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Gameplay">
+      <UniqueIdentifier>{e01c8277-6a57-4c4d-b817-a8912ce94650}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Collisions">
+      <UniqueIdentifier>{09e1eaf9-63f8-4858-bd25-a4001eab1a18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Helpers">
+      <UniqueIdentifier>{023b1cf8-17cf-42b7-908c-76b1f15df7aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\GameStates">
+      <UniqueIdentifier>{cb0330cc-e0a3-4edd-a15a-ba3c54e21bac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Levels">
+      <UniqueIdentifier>{2a755374-dbe2-46b2-83f1-fd77aa1b19ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Levels\LevelObjects">
+      <UniqueIdentifier>{875d0c7d-6cc5-4d05-9be6-462c4ff307f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Gameplay\BrickConfig">
+      <UniqueIdentifier>{49c19c5a-62ea-49d2-9c64-5f8173f235a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\UI">
+      <UniqueIdentifier>{bfcd0115-6e40-449a-abaa-d256506c85c1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="StepTimer.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceResources.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Engine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec2.h">
+      <Filter>Engine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseComponent.h">
+      <Filter>Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualComponent.h">
+      <Filter>Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseObject.h">
+      <Filter>Engine\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform2D.h">
+      <Filter>Engine\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h">
+      <Filter>Engine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Engine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Engine\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayState.h">
+      <Filter>App\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLevel.h">
+      <Filter>App\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Level1.h">
+      <Filter>App\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Engine\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionComponent.h">
+      <Filter>Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererData.h">
+      <Filter>Engine\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldHelper.h">
+      <Filter>Engine\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelBorder.h">
+      <Filter>App\Levels\LevelObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickConfig.h">
+      <Filter>App\Gameplay\BrickConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h">
+      <Filter>App\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>App\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayObject.h">
+      <Filter>App\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="MovableObject.h">
+      <Filter>App\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBar.h">
+      <Filter>App\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="EndGameState.h">
+      <Filter>App\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>App\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EndGameLevel.h">
+      <Filter>App\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="TextButton.h">
+      <Filter>App\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>App\UI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="DeviceResources.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec2.cpp">
+      <Filter>Engine\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseComponent.cpp">
+      <Filter>Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TextComponent.cpp">
+      <Filter>Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualComponent.cpp">
+      <Filter>Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseObject.cpp">
+      <Filter>Engine\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform2D.cpp">
+      <Filter>Engine\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>Engine\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Engine\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Engine\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayState.cpp">
+      <Filter>App\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseLevel.cpp">
+      <Filter>App\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Level1.cpp">
+      <Filter>App\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Engine\Collisions</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionComponent.cpp">
+      <Filter>Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererData.cpp">
+      <Filter>Engine\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldHelper.cpp">
+      <Filter>Engine\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelBorder.cpp">
+      <Filter>App\Levels\LevelObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickConfig.cpp">
+      <Filter>App\Gameplay\BrickConfig</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp">
+      <Filter>App\Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>App\Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayObject.cpp">
+      <Filter>App\Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="MovableObject.cpp">
+      <Filter>App\Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBar.cpp">
+      <Filter>App\Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="EndGameState.cpp">
+      <Filter>App\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>App\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EndGameLevel.cpp">
+      <Filter>App\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="TextButton.cpp">
+      <Filter>App\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>App\UI</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="directx.ico">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\cat.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\ball.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="settings.manifest">
+      <Filter>Assets</Filter>
+    </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Assets\courier.spritefont">
+      <Filter>Assets</Filter>
+    </None>
+  </ItemGroup>
+</Project>
