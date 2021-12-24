@@ -16,6 +16,9 @@ Paddle:
 * Use **Space Bar** to launch the ball at the beginning of a new match.
 **NOTE**: To add some angle to the launched ball move the paddle before pressing the space bar.
   
+### Debug
+Use **C** to visually enable or disable objects collisions.
+
 ## Future Improvement
 
 * Add power up for the player: like temporary duplicated balls, temporary larger paddle..
